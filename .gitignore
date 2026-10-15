@@ -99,6 +99,9 @@ playwright-report/
 test-results/
 blob-report/
 .nyc_output/
+.playwright-mcp
+.opencode.json
+opencode.json
 
 # Local scripts and OS-generated artifacts
 *.pid
