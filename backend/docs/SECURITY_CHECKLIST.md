@@ -23,7 +23,13 @@
 | **11** | **Authoritative Pricing Enforcement** | Server queries MongoDB for dish prices and ignores client-supplied totals | **PASS** — Forged prices in request body are completely ignored (test #2 in `order.test.js`). |
 | **12** | **Rate Limiting Protection** | `express-rate-limit` enabled globally (300/15m) and strictly on `/auth` (30/15m) | **PASS** — Brute-force credential stuffing is throttled with `429 Too Many Requests`. |
 | **13** | **HTTP Security Headers** | `helmet()` enabled on Express instance | **PASS** — Adds CSP, HSTS, X-Content-Type-Options, and Clickjacking protection headers. |
-| **14** | **Restricted CORS Allowlist** | Allowed origins configured for Vite (`localhost:5173`) and mobile clients | **PASS** — Arbitrary cross-origin browsers are blocked. |
+| **14** | **Restricted CORS Allowlist** | Allowed origins configured for React/Webpack (`localhost:3000`) and mobile clients | **PASS** — Arbitrary cross-origin browsers are blocked. |
+| **15** | **Idempotency Payload Consistency** | Normalized items (food IDs and quantities), pickupType, pickupAt, notes, paymentMethod, and customer ownership checked on replayed keys | **PASS** — Payload mismatches and cross-customer reuse rejected with `409 Conflict`. |
+| **16** | **Concurrent Duplicate Race Handling** | Traps MongoDB `E11000` duplicate key collisions on `idempotencyKey` | **PASS** — Simultaneous submissions resolve to one persisted order without returning `500 Internal Server Error`. |
+| **17** | **Auditable Payment State Machine** | Strict transitions (`PENDING` -> `PAID` -> `REFUNDED`), repeat settlement prevention, actor audit logging | **PASS** — Unauthenticated/invalid updates rejected with `403`/`400`; atomic validation prevents partial mutations. |
+| **18** | **Pagination & Query Validation** | Strict scalar integer checks on `page`/`limit`, strict `YYYY-MM-DD` calendar date checks, bracket injection rejection | **PASS** — Malformed inputs return clean `400 Bad Request` instead of NaN database errors. |
+| **19** | **Search Regex Sanitization** | `escapeRegex` escapes special metacharacters (`.*+?^${}()|[]\`) in literal search queries | **PASS** — Special characters match literally without triggering regex syntax crashes. |
+| **20** | **Protected Category Visibility** | Server-side `optionalAuth` restricts `?all=true` and inactive categories to administrators | **PASS** — Public and diner requests for inactive categories receive `403 Forbidden` / `404 Not Found`. |
 
 ---
 

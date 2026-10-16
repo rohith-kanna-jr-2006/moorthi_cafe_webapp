@@ -2,6 +2,7 @@ const Order = require('../models/Order');
 const { placeOrder, calculateOrderPricing } = require('../services/orderService');
 const AppError = require('../utils/AppError');
 const asyncHandler = require('../utils/asyncHandler');
+const { parsePagination, validateScalarString, validateQueryParams } = require('../utils/queryHelpers');
 
 // @desc    Preview pricing calculation for cart items (Subtotal, GST, Packaging, Total)
 // @route   POST /api/v1/orders/preview
@@ -49,20 +50,24 @@ const createOrder = asyncHandler(async (req, res) => {
 // @desc    Get currently logged in customer's order history
 // @route   GET /api/v1/orders/my
 // @access  Private (Authenticated Customer)
-const getMyOrders = asyncHandler(async (req, res) => {
-  const { status, active, page = 1, limit = 10 } = req.query;
+const getMyOrders = asyncHandler(async (req, res, next) => {
+  validateQueryParams(req.query);
+  const { page: pageNum, limit: limitNum, skip } = parsePagination(req.query, 10, 50);
+  const active = validateScalarString(req.query.active, 'active', 10);
+  const status = validateScalarString(req.query.status, 'status', 30);
 
   const query = { customer: req.user._id };
 
   if (active === 'true') {
     query.status = { $in: ['PLACED', 'CONFIRMED', 'PREPARING', 'READY'] };
   } else if (status) {
-    query.status = status.toUpperCase();
+    const validStatuses = ['PLACED', 'CONFIRMED', 'PREPARING', 'READY', 'COMPLETED', 'CANCELLED'];
+    const upper = status.toUpperCase();
+    if (!validStatuses.includes(upper)) {
+      return next(new AppError(`Invalid status filter '${status}'. Allowed: [${validStatuses.join(', ')}]`, 400));
+    }
+    query.status = upper;
   }
-
-  const pageNum = Math.max(1, parseInt(page, 10));
-  const limitNum = Math.min(50, Math.max(1, parseInt(limit, 10)));
-  const skip = (pageNum - 1) * limitNum;
 
   const [orders, total] = await Promise.all([
     Order.find(query)

@@ -79,6 +79,71 @@ async function calculateOrderPricing(itemsInput) {
 }
 
 /**
+ * Compares incoming order payload with an existing order to ensure idempotency consistency
+ */
+function assertIdempotencyMatch(existingOrder, { customerId, itemsInput, pickupType = 'IMMEDIATE', pickupAt, notes = '', paymentMethod = 'UPI' }) {
+  // 1. Cross-customer reuse check
+  const existingCustomerId = existingOrder.customer?._id?.toString() || existingOrder.customer?.toString();
+  if (existingCustomerId !== customerId.toString()) {
+    throw new AppError('Idempotency-Key conflict: key was already used by another customer', 409);
+  }
+
+  // 2. Pickup type
+  const reqPickupType = pickupType || 'IMMEDIATE';
+  if (existingOrder.pickupType !== reqPickupType) {
+    throw new AppError('Idempotency-Key conflict: key was already used with a different pickup type', 409);
+  }
+
+  // 3. Payment method
+  const reqPaymentMethod = paymentMethod || 'UPI';
+  if (existingOrder.paymentMethod !== reqPaymentMethod) {
+    throw new AppError('Idempotency-Key conflict: key was already used with a different payment method', 409);
+  }
+
+  // 4. Special notes
+  const reqNotes = (notes || '').trim();
+  if ((existingOrder.notes || '').trim() !== reqNotes) {
+    throw new AppError('Idempotency-Key conflict: key was already used with different special instructions', 409);
+  }
+
+  // 5. Scheduled pickup timing
+  if (reqPickupType === 'SCHEDULED' && pickupAt) {
+    const existingTime = new Date(existingOrder.pickupAt).getTime();
+    const reqTime = new Date(pickupAt).getTime();
+    if (Math.abs(existingTime - reqTime) > 60000) {
+      throw new AppError('Idempotency-Key conflict: key was already used with a different scheduled pickup time', 409);
+    }
+  }
+
+  // 6. Normalized cart items (food IDs and quantities)
+  if (Array.isArray(itemsInput)) {
+    const reqMap = new Map();
+    for (const item of itemsInput) {
+      const fid = item.foodId?.toString();
+      const qty = parseInt(item.quantity, 10) || 0;
+      reqMap.set(fid, (reqMap.get(fid) || 0) + qty);
+    }
+
+    const existMap = new Map();
+    for (const item of existingOrder.items) {
+      const fid = (item.food?._id || item.food).toString();
+      const qty = item.quantity || 0;
+      existMap.set(fid, (existMap.get(fid) || 0) + qty);
+    }
+
+    if (reqMap.size !== existMap.size) {
+      throw new AppError('Idempotency-Key conflict: key was already used for a different order payload', 409);
+    }
+
+    for (const [fid, qty] of reqMap.entries()) {
+      if (existMap.get(fid) !== qty) {
+        throw new AppError('Idempotency-Key conflict: key was already used for a different order payload (quantity mismatch)', 409);
+      }
+    }
+  }
+}
+
+/**
  * Creates an order safely with concurrency-safe daily token allocation
  */
 async function placeOrder({
@@ -94,6 +159,14 @@ async function placeOrder({
   if (idempotencyKey) {
     const existingOrder = await Order.findOne({ idempotencyKey }).populate('customer', 'name phone email');
     if (existingOrder) {
+      assertIdempotencyMatch(existingOrder, {
+        customerId,
+        itemsInput,
+        pickupType,
+        pickupAt,
+        notes,
+        paymentMethod,
+      });
       return { order: existingOrder, isDuplicate: true };
     }
   }
@@ -124,33 +197,62 @@ async function placeOrder({
   const dailyTokenNumber = await getNextDailyToken(businessDate);
   const orderId = generateOrderId(businessDate, dailyTokenNumber);
 
-  // 4. Create Order
-  const order = await Order.create({
-    orderId,
-    dailyTokenNumber,
-    businessDate,
-    customer: customerId,
-    items: pricing.itemsSnapshot,
-    subtotal: pricing.subtotal,
-    gst: pricing.gst,
-    packagingCharge: pricing.packagingCharge,
-    totalAmount: pricing.totalAmount,
-    pickupType,
-    pickupAt: validatedPickupDate,
-    notes: (notes || '').trim(),
-    status: 'PLACED',
-    paymentStatus: 'PAID',
-    paymentMethod,
-    idempotencyKey: idempotencyKey || undefined,
-    statusHistory: [
-      {
-        status: 'PLACED',
-        changedAt: new Date(),
-        changedBy: customerId,
-        note: 'Order placed by customer',
-      },
-    ],
-  });
+  // 4. Create Order with initial PENDING paymentStatus and audit history
+  let order;
+  try {
+    order = await Order.create({
+      orderId,
+      dailyTokenNumber,
+      businessDate,
+      customer: customerId,
+      items: pricing.itemsSnapshot,
+      subtotal: pricing.subtotal,
+      gst: pricing.gst,
+      packagingCharge: pricing.packagingCharge,
+      totalAmount: pricing.totalAmount,
+      pickupType,
+      pickupAt: validatedPickupDate,
+      notes: (notes || '').trim(),
+      status: 'PLACED',
+      paymentStatus: 'PENDING',
+      paymentMethod,
+      idempotencyKey: idempotencyKey || undefined,
+      statusHistory: [
+        {
+          status: 'PLACED',
+          changedAt: new Date(),
+          changedBy: customerId,
+          note: 'Order placed by customer',
+        },
+      ],
+      paymentHistory: [
+        {
+          status: 'PENDING',
+          changedAt: new Date(),
+          method: paymentMethod,
+          note: 'Order placed, awaiting counter settlement or gateway verification',
+          source: 'MANUAL_COUNTER',
+        },
+      ],
+    });
+  } catch (err) {
+    // Handle concurrent duplicate submission race condition without 500 error
+    if (err.code === 11000 && idempotencyKey && (err.keyPattern?.idempotencyKey || (err.message && err.message.includes('idempotencyKey')))) {
+      const racedOrder = await Order.findOne({ idempotencyKey }).populate('customer', 'name phone email');
+      if (racedOrder) {
+        assertIdempotencyMatch(racedOrder, {
+          customerId,
+          itemsInput,
+          pickupType,
+          pickupAt,
+          notes,
+          paymentMethod,
+        });
+        return { order: racedOrder, isDuplicate: true };
+      }
+    }
+    throw err;
+  }
 
   await order.populate('customer', 'name phone email');
 
