@@ -13,8 +13,14 @@ const slugify = (text) =>
 // @desc    List categories (public views active only; admin views all)
 // @route   GET /api/v1/categories
 // @access  Public
-const getCategories = asyncHandler(async (req, res) => {
-  const filter = req.query.all === 'true' ? {} : { isActive: true };
+const getCategories = asyncHandler(async (req, res, next) => {
+  let filter = { isActive: true };
+  if (req.query.all === 'true') {
+    if (!req.user || req.user.role !== 'admin') {
+      return next(new AppError('Viewing all categories including inactive ones requires administrator privileges', 403));
+    }
+    filter = {};
+  }
   const categories = await Category.find(filter).sort({ displayOrder: 1, name: 1 }).lean();
 
   const counts = await Food.aggregate([
@@ -48,6 +54,10 @@ const getCategoryById = asyncHandler(async (req, res, next) => {
 
   const category = await Category.findOne(query);
   if (!category) {
+    return next(new AppError(`Category '${id}' not found`, 404));
+  }
+
+  if (!category.isActive && (!req.user || req.user.role !== 'admin')) {
     return next(new AppError(`Category '${id}' not found`, 404));
   }
 

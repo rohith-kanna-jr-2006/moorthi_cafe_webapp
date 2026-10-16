@@ -50,6 +50,44 @@ const statusHistorySchema = new mongoose.Schema(
   { _id: false }
 );
 
+const paymentHistorySchema = new mongoose.Schema(
+  {
+    status: {
+      type: String,
+      required: true,
+      enum: ['PENDING', 'PAID', 'REFUNDED'],
+    },
+    changedAt: {
+      type: Date,
+      default: Date.now,
+    },
+    changedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    method: {
+      type: String,
+      enum: ['COUNTER_CASH', 'UPI', 'CARD'],
+    },
+    reference: {
+      type: String,
+      trim: true,
+      maxlength: 100,
+    },
+    note: {
+      type: String,
+      trim: true,
+      maxlength: 200,
+    },
+    source: {
+      type: String,
+      enum: ['MANUAL_COUNTER', 'ONLINE_GATEWAY'],
+      default: 'MANUAL_COUNTER',
+    },
+  },
+  { _id: false }
+);
+
 const orderSchema = new mongoose.Schema(
   {
     orderId: {
@@ -143,6 +181,33 @@ const orderSchema = new mongoose.Schema(
       index: true,
     },
     statusHistory: [statusHistorySchema],
+    paymentSettlement: {
+      settledAt: Date,
+      settledBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+      method: {
+        type: String,
+        enum: ['COUNTER_CASH', 'UPI', 'CARD'],
+      },
+      reference: {
+        type: String,
+        trim: true,
+        maxlength: 100,
+      },
+      note: {
+        type: String,
+        trim: true,
+        maxlength: 200,
+      },
+      source: {
+        type: String,
+        enum: ['MANUAL_COUNTER', 'ONLINE_GATEWAY'],
+        default: 'MANUAL_COUNTER',
+      },
+    },
+    paymentHistory: [paymentHistorySchema],
   },
   {
     timestamps: true,

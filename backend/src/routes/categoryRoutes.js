@@ -6,6 +6,7 @@ const {
   updateCategory,
   deleteCategory,
 } = require('../controllers/categoryController');
+const optionalAuth = require('../middleware/optionalAuth');
 const authenticate = require('../middleware/authenticate');
 const authorize = require('../middleware/authorize');
 const validate = require('../middleware/validate');
@@ -13,8 +14,8 @@ const { validateCategory } = require('../validators/categoryValidators');
 
 const router = express.Router();
 
-router.get('/', getCategories);
-router.get('/:id', getCategoryById);
+router.get('/', optionalAuth, getCategories);
+router.get('/:id', optionalAuth, getCategoryById);
 
 // Admin-only mutation routes
 router.post('/', authenticate, authorize('admin'), validate(validateCategory), createCategory);

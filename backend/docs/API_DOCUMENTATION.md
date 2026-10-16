@@ -156,9 +156,9 @@
 
 ### `GET /api/v1/categories`
 - **Purpose**: List menu categories sorted by `displayOrder`.
-- **Auth**: Public
+- **Auth**: Public (for active categories) / Bearer Admin (required when `all=true`)
 - **Query Parameters**:
-  - `all`: `boolean` (optional, default `false`). If `true`, returns active and deactivated categories.
+  - `all`: `boolean` (optional, default `false`). If `true`, returns all categories including inactive ones. Requires administrator authentication (`403 Forbidden` if requested by public users or customers).
 - **Success Response (200 OK)**:
 ```json
 {
