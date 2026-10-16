@@ -5,6 +5,7 @@ const {
   updateOrderStatus,
   getAdminDashboard,
   getSalesReport,
+  getAdminCustomers,
 } = require('../controllers/adminController');
 const authenticate = require('../middleware/authenticate');
 const authorize = require('../middleware/authorize');
@@ -17,6 +18,7 @@ router.use(authenticate, authorize('admin'));
 // Admin Dashboard & Reports
 router.get('/dashboard', getAdminDashboard);
 router.get('/reports/sales', getSalesReport);
+router.get('/customers', getAdminCustomers);
 
 // Admin Order Management
 router.get('/orders', getAdminOrders);

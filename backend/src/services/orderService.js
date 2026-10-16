@@ -94,6 +94,25 @@ async function placeOrder({
   if (idempotencyKey) {
     const existingOrder = await Order.findOne({ idempotencyKey }).populate('customer', 'name phone email');
     if (existingOrder) {
+      // Validate customer ownership of this idempotency key
+      const existingCustomerId = existingOrder.customer?._id?.toString() || existingOrder.customer?.toString();
+      if (existingCustomerId !== customerId.toString()) {
+        throw new AppError('Idempotency-Key conflict: key was already used by another customer', 409);
+      }
+
+      // Validate payload consistency (items length and content comparison)
+      if (Array.isArray(itemsInput)) {
+        if (existingOrder.items.length !== itemsInput.length) {
+          throw new AppError('Idempotency-Key conflict: key was already used for a different order payload', 409);
+        }
+        const existingFoodIds = new Set(existingOrder.items.map((i) => (i.food?._id || i.food).toString()));
+        for (const item of itemsInput) {
+          if (!existingFoodIds.has(item.foodId)) {
+            throw new AppError('Idempotency-Key conflict: key was already used for a different order payload', 409);
+          }
+        }
+      }
+
       return { order: existingOrder, isDuplicate: true };
     }
   }
@@ -124,7 +143,7 @@ async function placeOrder({
   const dailyTokenNumber = await getNextDailyToken(businessDate);
   const orderId = generateOrderId(businessDate, dailyTokenNumber);
 
-  // 4. Create Order
+  // 4. Create Order with initial PENDING paymentStatus
   const order = await Order.create({
     orderId,
     dailyTokenNumber,
@@ -139,7 +158,7 @@ async function placeOrder({
     pickupAt: validatedPickupDate,
     notes: (notes || '').trim(),
     status: 'PLACED',
-    paymentStatus: 'PAID',
+    paymentStatus: 'PENDING',
     paymentMethod,
     idempotencyKey: idempotencyKey || undefined,
     statusHistory: [

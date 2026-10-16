@@ -168,3 +168,63 @@ test('6. Customer 1 can cancel own order while in PLACED status', async () => {
   assert.equal(res.status, 200);
   assert.equal(res.body.data.order.status, 'CANCELLED');
 });
+
+test('7. Reusing same Idempotency-Key with different payload rejects with 409 Conflict', async () => {
+  const conflictKey = `idem_conflict_${Date.now()}`;
+
+  // Initial order with key
+  const res1 = await apiRequest('/api/v1/orders', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${customer1Token}`,
+      'Idempotency-Key': conflictKey,
+    },
+    body: {
+      items: [{ foodId: dosaFood._id.toString(), quantity: 1 }],
+      pickupType: 'IMMEDIATE',
+    },
+  });
+  assert.equal(res1.status, 201);
+
+  // Subsequent request using same key but different food item
+  const res2 = await apiRequest('/api/v1/orders', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${customer1Token}`,
+      'Idempotency-Key': conflictKey,
+    },
+    body: {
+      items: [{ foodId: vadaFood._id.toString(), quantity: 1 }],
+      pickupType: 'IMMEDIATE',
+    },
+  });
+
+  assert.equal(res2.status, 409);
+  assert.equal(res2.body.success, false);
+  assert.ok(res2.body.message.includes('Idempotency-Key conflict'));
+});
+
+test('8. Cart preview fails with 404 for invalid food ID and 400 for invalid quantity', async () => {
+  // Test invalid food ID
+  const invalidIdRes = await apiRequest('/api/v1/orders/preview', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${customer1Token}` },
+    body: {
+      items: [{ foodId: '65f000000000000000000000', quantity: 1 }],
+    },
+  });
+  assert.equal(invalidIdRes.status, 404);
+  assert.equal(invalidIdRes.body.success, false);
+
+  // Test invalid negative quantity
+  const invalidQtyRes = await apiRequest('/api/v1/orders/preview', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${customer1Token}` },
+    body: {
+      items: [{ foodId: dosaFood._id.toString(), quantity: -2 }],
+    },
+  });
+  assert.equal(invalidQtyRes.status, 400);
+  assert.equal(invalidQtyRes.body.success, false);
+});
+

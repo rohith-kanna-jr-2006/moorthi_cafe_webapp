@@ -558,6 +558,34 @@
               }
             }
           ]
+        },
+        {
+          "name": "4. Customer Management List",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/customers?limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "customers"],
+              "query": [{ "key": "limit", "value": "20" }]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200 OK', function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.expect(json.data.customers).to.be.an('array');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
         }
       ]
     }

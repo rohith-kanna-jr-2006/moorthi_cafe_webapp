@@ -3,6 +3,7 @@ const Category = require('../models/Category');
 const Order = require('../models/Order');
 const AppError = require('../utils/AppError');
 const asyncHandler = require('../utils/asyncHandler');
+const { normalizeFoodBody } = require('../validators/foodValidators');
 
 // @desc    List menu foods with filtering, search, and pagination
 // @route   GET /api/v1/foods
@@ -136,6 +137,7 @@ const createFood = asyncHandler(async (req, res, next) => {
 // @route   PATCH /api/v1/foods/:id
 // @access  Private (Admin only)
 const updateFood = asyncHandler(async (req, res, next) => {
+  normalizeFoodBody(req.body);
   const { category } = req.body;
   if (category) {
     const categoryExists = await Category.findById(category);
