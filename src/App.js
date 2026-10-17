@@ -14,6 +14,8 @@ import AddEditFood from './admin/AddEditFood.js';
 import CategoryManagement from './admin/CategoryManagement.js';
 import CustomerManagement from './admin/CustomerManagement.js';
 import SalesReports from './admin/SalesReports.js';
+import CustomerLogin from './pages/CustomerLogin.js';
+import CustomerSignup from './pages/CustomerSignup.js';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<CustomerLogin />} />
+          <Route path="/signup" element={<CustomerSignup />} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />

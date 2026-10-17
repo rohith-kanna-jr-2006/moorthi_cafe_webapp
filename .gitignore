@@ -31,6 +31,13 @@ screenshot*
 test*
 home_desktop*
 opencode*
+data/
 
 *.bak
 *.txt
+
+# unwanted md files
+IMPLEMENTATION_SUMMARY.md
+PHASE3_COMPLETION_REPORT.md
+SUMMARY.md
+TASK_COMPLETION.md

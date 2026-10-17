@@ -108,7 +108,7 @@ const CategoryManagement = () => {
     setDeleteCategoryId(null);
   };
 
-  // Stats calculation
+  // Stats calculation - using API response fields
   const stats = {
     totalCategories: categories.length,
     activeCategories: categories.filter(c => c.isAvailable !== false).length,

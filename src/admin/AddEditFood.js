@@ -390,7 +390,6 @@ const AddEditFood = () => {
                       Available for Ordering
                     </label>
                   </div>
-                </div>
               </div>
 
               {/* Preparation Details */}

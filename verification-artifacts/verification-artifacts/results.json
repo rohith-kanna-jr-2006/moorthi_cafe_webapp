@@ -1,0 +1,386 @@
+[
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/home-1280x720.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/home-768x1024.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "390x844",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/home-390x844.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "360x800",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/home-360x800.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "1280x720",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/about-1280x720.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "768x1024",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/about-768x1024.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "390x844",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/about-390x844.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "360x800",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/about-360x800.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/menu",
+    "viewport": "1280x720",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/menu-1280x720.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/menu",
+    "viewport": "768x1024",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/menu-768x1024.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/menu",
+    "viewport": "390x844",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/menu-390x844.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/menu",
+    "viewport": "360x800",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/menu-360x800.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/gallery",
+    "viewport": "1280x720",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/gallery-1280x720.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/gallery",
+    "viewport": "768x1024",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/gallery-768x1024.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/gallery",
+    "viewport": "390x844",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/gallery-390x844.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/gallery",
+    "viewport": "360x800",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/gallery-360x800.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/contact",
+    "viewport": "1280x720",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/contact-1280x720.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/contact",
+    "viewport": "768x1024",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/contact-768x1024.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/contact",
+    "viewport": "390x844",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/contact-390x844.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/contact",
+    "viewport": "360x800",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/contact-360x800.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/admin/login",
+    "viewport": "1280x720",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/admin/login-1280x720.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/admin/login",
+    "viewport": "768x1024",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/admin/login-768x1024.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/admin/login",
+    "viewport": "390x844",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/admin/login-390x844.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/admin/login",
+    "viewport": "360x800",
+    "status": 200,
+    "screenshotPath": "verification-artifacts/screenshots/admin/login-360x800.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "primary": "#C05621",
+      "secondary": "#2F855A",
+      "background": "#FAF5EF",
+      "fontPrimary": "'Noto Serif', serif",
+      "fontSecondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  }
+]

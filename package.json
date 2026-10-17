@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/rohith-kanna-jr-2006/moorthi_cafe_webapp#readme",
   "dependencies": {
+    "node-fetch": "^3.3.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router-dom": "^7.18.4"

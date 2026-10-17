@@ -148,6 +148,33 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 3px;
 }
 
+/* Navbar actions container */
+.navbar .nav-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Responsive adjustments for navbar */
+@media (max-width: 768px) {
+  .navbar .menu {
+    gap: 1rem;
+  }
+  .navbar .menu a {
+    font-size: 0.9rem;
+  }
+  .navbar .nav-actions {
+    gap: 0.25rem;
+  }
+  .navbar .nav-actions .btn-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  .container {
+    width: 95%;
+  }
+}
+
 .food-card {
   background-color: var(--cafe-ivory);
   border-radius: var(--surface-radius-card);
