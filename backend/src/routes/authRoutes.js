@@ -20,7 +20,15 @@ const authLimiter = rateLimit({
 });
 
 router.post('/signup', authLimiter, validate(validateSignup), signup);
+router.post('/register', authLimiter, validate(validateSignup), signup);
 router.post('/login', authLimiter, validate(validateLogin), login);
+router.post('/logout', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Signed out successfully. Session terminated',
+    data: null,
+  });
+});
 router.get('/me', authenticate, getMe);
 
 module.exports = router;
