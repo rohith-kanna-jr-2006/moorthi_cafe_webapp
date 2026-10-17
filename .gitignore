@@ -24,3 +24,13 @@ Thumbs.db
 .idea/
 dist/
 build/
+.temp
+.playwright-mcp/
+playwright*
+screenshot*
+test*
+home_desktop*
+opencode*
+
+*.bak
+*.txt

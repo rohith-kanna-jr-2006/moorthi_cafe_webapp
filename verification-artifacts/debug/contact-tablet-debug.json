@@ -1,0 +1,66 @@
+{
+  "viewport": {
+    "width": 768,
+    "height": 1024
+  },
+  "body": {
+    "width": "768px",
+    "maxWidth": "none",
+    "padding": "0px 0px",
+    "margin": "0px 0px",
+    "boxSizing": "content-box",
+    "offsetWidth": 768,
+    "clientWidth": 768,
+    "scrollWidth": 778
+  },
+  "html": {
+    "width": "768px",
+    "maxWidth": "none",
+    "padding": "0px 0px",
+    "margin": "0px 0px",
+    "boxSizing": "content-box",
+    "offsetWidth": 768,
+    "clientWidth": 768,
+    "scrollWidth": 778
+  },
+  "root": {
+    "width": "768px",
+    "maxWidth": "none",
+    "padding": "0px 0px",
+    "margin": "0px 0px",
+    "boxSizing": "content-box",
+    "offsetWidth": 768,
+    "clientWidth": 768,
+    "scrollWidth": 778
+  },
+  "siteShell": {
+    "width": "768px",
+    "maxWidth": "none",
+    "padding": "0px 0px",
+    "margin": "0px 0px",
+    "boxSizing": "content-box",
+    "offsetWidth": 768,
+    "clientWidth": 768,
+    "scrollWidth": 778
+  },
+  "pageContainer": {
+    "width": "736px",
+    "maxWidth": "none",
+    "padding": "0px 0px",
+    "margin": "16px 16px",
+    "boxSizing": "content-box",
+    "offsetWidth": 736,
+    "clientWidth": 736,
+    "scrollWidth": 762
+  },
+  "contactForm": {
+    "width": "736px",
+    "maxWidth": "100%",
+    "padding": "0px 0px",
+    "margin": "0px 0px",
+    "boxSizing": "border-box",
+    "offsetWidth": 736,
+    "clientWidth": 736,
+    "scrollWidth": 762
+  }
+}

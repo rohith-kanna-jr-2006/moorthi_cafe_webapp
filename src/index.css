@@ -1,26 +1,32 @@
 :root {
-  --cafe-cream: #FFF8EE;
-  --cafe-ivory: #FFFCF7;
-  --cafe-terracotta: #C65D35;
-  --cafe-terracotta-dark: #984124;
-  --cafe-espresso: #34231D;
-  --cafe-leaf: #294B38;
-  --cafe-leaf-soft: #E9EFE7;
-  --cafe-spice-soft: #F7E6D8;
-  --cafe-text-muted: #6F6259;
-  --cafe-border: #E8DCCF;
-  --cafe-white: #FFFFFF;
-  --surface-radius-card: 14px;
-  --surface-radius-panel: 22px;
-  --shadow-card: 0 8px 24px rgba(52, 35, 29, 0.07);
-  --content-max-width: 1200px;
+  --cafe-cream: #fef9f3;
+  --cafe-ivory: #fffdf9;
+  --cafe-terracotta: #c05621;
+  --cafe-terracotta-dark: #dd6b20;
+  --cafe-espresso: #1d1b18;
+  --cafe-leaf: #0a6c44;
+  --cafe-leaf-soft: #9ff5c1;
+  --cafe-spice-soft: #ffdeaa;
+  --cafe-text-muted: #57423a;
+  --cafe-border: #8a7268;
+  --cafe-white: #ffffff;
+  --surface-radius-card: 1rem;
+  --surface-radius-panel: 1.5rem;
+  --shadow-card: 0 4px 16px -2px rgba(192,86,33,0.06), 0 2px 6px -1px rgba(45,55,72,0.04);
+  --content-max-width: 1280px;
+  --cafe-font-primary: 'Noto Serif', serif;
+  --cafe-font-secondary: 'Plus Jakarta Sans', sans-serif;
+  --cafe-radius: 0.5rem;
+  --cafe-shadow: 0 4px 16px -2px rgba(192,86,33,0.06), 0 2px 6px -1px rgba(45,55,72,0.04);
+  --cafe-text-dark: #1d1b18;
+  --cafe-text-light: #ffffff;
 }
 
 body {
   margin: 0;
   color: var(--cafe-espresso);
   background: var(--cafe-cream);
-  font-family: Inter, "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--cafe-font-secondary);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -102,7 +108,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar .logo {
-  font-family: 'Noto Serif', serif;
+   font-family: var(--cafe-font-primary);
   font-size: 1.5rem;
   color: var(--cafe-espresso);
   text-decoration: none;
@@ -648,6 +654,15 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto;
   display: grid;
   gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive contact form */
+@media (max-width: 768px) {
+  .contact-form {
+    max-width: 100%;
+  }
 }
 
 .contact-form input,
@@ -657,6 +672,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--cafe-border);
   border-radius: var(--cafe-radius);
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 .contact-form textarea {

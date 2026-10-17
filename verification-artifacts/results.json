@@ -1,0 +1,410 @@
+[
+  {
+    "route": "/",
+    "viewport": "1280x720",
+    "viewportName": "desktop",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\home-desktop.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "viewportName": "tablet",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\home-tablet.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "390x844",
+    "viewportName": "mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\home-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "360x800",
+    "viewportName": "narrow-mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\home-narrow-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "1280x720",
+    "viewportName": "desktop",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\about-desktop.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "768x1024",
+    "viewportName": "tablet",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\about-tablet.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "390x844",
+    "viewportName": "mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\about-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "360x800",
+    "viewportName": "narrow-mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\about-narrow-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/menu",
+    "viewport": "1280x720",
+    "viewportName": "desktop",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\menu-desktop.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/menu",
+    "viewport": "768x1024",
+    "viewportName": "tablet",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\menu-tablet.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/menu",
+    "viewport": "390x844",
+    "viewportName": "mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\menu-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/menu",
+    "viewport": "360x800",
+    "viewportName": "narrow-mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\menu-narrow-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/gallery",
+    "viewport": "1280x720",
+    "viewportName": "desktop",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\gallery-desktop.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/gallery",
+    "viewport": "768x1024",
+    "viewportName": "tablet",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\gallery-tablet.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/gallery",
+    "viewport": "390x844",
+    "viewportName": "mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\gallery-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/gallery",
+    "viewport": "360x800",
+    "viewportName": "narrow-mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\gallery-narrow-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/contact",
+    "viewport": "1280x720",
+    "viewportName": "desktop",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\contact-desktop.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/contact",
+    "viewport": "768x1024",
+    "viewportName": "tablet",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\contact-tablet.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/contact",
+    "viewport": "390x844",
+    "viewportName": "mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\contact-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/contact",
+    "viewport": "360x800",
+    "viewportName": "narrow-mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\contact-narrow-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/admin/login",
+    "viewport": "1280x720",
+    "viewportName": "desktop",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\admin\\login-desktop.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/admin/login",
+    "viewport": "768x1024",
+    "viewportName": "tablet",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\admin\\login-tablet.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/admin/login",
+    "viewport": "390x844",
+    "viewportName": "mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\admin\\login-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  },
+  {
+    "route": "/admin/login",
+    "viewport": "360x800",
+    "viewportName": "narrow-mobile",
+    "status": "success",
+    "screenshotPath": "D:\\project\\moorthi_cafe_webapp\\verification-artifacts\\screenshots\\admin\\login-narrow-mobile.png",
+    "consoleErrors": [],
+    "failedRequests": [],
+    "hasHorizontalOverflow": false,
+    "computedStyles": {
+      "--cafe-primary": "",
+      "--cafe-secondary": "",
+      "--cafe-background": "",
+      "--cafe-font-primary": "'Noto Serif', serif",
+      "--cafe-font-secondary": "'Plus Jakarta Sans', sans-serif"
+    }
+  }
+]
