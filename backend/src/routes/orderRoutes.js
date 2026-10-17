@@ -12,8 +12,9 @@ const { validateOrderPlacement } = require('../validators/orderValidators');
 
 const router = express.Router();
 
-// Preview price breakdown (can be called before submitting order)
+// Preview price breakdown / Cart validation (can be called before submitting order)
 router.post('/preview', validate(validateOrderPlacement), previewOrderPricing);
+router.post('/validate-cart', validate(validateOrderPlacement), previewOrderPricing);
 
 // Customer-authenticated order endpoints
 router.post('/', authenticate, validate(validateOrderPlacement), createOrder);

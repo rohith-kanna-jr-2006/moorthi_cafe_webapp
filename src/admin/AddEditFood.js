@@ -1,54 +1,126 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import api from '../utils/api';
 
 const AddEditFood = () => {
+  const { id } = useParams(); // For edit mode: /admin/edit-food/:id
+  const [isEditMode, setIsEditMode] = useState(!!id);
+  const [navigate] = useNavigate();
+
+  // Form state
   const [formData, setFormData] = useState({
-    dishName: '',
-    regionalSubtitle: '',
-    heritageDescription: '',
-    menuCategory: '',
-    portionSize: '',
-    basePrice: '',
-    gstBracket: '',
-    prepDuration: '',
-    ecoPackagingFee: '',
-    spiceMeterLevel: 3,
-    satvikVeg: true,
-    gheePreparation: true,
-    heritageRecipe: true,
-    availableForOrdering: true,
-    dishImage: null,
-    dishImagePreview: null
+    name: '',
+    description: '',
+    price: '',
+    category: '',
+    portion: '',
+    prepTimeMinutes: '',
+    isVeg: true,
+    isAvailable: true,
+    tags: '',
+    imageUrl: '',
+    imagePreview: null
   });
 
-  const [validationWarning, setValidationWarning] = useState('');
+  // UI state
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [categories, setCategories] = useState([]);
   const [descriptionChars, setDescriptionChars] = useState(0);
+  const [tagsArray, setTagsArray] = useState([]);
 
-  const menuCategories = [
-    'Morning Tiffin',
-    'Afternoon Lunch',
-    'Evening Tiffin & Snacks',
-    'Traditional Sweets',
-    'Beverages & Filter Coffee'
-  ];
+  // Validation errors
+  const [formErrors, setFormErrors] = useState({});
 
-  const gstOptions = [
-    '5% (Pure Veg AC/Non-AC)',
-    '12% (Standard Packaged)',
-    '0% (Nil / Raw Commodity)'
-  ];
+  // Load data when component mounts
+  useEffect(() => {
+    loadCategories();
+    if (isEditMode && id) {
+      loadFoodData(id);
+    }
+  }, [isEditMode, id]);
 
-  const handleInputChange = (e) => {
+  const loadCategories = async () => {
+    try {
+      const response = await api.getCategories();
+      if (response.success) {
+        setCategories(response.data.categories);
+      }
+    } catch (err) {
+      console.error('Failed to load categories:', err);
+    }
+  };
+
+  const loadFoodData = async (foodId) => {
+    try {
+      setLoading(true);
+      const response = await api.getFoodById(foodId);
+      if (response.success) {
+        const food = response.data;
+        setFormData({
+          name: food.name || '',
+          description: food.description || '',
+          price: food.price ? food.price.toString() : '',
+          category: food.category ? food.category._id : '',
+          portion: food.portion || '',
+          prepTimeMinutes: food.prepTimeMinutes ? food.prepTimeMinutes.toString() : '',
+          isVeg: food.isVeg !== undefined ? food.isVeg : true,
+          isAvailable: food.isAvailable !== undefined ? food.isAvailable : true,
+          tags: Array.isArray(food.tags) ? food.tags.join(', ') : '',
+          imageUrl: food.imageUrl || '',
+          imagePreview: food.imageUrl ? food.imageUrl : null
+        });
+        setDescriptionChars(formData.description.length);
+        setTagsArray(Array.isArray(food.tags) ? food.tags : []);
+      }
+    } catch (err) {
+      setError('Failed to load food data');
+      console.error('Failed to load food data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    if (name === 'heritageDescription') {
-      setDescriptionChars(value.length);
-    }
-
+    // Update form data
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
+
+    // Clear error for this field
+    if (formErrors[name]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+
+    // Update character count for description
+    if (name === 'description') {
+      setDescriptionChars(value.length);
+    }
+
+    // Update tags array
+    if (name === 'tags') {
+      setTagsArray(value.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0));
+    }
+
+    // Update image preview
+    if (name === 'imageUrl' && value) {
+      setFormData(prev => ({
+        ...prev,
+        imagePreview: value
+      }));
+    } else if (name === 'imageUrl' && !value) {
+      setFormData(prev => ({
+        ...prev,
+        imagePreview: null
+      }));
+    }
   };
 
   const handleImageChange = (e) => {
@@ -58,66 +130,116 @@ const AddEditFood = () => {
       reader.onloadend = () => {
         setFormData(prev => ({
           ...prev,
-          dishImage: file,
-          dishImagePreview: reader.result
+          imageUrl: reader.result,
+          imagePreview: reader.result
         }));
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSpiceMeterChange = (level) => {
-    setFormData(prev => ({ ...prev, spiceMeterLevel: level }));
-  };
-
   const validateForm = () => {
-    if (!formData.dishName) {
-      setValidationWarning('Dish Name (English) is required');
-      return false;
+    const errors = {};
+
+    if (!formData.name.trim()) {
+      errors.name = 'Dish name is required';
     }
-    if (!formData.basePrice) {
-      setValidationWarning('Base Price (INR) is required');
-      return false;
+
+    if (!formData.description.trim()) {
+      errors.description = 'Description is required';
+    } else if (formData.description.length > 500) {
+      errors.description = 'Description cannot exceed 500 characters';
     }
-    if (!formData.menuCategory) {
-      setValidationWarning('Menu Category & Slot is required');
-      return false;
+
+    if (!formData.price.trim()) {
+      errors.price = 'Price is required';
+    } else {
+      const priceNum = parseFloat(formData.price);
+      if (isNaN(priceNum) || priceNum < 0) {
+        errors.price = 'Price must be a valid positive number';
+      }
     }
-    setValidationWarning('');
-    return true;
+
+    if (!formData.category) {
+      errors.category = 'Category is required';
+    }
+
+    if (!formData.portion.trim()) {
+      errors.portion = 'Portion size is required';
+    }
+
+    if (!formData.prepTimeMinutes.trim()) {
+      errors.prepTimeMinutes = 'Preparation time is required';
+    } else {
+      const prepTime = parseInt(formData.prepTimeMinutes);
+      if (isNaN(prepTime) || prepTime < 1) {
+        errors.prepTimeMinutes = 'Preparation time must be at least 1 minute';
+      }
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!validateForm()) {
       return;
     }
 
-    // Simulate form submission
-    console.log('Form submitted:', formData);
+    setLoading(true);
+    setError(null);
+    setSuccessMessage('');
 
-    // Show success message
-    alert('Dish Published Synchronized to all 4 order counters & customer tablets.');
+    try {
+      const token = localStorage.getItem('moorthi_token');
+      if (!token) {
+        throw new Error('Authentication required. Please log in again.');
+      }
+
+      // Prepare food data for submission
+      const foodData = {
+        name: formData.name.trim(),
+        description: formData.description.trim(),
+        price: parseFloat(formData.price),
+        category: formData.category,
+        portion: formData.portion.trim(),
+        prepTimeMinutes: parseInt(formData.prepTimeMinutes),
+        isVeg: formData.isVeg,
+        isAvailable: formData.isAvailable,
+        tags: tagsArray,
+        imageUrl: formData.imageUrl || ''
+      };
+
+      let response;
+      if (isEditMode && id) {
+        // Update existing food
+        response = await api.updateFood(id, foodData, token);
+      } else {
+        // Create new food
+        response = await api.createFood(foodData, token);
+      }
+
+      if (response.success) {
+        setSuccessMessage(response.message || 'Operation successful!');
+        // Redirect to menu management after success
+        setTimeout(() => {
+          navigate('/admin/menu-management');
+        }, 2000);
+      } else {
+        throw new Error(response.message || 'Operation failed');
+      }
+    } catch (err) {
+      setError(err.message || 'An error occurred during the operation');
+      console.error('Operation failed:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const getSpiceMeterDisplay = () => {
-    return (
-      <div className="spice-meter">
-        <span className="spice-meter-label">Spice Level:</span>
-        <div className="spice-meter-icons">
-          {[1, 2, 3, 4, 5].map(level => (
-            <button
-              key={level}
-              className={`spice-meter-icon ${level <= formData.spiceMeterLevel ? 'active' : ''}`}
-              onClick={() => handleSpiceMeterChange(level)}
-              aria-label={`Spice level ${level}`}
-            >
-              {level <= formData.spiceMeterLevel ? 'local_fire_department' : 'local_fire_department_outline'}
-            </button>
-          ))}
-        </div>
-      </div>
-    );
+  const handleCancel = () => {
+    navigate('/admin/menu-management');
   };
 
   return (
@@ -125,9 +247,8 @@ const AddEditFood = () => {
       <div className="page-container">
         <section className="section--cream">
           <div className="add-edit-food">
-            {/* Header */}
             <div className="page-header">
-              <h1>Add/Edit Food</h1>
+              <h1>{isEditMode ? 'Edit Food' : 'Add Food'}</h1>
               <div className="header-meta">
                 <div className="meta-item">
                   <span className="meta-label">Terminal:</span>
@@ -148,337 +269,251 @@ const AddEditFood = () => {
               </div>
             </div>
 
-            {/* Validation Warning */}
-            {validationWarning && (
-              <div className="validation-warning">
-                ⚠️ {validationWarning}
+            {successMessage && (
+              <div className="alert alert-success">
+                {successMessage}
+              </div>
+            )}
+
+            {error && (
+              <div className="alert alert-error">
+                {error}
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="food-form">
-              {/* Dish Nomenclature */}
+              {/* Basic Information */}
               <div className="form-section">
-                <h2>Dish Nomenclature — General Info</h2>
+                <h2>Basic Information</h2>
 
                 <div className="form-group">
-                  <label>
-                    Dish Name in English <span className="required-mark">*</span>
-                  </label>
+                  <label htmlFor="name">Dish Name <span className="required-mark">*</span></label>
                   <input
                     type="text"
-                    name="dishName"
-                    value={formData.dishName}
-                    onChange={handleInputChange}
-                    placeholder="Heritage & English"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter dish name"
                     required
+                    className={formErrors.name ? 'error-input' : ''}
                   />
+                  {formErrors.name && (
+                    <span className="error-message">{formErrors.name}</span>
+                  )}
                 </div>
 
                 <div className="form-group">
-                  <label>Regional Subtitle (Tamil)</label>
-                  <input
-                    type="text"
-                    name="regionalSubtitle"
-                    value={formData.regionalSubtitle}
-                    onChange={handleInputChange}
-                    placeholder="Optional"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>
-                    Heritage Culinary Description
-                    <span className="char-counter">
-                      {descriptionChars}/200
-                    </span>
-                  </label>
+                  <label htmlFor="description">Description <span className="required-mark">*</span></label>
                   <textarea
-                    name="heritageDescription"
-                    value={formData.heritageDescription}
-                    onChange={handleInputChange}
-                    placeholder="Crispy paper dosa smeared with house special Chidambaram podi and roasted with golden ghee."
-                    maxLength={200}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>
-                    Menu Category & Slot <span className="required-mark">*</span>
-                  </label>
-                  <select
-                    name="menuCategory"
-                    value={formData.menuCategory}
-                    onChange={handleInputChange}
+                    id="description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    placeholder="Enter dish description"
+                    maxLength="500"
                     required
-                  >
-                    <option value="">Select category...</option>
-                    {menuCategories.map(category => (
-                      <option key={category} value={category}>{category}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Portion / Serving Size</label>
-                  <input
-                    type="text"
-                    name="portionSize"
-                    value={formData.portionSize}
-                    onChange={handleInputChange}
-                    placeholder="e.g., 2 Pcs with 3 Chutneys & Sambar"
+                    className={formErrors.description ? 'error-input' : ''}
                   />
-                </div>
-              </div>
-
-              {/* Financials & Preparation */}
-              <div className="form-section">
-                <h2>Financials & Preparation — Billing Engine</h2>
-
-                <div className="form-group">
-                  <label>
-                    Base Price (INR) <span className="required-mark">*</span>
-                  </label>
-                  <div className="input-with-prefix">
-                    <span className="input-prefix">₹</span>
-                    <input
-                      type="number"
-                      name="basePrice"
-                      value={formData.basePrice}
-                      onChange={handleInputChange}
-                      placeholder="0.00"
-                      step="0.01"
-                      required
-                    />
+                  <div className="char-counter">
+                    {descriptionChars}/500 characters
                   </div>
-                </div>
-
-                <div className="form-group">
-                  <label>GST Tax Bracket</label>
-                  <select
-                    name="gstBracket"
-                    value={formData.gstBracket}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select GST bracket...</option>
-                    {gstOptions.map(option => (
-                      <option key={option} value={option}>{option}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Prep Duration (Mins)</label>
-                  <input
-                    type="number"
-                    name="prepDuration"
-                    value={formData.prepDuration}
-                    onChange={handleInputChange}
-                    placeholder="e.g., 10"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Special Eco Packaging Fee</label>
-                  <div className="input-with-prefix">
-                    <span className="input-prefix">₹</span>
-                    <input
-                      type="number"
-                      name="ecoPackagingFee"
-                      value={formData.ecoPackagingFee}
-                      onChange={handleInputChange}
-                      placeholder="e.g., 15"
-                      step="0.01"
-                    />
-                  </div>
-                  <p className="form-help">"Areca nut palm leaf plates" — prefix ₹</p>
-                </div>
-
-                <div className="form-group">
-                  <label>Spice Meter Level</label>
-                  {getSpiceMeterDisplay()}
-                </div>
-              </div>
-
-              {/* Quality & Live Counter Status */}
-              <div className="form-section">
-                <h2>Quality & Live Counter Status — Kitchen Attributes</h2>
-
-                <div className="checkbox-group">
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      name="satvikVeg"
-                      checked={formData.satvikVeg}
-                      onChange={handleInputChange}
-                    />
-                    <span className="checkbox-text">
-                      100% Satvik Veg No garlic & onion
-                    </span>
-                  </label>
-                </div>
-
-                <div className="checkbox-group">
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      name="gheePreparation"
-                      checked={formData.gheePreparation}
-                      onChange={handleInputChange}
-                    />
-                    <span className="checkbox-text">
-                      Ghee Preparation A2 Cow Ghee
-                    </span>
-                  </label>
-                </div>
-
-                <div className="checkbox-group">
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      name="heritageRecipe"
-                      checked={formData.heritageRecipe}
-                      onChange={handleInputChange}
-                    />
-                    <span className="checkbox-text">
-                      Heritage Recipe 1952 Classic
-                    </span>
-                  </label>
-                </div>
-
-                <div className="form-group">
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      name="availableForOrdering"
-                      checked={formData.availableForOrdering}
-                      onChange={handleInputChange}
-                    />
-                    <span className="checkbox-text">
-                      Available for Immediate Ordering
-                      <br />
-                      <span className="checkbox-help">
-                        Turn off if batter is depleted or during counter changeover.
-                      </span>
-                    </span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Dish Photography */}
-              <div className="form-section">
-                <h2>Dish Photography</h2>
-
-                <div className="image-upload-section">
-                  <div className="image-upload-area">
-                    {formData.dishImagePreview ? (
-                      <div className="image-preview">
-                        <img
-                          src={formData.dishImagePreview}
-                          alt="Dish preview"
-                        />
-                        <button
-                          type="button"
-                          className="remove-image-btn"
-                          onClick={() => setFormData(prev => ({
-                            ...prev,
-                            dishImage: null,
-                            dishImagePreview: null
-                          }))}
-                        >
-                          ×
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="image-upload-placeholder">
-                        <span className="upload-icon">📷</span>
-                        <p>Drop crisp dish photograph here or browse files from counter device</p>
-                        <p className="upload-formats">Supports JPG, PNG, WebP up to 4MB</p>
-                        <label className="upload-btn">
-                          Choose File
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            style={{ display: 'none' }}
-                          />
-                        </label>
-                      </div>
-                    )}
-                  </div>
-                  <div className="image-actions">
-                    <button type="button" className="action-btn">
-                      Crop / Adjust
-                    </button>
-                    <button type="button" className="action-btn">
-                      Change Photo
-                    </button>
-                    <button type="button" className="action-btn delete">
-                      Delete
-                    </button>
-                  </div>
-                  {formData.dishImagePreview && (
-                    <div className="image-status">
-                      <span className="status-icon">✓</span>
-                      <span>High Definition</span>
-                    </div>
+                  {formErrors.description && (
+                    <span className="error-message">{formErrors.description}</span>
                   )}
                 </div>
               </div>
 
-              {/* Live Customer App Preview */}
+              {/* Classification & Availability */}
               <div className="form-section">
-                <h2>Live Customer App Preview</h2>
+                <h2>Classification & Availability</h2>
 
-                <div className="customer-preview-card">
-                  <div className="preview-badge">
-                    <span>PURE VEG ★ BESTSELLER</span>
+                <div className="form-group">
+                  <label htmlFor="category">Category <span className="required-mark">*</span></label>
+                  <select
+                    id="category"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    required
+                    className={formErrors.category ? 'error-input' : ''}
+                  >
+                    <option value="">Select category...</option>
+                    {categories.map(category => (
+                      <option key={category._id} value={category._id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
+                  {formErrors.category && (
+                    <span className="error-message">{formErrors.category}</span>
+                  )}
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="portion">Portion Size <span className="required-mark">*</span></label>
+                  <input
+                    type="text"
+                    id="portion"
+                    name="portion"
+                    value={formData.portion}
+                    onChange={handleChange}
+                    placeholder="e.g., 1 Plate, 2 Pcs"
+                    required
+                    className={formErrors.portion ? 'error-input' : ''}
+                  />
+                  {formErrors.portion && (
+                    <span className="error-message">{formErrors.portion}</span>
+                  )}
+                </div>
+
+                <div className="form-group">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="isVeg"
+                      checked={formData.isVeg}
+                      onChange={handleChange}
+                    />
+                    Vegetarian Dish
+                  </label>
+                </div>
+
+                  <div className="form-group">
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="isAvailable"
+                        checked={formData.isAvailable}
+                        onChange={handleChange}
+                      />
+                      Available for Ordering
+                    </label>
                   </div>
-                  <div className="preview-prep-time">
-                    <span>⏰ 10 mins</span>
-                  </div>
-                  <h3 className="preview-title">Ghee Podi Thatte Idli</h3>
-                  <p className="preview-subtitle">நெய் பொடி தட்டே இட்லி</p>
-                  <div className="preview-price">
-                    <span>₹110.00</span>
-                    <span className="price-extra">+ ₹15 pack fee</span>
-                  </div>
-                  <p className="preview-description">
-                    "Steamed soft plate idli drenched in aromatic Chidambaram stoneground gun powder and warm pure cow ghee."
-                  </p>
-                  <div className="preview-serving">
-                    2pcs with 3 Chutneys & Sambar
-                  </div>
-                  <button className="preview-add-btn">ADD</button>
                 </div>
               </div>
 
-              {/* KOT Printer Routing */}
+              {/* Preparation Details */}
               <div className="form-section">
-                <h2>KOT Printer Routing</h2>
+                <h2>Preparation Details</h2>
 
-                <div className="kot-routing">
-                  <div className="routing-item">
-                    <span className="routing-label">Kitchen Station:</span>
-                    <span className="routing-value">Tiffin Master 02</span>
+                <div className="form-group">
+                  <label htmlFor="price">Price (₹) <span className="required-mark">*</span></label>
+                  <div className="input-with-prefix">
+                    <span className="input-prefix">₹</span>
+                    <input
+                      type="number"
+                      id="price"
+                      name="price"
+                      value={formData.price}
+                      onChange={handleChange}
+                      step="0.01"
+                      min="0"
+                      placeholder="0.00"
+                      required
+                      className={formErrors.price ? 'error-input' : ''}
+                    />
+                  </div>
+                  {formErrors.price && (
+                    <span className="error-message">{formErrors.price}</span>
+                  )}
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="prepTimeMinutes">Preparation Time (mins) <span className="required-mark">*</span></label>
+                  <input
+                    type="number"
+                    id="prepTimeMinutes"
+                    name="prepTimeMinutes"
+                    value={formData.prepTimeMinutes}
+                    onChange={handleChange}
+                    min="1"
+                    placeholder="15"
+                    required
+                    className={formErrors.prepTimeMinutes ? 'error-input' : ''}
+                  />
+                  {formErrors.prepTimeMinutes && (
+                    <span className="error-message">{formErrors.prepTimeMinutes}</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Tags & Image */}
+              <div className="form-section">
+                <h2>Tags & Image</h2>
+
+                <div className="form-group">
+                  <label htmlFor="tags">Tags (comma-separated)</label>
+                  <input
+                    type="text"
+                    id="tags"
+                    name="tags"
+                    value={formData.tags}
+                    onChange={handleChange}
+                    placeholder="e.g., chef-special, wood-fired, pure-ghee"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="imageUrl">Dish Image URL</label>
+                  <input
+                    type="text"
+                    id="imageUrl"
+                    name="imageUrl"
+                    value={formData.imageUrl}
+                    onChange={handleChange}
+                    placeholder="Enter image URL or upload below"
+                  />
+
+                  <div className="image-upload-section">
+                    <label className="upload-btn">
+                      Choose Image File
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        style={{ display: 'none' }}
+                      />
+                    </label>
+
+                    {formData.imagePreview && (
+                      <div className="image-preview">
+                        <img src={formData.imagePreview} alt="Dish preview" />
+                        <button
+                          type="button"
+                          className="remove-image-btn"
+                          onClick={() => {
+                            setFormData(prev => ({
+                              ...prev,
+                              imageUrl: '',
+                              imagePreview: null
+                            }));
+                          }}
+                        >
+                          ×
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
 
-              {/* Footer Actions */}
+              {/* Form Actions */}
               <div className="form-footer">
-                <div className="unsaved-warning">
-                  ⚠️ Unsaved Modifications Detected — Last autosaved: Today at 02:44 PM by S. Ramanathan
-                </div>
-
                 <div className="action-buttons">
-                  <button type="button" className="btn btn-secondary">
-                    Cancel & Discard Changes
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleCancel}
+                  >
+                    Cancel
                   </button>
-                  <button type="button" className="btn btn-outline">
-                    Save as Inactive Draft
-                  </button>
-                  <button type="submit" className="btn btn-primary">
-                    Save & Publish Dish
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={loading}
+                  >
+                    {loading ? 'Saving...' : isEditMode ? 'Update Food' : 'Add Food'}
                   </button>
                 </div>
               </div>

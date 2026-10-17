@@ -156,9 +156,9 @@
 
 ### `GET /api/v1/categories`
 - **Purpose**: List menu categories sorted by `displayOrder`.
-- **Auth**: Public
+- **Auth**: Public (for active categories) / Bearer Admin (required when `all=true`)
 - **Query Parameters**:
-  - `all`: `boolean` (optional, default `false`). If `true`, returns active and deactivated categories.
+  - `all`: `boolean` (optional, default `false`). If `true`, returns all categories including inactive ones. Requires administrator authentication (`403 Forbidden` if requested by public users or customers).
 - **Success Response (200 OK)**:
 ```json
 {
@@ -442,9 +442,9 @@
   - `page`, `limit`
 
 ### `PATCH /api/v1/admin/orders/:id/status`
-- **Purpose**: Progress order through the authorized state machine.
+- **Purpose**: Progress order through the authorized state machine and/or record payment status (e.g. counter cash/UPI settlement).
 - **Auth**: Bearer Admin
-- **Permitted Transitions**:
+- **Permitted State Transitions**:
   - `PLACED` -> `CONFIRMED` | `CANCELLED`
   - `CONFIRMED` -> `PREPARING` | `CANCELLED`
   - `PREPARING` -> `READY` | `CANCELLED`
@@ -455,13 +455,50 @@
 ```json
 {
   "status": "READY",
-  "note": "Packed in banana leaf and placed at Counter 2"
+  "paymentStatus": "PAID",
+  "note": "Packed in parcel box and handed at Counter 1"
+}
+```
+*(Either `status` or `paymentStatus` or both can be provided)*
+
+### `GET /api/v1/admin/customers`
+- **Purpose**: Retrieve registered diner accounts with real-time total order counts and status for admin customer management.
+- **Auth**: Bearer Admin
+- **Query Parameters**:
+  - `search`: diner name, email, or phone
+  - `page`: default 1
+  - `limit`: default 20 (max 100)
+- **Success Response (200 OK)**:
+```json
+{
+  "success": true,
+  "message": "Customers retrieved successfully for admin management",
+  "data": {
+    "customers": [
+      {
+        "id": "6ad0aca6a2955988bec1dcc7",
+        "name": "Sundaram Natarajan",
+        "email": "sundaram@chidambaram.in",
+        "phone": "+91 98765 43210",
+        "isActive": true,
+        "totalOrders": 3,
+        "createdAt": "2026-10-16T05:40:00.000Z"
+      }
+    ],
+    "pagination": {
+      "total": 1,
+      "page": 1,
+      "limit": 20,
+      "pages": 1
+    }
+  }
 }
 ```
 
 ### `GET /api/v1/admin/reports/sales`
-- **Purpose**: Aggregated revenue and best-seller reports for business settlement.
+- **Purpose**: Aggregated revenue, payment method breakdown, and best-seller reports for daily business settlement.
 - **Auth**: Bearer Admin
 - **Query Parameters**:
   - `from`: `YYYY-MM-DD`
   - `to`: `YYYY-MM-DD`
+```

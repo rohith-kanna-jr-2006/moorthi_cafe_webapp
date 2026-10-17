@@ -141,3 +141,37 @@ test('6. Admin can retrieve sales aggregation report', async () => {
   assert.ok(Array.isArray(res.body.data.dailyReport));
   assert.ok(Array.isArray(res.body.data.bestSellers));
 });
+
+test('7. Admin can list customers with total orders, customer role cannot (403)', async () => {
+  // Customer attempt should fail with 403
+  const forbiddenRes = await apiRequest('/api/v1/admin/customers', {
+    headers: { Authorization: `Bearer ${customerToken}` },
+  });
+  assert.equal(forbiddenRes.status, 403);
+  assert.equal(forbiddenRes.body.success, false);
+
+  // Admin attempt should succeed with 200
+  const adminRes = await apiRequest('/api/v1/admin/customers', {
+    headers: { Authorization: `Bearer ${adminToken}` },
+  });
+  assert.equal(adminRes.status, 200);
+  assert.equal(adminRes.body.success, true);
+  assert.ok(Array.isArray(adminRes.body.data.customers));
+  assert.ok(adminRes.body.data.pagination);
+  assert.ok(adminRes.body.data.customers.length > 0);
+  assert.ok(adminRes.body.data.customers[0].email);
+  assert.ok(typeof adminRes.body.data.customers[0].totalOrders === 'number');
+});
+
+test('8. Admin can update paymentStatus of an order to PAID', async () => {
+  const res = await apiRequest(`/api/v1/admin/orders/${orderForTransitionId}/status`, {
+    method: 'PATCH',
+    headers: { Authorization: `Bearer ${adminToken}` },
+    body: { paymentStatus: 'PAID' },
+  });
+
+  assert.equal(res.status, 200);
+  assert.equal(res.body.success, true);
+  assert.equal(res.body.data.order.paymentStatus, 'PAID');
+});
+

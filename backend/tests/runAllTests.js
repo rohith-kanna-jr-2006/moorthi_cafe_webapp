@@ -7,6 +7,7 @@ const testFiles = [
   'tests/order.test.js',
   'tests/concurrency_token.test.js',
   'tests/admin.test.js',
+  'tests/security_regression.test.js',
 ];
 
 console.log('====================================================');

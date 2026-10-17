@@ -9,6 +9,7 @@ const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
+app.set('query parser', 'extended');
 
 // Security HTTP headers
 app.use(helmet());
