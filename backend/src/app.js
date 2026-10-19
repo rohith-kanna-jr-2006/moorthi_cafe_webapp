@@ -11,12 +11,18 @@ const errorHandler = require('./middleware/errorHandler');
 const app = express();
 app.set('query parser', 'extended');
 
+
 // Security HTTP headers
 app.use(helmet());
 
 // Cross-Origin Resource Sharing (CORS) with explicit origins
+// Parse CLIENT_URL from environment (comma-separated string) into an array
+const clientUrlArray = typeof env.clientUrl === 'string'
+  ? env.clientUrl.split(',').filter(Boolean)
+  : [];
+
 const allowedOrigins = [
-  env.clientUrl,
+  ...clientUrlArray,
   'http://localhost:5173',
   'http://localhost:3000',
   'http://127.0.0.1:5173',
