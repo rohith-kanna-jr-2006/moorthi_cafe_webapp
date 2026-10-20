@@ -5,7 +5,7 @@ import api from '../utils/api';
 const AddEditFood = () => {
   const { id } = useParams(); // For edit mode: /admin/edit-food/:id
   const [isEditMode, setIsEditMode] = useState(!!id);
-  const [navigate] = useNavigate();
+  const navigate = useNavigate();
 
   // Form state
   const [formData, setFormData] = useState({
@@ -56,22 +56,23 @@ const AddEditFood = () => {
     try {
       setLoading(true);
       const response = await api.getFoodById(foodId);
-      if (response.success) {
-        const food = response.data;
+      if (response.success && response.data) {
+        const food = response.data.food || response.data;
+        const categoryId = food.category && typeof food.category === 'object' ? food.category._id : (food.category || '');
         setFormData({
           name: food.name || '',
           description: food.description || '',
-          price: food.price ? food.price.toString() : '',
-          category: food.category ? food.category._id : '',
+          price: food.price !== undefined ? food.price.toString() : '',
+          category: categoryId,
           portion: food.portion || '',
-          prepTimeMinutes: food.prepTimeMinutes ? food.prepTimeMinutes.toString() : '',
+          prepTimeMinutes: food.prepTimeMinutes !== undefined ? food.prepTimeMinutes.toString() : '',
           isVeg: food.isVeg !== undefined ? food.isVeg : true,
           isAvailable: food.isAvailable !== undefined ? food.isAvailable : true,
           tags: Array.isArray(food.tags) ? food.tags.join(', ') : '',
           imageUrl: food.imageUrl || '',
           imagePreview: food.imageUrl ? food.imageUrl : null
         });
-        setDescriptionChars(formData.description.length);
+        setDescriptionChars((food.description || '').length);
         setTagsArray(Array.isArray(food.tags) ? food.tags : []);
       }
     } catch (err) {

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
 :root {
   --cafe-cream: #fef9f3;
   --cafe-ivory: #fffdf9;
@@ -8,7 +11,7 @@
   --cafe-leaf-soft: #9ff5c1;
   --cafe-spice-soft: #ffdeaa;
   --cafe-text-muted: #57423a;
-  --cafe-border: #8a7268;
+  --cafe-border: #dec0b5;
   --cafe-white: #ffffff;
   --surface-radius-card: 1rem;
   --surface-radius-panel: 1.5rem;
@@ -20,6 +23,23 @@
   --cafe-shadow: 0 4px 16px -2px rgba(192,86,33,0.06), 0 2px 6px -1px rgba(45,55,72,0.04);
   --cafe-text-dark: #1d1b18;
   --cafe-text-light: #ffffff;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  vertical-align: middle;
 }
 
 body {

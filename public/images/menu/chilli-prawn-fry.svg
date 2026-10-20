@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1C1917" />
+      <stop offset="100%" stop-color="#0C0A09" />
+    </linearGradient>
+    <radialGradient id="plateGlow" cx="50%" cy="55%" r="45%">
+      <stop offset="0%" stop-color="#DC2626" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#0C0A09" stop-opacity="0" />
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="600" fill="url(#bgGrad)" />
+  <circle cx="400" cy="340" r="280" fill="url(#plateGlow)" />
+
+  <!-- Restaurant Header Ribbon -->
+  <rect x="0" y="0" width="800" height="64" fill="#18181B" opacity="0.9" />
+  <rect x="0" y="62" width="800" height="3" fill="#D97706" />
+  <text x="40" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#F59E0B" letter-spacing="1.5">HOTEL NEW MOORTHI CAFE</text>
+  <text x="760" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#A1A1AA" text-anchor="end">CHIDAMBARAM — SINCE HERITAGE</text>
+
+  <!-- Dish Graphic -->
+  <g filter="url(#shadow)">
+    
+        <!-- Sizzling Platter with Marinated Prawns -->
+        <ellipse cx="400" cy="345" rx="180" ry="95" fill="#18181B" />
+        <ellipse cx="400" cy="335" rx="155" ry="80" fill="#7C2D12" />
+        <ellipse cx="400" cy="330" rx="135" ry="65" fill="#DC2626" />
+        <!-- Curved golden spicy prawns -->
+        <path d="M 330 310 C 340 280 380 290 375 325 C 370 340 345 340 335 325 Z" fill="#EA580C" />
+        <path d="M 390 300 C 400 270 440 280 435 315 C 430 330 405 330 395 315 Z" fill="#DC2626" />
+        <path d="M 420 320 C 430 290 470 300 465 335 C 460 350 435 350 425 335 Z" fill="#EA580C" />
+        <!-- Crisp curry leaves & lime -->
+        <path d="M 370 330 Q 390 320 385 345" stroke="#15803D" stroke-width="6" fill="none" stroke-linecap="round" />
+        <circle cx="470" cy="345" r="14" fill="#FACC15" />
+      
+  </g>
+
+  <!-- Title & Metadata Card -->
+  <rect x="40" y="450" width="720" height="115" rx="16" fill="#18181B" opacity="0.95" stroke="#27272A" stroke-width="2" />
+  
+  <!-- Status Badge -->
+  <rect x="60" y="468" width="380" height="24" rx="6" fill="#B45309" />
+  <text x="70" y="484" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">REPRESENTATIVE REFERENCE — PROPRIETARY RECIPE</text>
+  
+  <!-- Category tag -->
+  <text x="740" y="484" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#D97706" text-anchor="end">Tandoori & Seafood</text>
+
+  <!-- Tamil & English Names -->
+  <text x="60" y="525" font-family="system-ui, -apple-system, 'Noto Sans Tamil', sans-serif" font-size="24" font-weight="700" fill="#F43F5E">சில்லி பிரான் ஃப்ரை</text>
+  <text x="60" y="552" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#F4F4F5">Chilli Prawn Fry</text>
+</svg>

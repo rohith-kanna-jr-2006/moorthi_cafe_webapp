@@ -2,39 +2,75 @@
 node_modules/
 backend/node_modules/
 
-# Environment variables and secrets
+# Environment Variables & Secrets
 .env
 .env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 !.env.example
 backend/.env
 backend/.env.*
+backend/.env.local
+backend/.env.development.local
+backend/.env.test.local
+backend/.env.production.local
 !backend/.env.example
 
-# Private keys and certificates
+# Private Keys & Certificates
 *.pem
 *.key
 *.p12
 *.pfx
+*.cert
+*.crt
 
-# Logs and coverage
+# Database Backups & Dumps (Sensitive: contains user credentials & customer orders)
+backups/
+backend/backups/
+data/
+*.dump
+*.backup
+*.sqlite
+*.db
+
+# Runtime User Uploads (Ignore uploaded images, keep directory via .gitkeep)
+backend/public/images/uploads/*
+!backend/public/images/uploads/.gitkeep
+public/images/uploads/*
+!public/images/uploads/.gitkeep
+
+# Logs & Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 *.log
-coverage/
+logs/
+backend/logs/
 
-# Build output and temporary files
+# Test Coverage & Temp
+coverage/
+.nyc_output/
+*.tmp
+*.bak
+.temp/
+.cache/
+
+# Build Output
 dist/
 build/
-.temp/
 
-# OS and IDE
+# OS & IDE
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
 
-# Playwright generated artifacts
+# Playwright Generated Artifacts
 .playwright-mcp/
 playwright-report/
 test-results/
@@ -43,20 +79,21 @@ screenshots/
 screenshot*/
 home_desktop*
 
-# Local data and backups
-data/
-*.bak
-
-# Local tool configuration and generated output
+# Local Tool Configuration and Generated Output
 opencode*/
+/opencode.json
 
-# Specific unwanted reports
+# Specific Unwanted Reports & Logs
 IMPLEMENTATION_SUMMARY.md
 PHASE3_COMPLETION_REPORT.md
 SUMMARY.md
 TASK_COMPLETION.md
+FIX_SUMMARY.md
+TEST_RESULTS.md
+VERIFICATION_SUMMARY.md
+backend/VERIFICATION_SUMMARY.md
 
-# Temporary test scripts
+# Temporary Test Scripts & Artifacts
 /playwright-final.js
 /playwright-script*.js
 /playwright_script*.js
@@ -71,8 +108,6 @@ TASK_COMPLETION.md
 /test_simple.js
 /test_small.js
 /test_spec.js
-
-# Temporary screenshot and test output
 /screenshot*.txt
 /screenshot*.b64
 /screenshot.png
@@ -81,9 +116,7 @@ TASK_COMPLETION.md
 /write_test*.txt
 /testbt.txt
 
-/opencode.json
-
-FIX_SUMMARY.md
-TEST_RESULTS.md
-VERIFICATION_SUMMARY.md
-backend/VERIFICATION_SUMMARY.md
+# Scratch scripts and downloaded references
+scripts/downloadAllStitchReferences.js
+verification-artifacts/stitch-references/html/
+verification-artifacts/stitch-references/manifest.json

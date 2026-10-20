@@ -1,23 +1,35 @@
 # Hotel New Moorthi Cafe — Shared API Contract
 
-**Version**: `1.1.0`  
+**Version**: `1.2.0-reconciliation`  
 **Base URL (Local)**: `http://localhost:5000/api/v1`  
 **Timezone**: `Asia/Kolkata` (UTC+05:30)  
-**Coordination Lead**: Ragul (Phase R2 Deliverable)  
+**Coordination Lead**: Ragul S (Team Lead, Integration & Delivery)  
 **Consumers**: Rohith (Frontend UI) & Ravi (Backend Engine)  
+**Audit Reference**: [docs/CONTRACT-RECONCILIATION.md](file:///d:/Project/moorthy%20cafe/docs/CONTRACT-RECONCILIATION.md)  
+
+> [!WARNING]
+> **RECONCILIATION NOTICE (Phase R2.1)**:
+> This contract document has been reconciled against the active backend source code. 
+> To prevent integration breakage, this document explicitly distinguishes between:
+> 1. **Verified Active Backend Implementation** (passes 55 backend regression tests; uses INR numbers with 2 decimals, Bearer JWT in headers, and uppercase enums).
+> 2. **Pending Architectural Proposals** (integer paise, HTTP-only cookies, and lowercase enums from the original brief; currently blocked pending team review).
+> **Phase R3 integration is blocked until the 4 core decisions in `docs/CONTRACT-RECONCILIATION.md` are formally agreed.**
 
 ---
 
 ## 1. Global Conventions & Standards
 
 ### 1.1 Money Representation
-- **Rule**: All monetary values in the database and API are represented as **positive integer paise** (1 INR = 100 paise).
-  - Example: ₹80.00 is stored and transmitted as `8000`.
-  - Example: ₹125.50 is stored and transmitted as `12550`.
-- **Frontend Formatting**: The frontend converts paise to formatted currency for display:
-  ```javascript
-  export const formatPaise = (paise) => `₹${(paise / 100).toFixed(2)}`;
-  ```
+- **Current Active Implementation (Verified by 55 Tests)**:
+  - All prices and monetary amounts in MongoDB models (`Food`, `Order`) and API responses are returned as **standard numbers in INR (Rupees)** with up to 2 decimal places.
+  - Examples: `price: 160.0`, `subtotal: 320`, `gst: 16`, `packagingCharge: 15`, `totalAmount: 351`.
+  - Frontend display format:
+    ```javascript
+    export const formatINR = (amount) => `₹${Number(amount || 0).toFixed(2)}`;
+    ```
+- **Proposed Target (Pending Team Decision 2)**:
+  - Integer paise convention (e.g. `pricePaise: 16000`).
+  - *Status*: PENDING team consensus. Do not rewrite backend schemas or calculation code without an approved migration plan.
 
 ### 1.2 Standard Response Envelopes
 Every API response strictly follows this JSON envelope format:
@@ -46,24 +58,35 @@ Every API response strictly follows this JSON envelope format:
 ```
 
 ### 1.3 Authentication Scheme
-- **Scheme**: Bearer JWT passed in header: `Authorization: Bearer <token>`.
-- **Cookie Support**: Endpoints support credentials mode (`withCredentials: true`), allowing JWT to be delivered via HTTP-only cookie or authorization header.
-- **Login Identifier Resolution**: Customers can log in using either **Email Address** or **Registered 10-digit Mobile Number** via the unified `identifier` (or `email`) field.
+- **Current Active Implementation (Verified)**:
+  - **Scheme**: Bearer JWT passed in header: `Authorization: Bearer <token>`.
+  - **Login Payload**: Accepts either email or registered mobile number in `identifier` (or `email`).
+  - **Response**: JWT token returned in JSON body (`data.token`).
+  - **Client Storage**: Token stored in client-side memory or `localStorage` (`moorthi_token`).
+- **Proposed Target (Pending Team Decision 3)**:
+  - HTTP-only cookie delivery with CSRF tokens.
+  - *Status*: PENDING team consensus. Active backend has no cookie-parser middleware.
 
 ### 1.4 Order Idempotency
-- **Rule**: All order creation requests (`POST /orders`) require an `Idempotency-Key` header with a unique client-generated UUID/v4.
 - **Header**: `Idempotency-Key: <unique-uuid-v4>`
 - **Behavior**:
   - Re-sending the identical request with the same key returns the existing order (`200 OK` or `201 Created`).
-  - Sending a altered request (e.g., modified items or quantities) with an existing key returns `409 Conflict`.
+  - Sending an altered request with an existing key returns `409 Conflict`.
+  - Mongoose schema has `idempotencyKey` indexed as `sparse: true, unique: true`.
 
 ### 1.5 Order Lifecycle State Machine
-```
-[ PLACED / PENDING ] ──▶ [ CONFIRMED ] ──▶ [ PREPARING ] ──▶ [ READY / READY_FOR_PICKUP ] ──▶ [ COMPLETED ]
-         │
-         ▼
-   [ CANCELLED ] (Customer allowed only when status is PLACED / PENDING)
-```
+- **Current Active Implementation (Verified)**:
+  ```
+  [ PLACED ] ──▶ [ CONFIRMED ] ──▶ [ PREPARING ] ──▶ [ READY ] ──▶ [ COMPLETED ]
+       │
+       ▼
+  [ CANCELLED ] (Customer allowed only when status is PLACED)
+  ```
+  - Payment Statuses: `PENDING`, `PAID`, `REFUNDED`
+  - Payment Methods: `COUNTER_CASH`, `UPI`, `CARD` (Default: `UPI`)
+- **Proposed Target (Pending Team Decision 4)**:
+  - Lowercase states: `pending`, `ready_for_pickup`, `PAY_AT_COUNTER`.
+  - *Status*: PENDING team consensus. Backend strictly enforces uppercase enums.
 
 ---
 
@@ -72,7 +95,7 @@ Every API response strictly follows this JSON envelope format:
 ### Group 1: Authentication (`/auth`)
 
 #### 1.1 Register Customer
-- **Endpoint**: `POST /auth/register` (alias: `POST /auth/signup`)
+- **Endpoint**: `POST /auth/register` (alias: `POST /auth/signup` both active)
 - **Access**: Public (Rate-limited: 30 requests / 15 mins)
 - **Request Body**:
 ```json
@@ -113,7 +136,7 @@ Every API response strictly follows this JSON envelope format:
   "password": "Password123!"
 }
 ```
-*(Note: `identifier` accepts either email or 10-digit mobile number).*
+*(Accepts either email address or 10-digit mobile number in `identifier`).*
 - **Success Response (`200 OK`)**:
 ```json
 {
@@ -145,6 +168,7 @@ Every API response strictly follows this JSON envelope format:
   "data": null
 }
 ```
+*(Client action: discard local JWT token).*
 
 #### 1.4 Get Current User Profile
 - **Endpoint**: `GET /auth/me`
@@ -176,29 +200,23 @@ Every API response strictly follows this JSON envelope format:
 - **Endpoint**: `GET /categories`
 - **Access**: Public
 - **Query Params**:
-  - `active` (boolean, default: `true`)
+  - `all` (boolean, default: `false`, admin only to view inactive categories)
 - **Success Response (`200 OK`)**:
 ```json
 {
   "success": true,
-  "message": "Active categories retrieved successfully",
+  "message": "Categories retrieved successfully",
   "data": {
+    "count": 2,
     "categories": [
       {
-        "id": "670f5e1b7c3d2a1b4c8e9f10",
-        "name": "South Indian Breakfast",
-        "slug": "south-indian-breakfast",
-        "description": "Steaming hot idlis, crispy vadas, and traditional tiffins",
+        "_id": "670f5e1b7c3d2a1b4c8e9f10",
+        "name": "Morning Tiffin",
+        "slug": "morning-tiffin",
+        "description": "Slow-fermented overnight batters, stoneground chutneys & hot drumstick sambar",
         "displayOrder": 1,
-        "isActive": true
-      },
-      {
-        "id": "670f5e1b7c3d2a1b4c8e9f11",
-        "name": "Crispy Dosas",
-        "slug": "crispy-dosas",
-        "description": "Golden roasted dosas served with 3 chutneys and sambar",
-        "displayOrder": 2,
-        "isActive": true
+        "isActive": true,
+        "itemCount": 3
       }
     ]
   }
@@ -209,66 +227,42 @@ Every API response strictly follows this JSON envelope format:
 - **Endpoint**: `GET /foods`
 - **Access**: Public
 - **Query Params**:
-  - `category` (string, category ID or slug)
-  - `search` (string, keyword search against name & description)
-  - `dietary` (string, `VEG` | `NON_VEG` | `VEGAN`)
-  - `available` (boolean, default: `true`)
+  - `category` (string, category ObjectId or slug)
+  - `search` (string, keyword search against name, description & tags)
+  - `isAvailable` (boolean, default: `true` for public)
+  - `sort` (string, `price_asc` | `price_desc` | `name_asc` | `newest`)
   - `page` (number, default: `1`)
   - `limit` (number, default: `20`)
 - **Success Response (`200 OK`)**:
 ```json
 {
   "success": true,
-  "message": "Food items retrieved successfully",
+  "message": "Foods retrieved successfully",
   "data": {
-    "items": [
+    "foods": [
       {
-        "id": "670f5e1b7c3d2a1b4c8e9f20",
-        "name": "Ghee Podi Idli (2 Pcs)",
+        "_id": "670f5e1b7c3d2a1b4c8e9f20",
+        "name": "Golden Ghee Roast Masala Dosa",
+        "description": "Crisp cone-rolled dosa cooked on seasoned cast iron with A2 cow ghee",
+        "price": 160.0,
         "category": {
-          "id": "670f5e1b7c3d2a1b4c8e9f10",
-          "name": "South Indian Breakfast",
-          "slug": "south-indian-breakfast"
+          "_id": "670f5e1b7c3d2a1b4c8e9f10",
+          "name": "Morning Tiffin",
+          "slug": "morning-tiffin"
         },
-        "description": "Mini rice cakes tossed in aromatic spiced lentil gunpowder and clarified butter",
-        "pricePaise": 6000,
-        "formattedPrice": "₹60.00",
+        "imageUrl": "",
         "isAvailable": true,
-        "dietaryTag": "VEG",
-        "spiceLevel": "MEDIUM",
-        "imageUrl": "/assets/foods/ghee_podi_idli.jpg"
+        "isVeg": true,
+        "portion": "1 Plate (Single Cone)",
+        "prepTimeMinutes": 12,
+        "tags": ["chef-special", "pure-ghee"]
       }
     ],
     "pagination": {
-      "currentPage": 1,
-      "totalPages": 1,
-      "totalItems": 1,
-      "limit": 20
-    }
-  }
-}
-```
-
-#### 2.3 Get Food Item Details
-- **Endpoint**: `GET /foods/:id`
-- **Access**: Public
-- **Success Response (`200 OK`)**:
-```json
-{
-  "success": true,
-  "message": "Food details retrieved successfully",
-  "data": {
-    "food": {
-      "id": "670f5e1b7c3d2a1b4c8e9f20",
-      "name": "Ghee Podi Idli (2 Pcs)",
-      "category": "670f5e1b7c3d2a1b4c8e9f10",
-      "description": "Mini rice cakes tossed in aromatic spiced lentil gunpowder and clarified butter",
-      "pricePaise": 6000,
-      "formattedPrice": "₹60.00",
-      "isAvailable": true,
-      "dietaryTag": "VEG",
-      "spiceLevel": "MEDIUM",
-      "imageUrl": "/assets/foods/ghee_podi_idli.jpg"
+      "total": 1,
+      "page": 1,
+      "limit": 20,
+      "pages": 1
     }
   }
 }
@@ -279,50 +273,38 @@ Every API response strictly follows this JSON envelope format:
 ### Group 3: Cart Validation & Orders (`/orders`)
 
 #### 3.1 Validate Cart & Preview Bill
-- **Endpoint**: `POST /orders/validate-cart` (alias: `POST /orders/preview`)
+- **Endpoint**: `POST /orders/validate-cart` (alias: `POST /orders/preview` both active)
 - **Access**: Public or Authenticated
-- **Purpose**: Calculate live bill breakdown before checkout. Ensures food is available and calculates tax/packaging without storing an order.
 - **Request Body**:
 ```json
 {
   "items": [
     {
       "foodId": "670f5e1b7c3d2a1b4c8e9f20",
-      "quantity": 2
+      "quantity": 1
     }
-  ],
-  "pickupType": "IMMEDIATE"
+  ]
 }
 ```
 - **Success Response (`200 OK`)**:
 ```json
 {
   "success": true,
-  "message": "Cart pricing calculated successfully",
+  "message": "Order pricing breakdown calculated successfully",
   "data": {
-    "items": [
+    "itemsSnapshot": [
       {
-        "foodId": "670f5e1b7c3d2a1b4c8e9f20",
-        "name": "Ghee Podi Idli (2 Pcs)",
-        "quantity": 2,
-        "pricePaise": 6000,
-        "lineTotalPaise": 12000,
-        "formattedPrice": "₹60.00",
-        "formattedLineTotal": "₹120.00"
+        "food": "670f5e1b7c3d2a1b4c8e9f20",
+        "name": "Golden Ghee Roast Masala Dosa",
+        "price": 160.0,
+        "quantity": 1,
+        "lineTotal": 160.0
       }
     ],
-    "pricing": {
-      "subtotalPaise": 12000,
-      "packagingChargePaise": 1500,
-      "taxRatePercentage": 5,
-      "taxAmountPaise": 600,
-      "totalPaise": 14100,
-      "formattedSubtotal": "₹120.00",
-      "formattedPackaging": "₹15.00",
-      "formattedTax": "₹6.00",
-      "formattedTotal": "₹141.00"
-    },
-    "estimatedPrepMinutes": 15
+    "subtotal": 160.0,
+    "gst": 8.0,
+    "packagingCharge": 15.0,
+    "totalAmount": 183.0
   }
 }
 ```
@@ -330,53 +312,52 @@ Every API response strictly follows this JSON envelope format:
 #### 3.2 Create Order (Place Pickup Order)
 - **Endpoint**: `POST /orders`
 - **Access**: Authenticated (`Authorization: Bearer <token>`)
-- **Required Header**: `Idempotency-Key: <UUID-v4>`
+- **Header**: `Idempotency-Key: <UUID-v4>`
 - **Request Body**:
 ```json
 {
   "items": [
     {
       "foodId": "670f5e1b7c3d2a1b4c8e9f20",
-      "quantity": 2
+      "quantity": 1
     }
   ],
   "pickupType": "IMMEDIATE",
-  "specialInstructions": "Please pack sambar separately"
+  "notes": "Crispy roast, separate sambar bowl",
+  "paymentMethod": "UPI"
 }
 ```
-- **Success Response (`201 Created`)**:
+- **Success Response (`201 Created` or `200 OK` on Idempotent Replay)**:
 ```json
 {
   "success": true,
-  "message": "Pickup order placed successfully. Your counter token is ready!",
+  "message": "Order placed successfully! Token issued for counter pickup",
   "data": {
     "order": {
-      "id": "670f5e1b7c3d2a1b4c8e9f50",
-      "orderNumber": "NMC-20261017-0042",
-      "dailyToken": 42,
-      "formattedToken": "#042",
-      "status": "PLACED",
-      "paymentStatus": "PENDING",
-      "paymentMethod": "PAY_AT_COUNTER",
+      "_id": "670f5e1b7c3d2a1b4c8e9f50",
+      "orderId": "HNMC-20261017-0001",
+      "dailyTokenNumber": 1,
+      "businessDate": "2026-10-17",
+      "customer": "670f5e1b7c3d2a1b4c8e9f01",
       "items": [
         {
-          "foodId": "670f5e1b7c3d2a1b4c8e9f20",
-          "name": "Ghee Podi Idli (2 Pcs)",
-          "quantity": 2,
-          "pricePaise": 6000,
-          "lineTotalPaise": 12000
+          "food": "670f5e1b7c3d2a1b4c8e9f20",
+          "name": "Golden Ghee Roast Masala Dosa",
+          "price": 160.0,
+          "quantity": 1,
+          "lineTotal": 160.0
         }
       ],
-      "pricing": {
-        "subtotalPaise": 12000,
-        "packagingChargePaise": 1500,
-        "taxAmountPaise": 600,
-        "totalPaise": 14100,
-        "formattedTotal": "₹141.00"
-      },
-      "estimatedPrepMinutes": 15,
-      "specialInstructions": "Please pack sambar separately",
-      "createdAt": "2026-10-17T04:45:00.000Z"
+      "subtotal": 160.0,
+      "gst": 8.0,
+      "packagingCharge": 15.0,
+      "totalAmount": 183.0,
+      "pickupType": "IMMEDIATE",
+      "notes": "Crispy roast, separate sambar bowl",
+      "status": "PLACED",
+      "paymentStatus": "PENDING",
+      "paymentMethod": "UPI",
+      "createdAt": "2026-10-17T05:00:00.000Z"
     }
   }
 }
@@ -385,33 +366,37 @@ Every API response strictly follows this JSON envelope format:
 #### 3.3 List Customer Orders
 - **Endpoint**: `GET /orders/my`
 - **Access**: Authenticated (`Authorization: Bearer <token>`)
+- **Query Params**: `page` (default 1), `limit` (default 10), `active` (`true`/`false`), `status`
 - **Success Response (`200 OK`)**:
 ```json
 {
   "success": true,
-  "message": "Order history retrieved successfully",
+  "message": "Customer order history retrieved successfully",
   "data": {
     "orders": [
       {
-        "id": "670f5e1b7c3d2a1b4c8e9f50",
-        "orderNumber": "NMC-20261017-0042",
-        "dailyToken": 42,
-        "formattedToken": "#042",
+        "_id": "670f5e1b7c3d2a1b4c8e9f50",
+        "orderId": "HNMC-20261017-0001",
+        "dailyTokenNumber": 1,
         "status": "PLACED",
         "paymentStatus": "PENDING",
-        "totalPaise": 14100,
-        "formattedTotal": "₹141.00",
-        "itemCount": 2,
-        "createdAt": "2026-10-17T04:45:00.000Z"
+        "totalAmount": 183.0,
+        "createdAt": "2026-10-17T05:00:00.000Z"
       }
-    ]
+    ],
+    "pagination": {
+      "total": 1,
+      "page": 1,
+      "limit": 10,
+      "pages": 1
+    }
   }
 }
 ```
 
 #### 3.4 Get Customer Order by ID
 - **Endpoint**: `GET /orders/:id`
-- **Access**: Authenticated (Owner customer or Admin)
+- **Access**: Authenticated (Order owner or Admin)
 - **Success Response (`200 OK`)**:
 ```json
 {
@@ -419,29 +404,24 @@ Every API response strictly follows this JSON envelope format:
   "message": "Order details retrieved successfully",
   "data": {
     "order": {
-      "id": "670f5e1b7c3d2a1b4c8e9f50",
-      "orderNumber": "NMC-20261017-0042",
-      "dailyToken": 42,
-      "formattedToken": "#042",
+      "_id": "670f5e1b7c3d2a1b4c8e9f50",
+      "orderId": "HNMC-20261017-0001",
+      "dailyTokenNumber": 1,
       "status": "PLACED",
       "paymentStatus": "PENDING",
       "items": [
         {
-          "foodId": "670f5e1b7c3d2a1b4c8e9f20",
-          "name": "Ghee Podi Idli (2 Pcs)",
-          "quantity": 2,
-          "pricePaise": 6000,
-          "lineTotalPaise": 12000
+          "name": "Golden Ghee Roast Masala Dosa",
+          "price": 160.0,
+          "quantity": 1,
+          "lineTotal": 160.0
         }
       ],
-      "pricing": {
-        "subtotalPaise": 12000,
-        "packagingChargePaise": 1500,
-        "taxAmountPaise": 600,
-        "totalPaise": 14100,
-        "formattedTotal": "₹141.00"
-      },
-      "createdAt": "2026-10-17T04:45:00.000Z"
+      "subtotal": 160.0,
+      "gst": 8.0,
+      "packagingCharge": 15.0,
+      "totalAmount": 183.0,
+      "createdAt": "2026-10-17T05:00:00.000Z"
     }
   }
 }
@@ -458,16 +438,17 @@ Every API response strictly follows this JSON envelope format:
 ```json
 {
   "success": true,
-  "message": "Admin operations metrics retrieved successfully",
+  "message": "Operations dashboard metrics retrieved successfully",
   "data": {
-    "todayMetrics": {
-      "totalOrders": 128,
-      "pendingOrders": 6,
-      "preparingOrders": 12,
-      "readyOrders": 4,
-      "completedOrders": 104,
-      "totalRevenuePaise": 2456000,
-      "formattedRevenue": "₹24,560.00"
+    "today": {
+      "totalOrders": 12,
+      "pendingOrders": 2,
+      "preparingOrders": 3,
+      "readyOrders": 1,
+      "completedOrders": 6,
+      "cancelledOrders": 0,
+      "totalRevenue": 2450.0,
+      "averageOrderValue": 204.17
     }
   }
 }
@@ -477,32 +458,38 @@ Every API response strictly follows this JSON envelope format:
 - **Endpoint**: `GET /admin/orders`
 - **Access**: Admin only
 - **Query Params**:
-  - `status` (string, `PLACED` | `CONFIRMED` | `PREPARING` | `READY` | `COMPLETED` | `CANCELLED`)
-  - `date` (string, YYYY-MM-DD)
-  - `page` (number, default: `1`)
-  - `limit` (number, default: `20`)
+  - `status` (`PLACED` | `CONFIRMED` | `PREPARING` | `READY` | `COMPLETED` | `CANCELLED` | `all`)
+  - `businessDate` (YYYY-MM-DD)
+  - `search` (orderId, customer, token number)
+  - `page`, `limit`
 - **Success Response (`200 OK`)**:
 ```json
 {
   "success": true,
-  "message": "Admin orders list retrieved successfully",
+  "message": "Orders retrieved successfully for admin management",
   "data": {
     "orders": [
       {
-        "id": "670f5e1b7c3d2a1b4c8e9f50",
-        "orderNumber": "NMC-20261017-0042",
-        "dailyToken": 42,
-        "formattedToken": "#042",
+        "_id": "670f5e1b7c3d2a1b4c8e9f50",
+        "orderId": "HNMC-20261017-0001",
+        "dailyTokenNumber": 1,
         "customer": {
           "name": "Sundaram Natarajan",
-          "phone": "+91 98765 43210"
+          "phone": "+91 98765 43210",
+          "email": "sundaram.natarajan@example.com"
         },
         "status": "PLACED",
         "paymentStatus": "PENDING",
-        "totalPaise": 14100,
-        "createdAt": "2026-10-17T04:45:00.000Z"
+        "totalAmount": 183.0,
+        "createdAt": "2026-10-17T05:00:00.000Z"
       }
-    ]
+    ],
+    "pagination": {
+      "total": 1,
+      "page": 1,
+      "limit": 20,
+      "pages": 1
+    }
   }
 }
 ```
@@ -513,20 +500,22 @@ Every API response strictly follows this JSON envelope format:
 - **Request Body**:
 ```json
 {
-  "status": "CONFIRMED"
+  "status": "CONFIRMED",
+  "note": "Ticket sent to kitchen"
 }
 ```
-*(Valid transitions: `PLACED` ➔ `CONFIRMED` ➔ `PREPARING` ➔ `READY` ➔ `COMPLETED`).*
+*(Valid transitions: `PLACED` ➔ `CONFIRMED` ➔ `PREPARING` ➔ `READY` ➔ `COMPLETED`; or `CANCELLED`).*
 - **Success Response (`200 OK`)**:
 ```json
 {
   "success": true,
-  "message": "Order status updated successfully",
+  "message": "Order status updated to CONFIRMED successfully",
   "data": {
     "order": {
-      "id": "670f5e1b7c3d2a1b4c8e9f50",
+      "_id": "670f5e1b7c3d2a1b4c8e9f50",
+      "orderId": "HNMC-20261017-0001",
       "status": "CONFIRMED",
-      "updatedAt": "2026-10-17T04:50:00.000Z"
+      "updatedAt": "2026-10-17T05:10:00.000Z"
     }
   }
 }

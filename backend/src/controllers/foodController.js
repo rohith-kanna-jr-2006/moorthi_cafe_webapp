@@ -22,8 +22,8 @@ const getFoods = asyncHandler(async (req, res, next) => {
   // Default availability and publication filters:
   // Public diners only see available, published, non-archived foods
   if (!req.user || req.user.role !== 'admin') {
-    query.isAvailable = true;
-    query.isPublished = true;
+    query.isAvailable = { $ne: false };
+    query.isPublished = { $ne: false };
     query.isArchived = { $ne: true };
   } else {
     if (isAvailable !== undefined) {

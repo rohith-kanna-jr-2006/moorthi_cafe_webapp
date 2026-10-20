@@ -29,8 +29,8 @@ const MenuManagement = () => {
         setCategories(categoriesResponse.data.categories);
       }
 
-      // Fetch foods (you can add filtering here if needed)
-      const foodsResponse = await api.getFoods();
+      // Fetch foods (with limit 100 to show all items)
+      const foodsResponse = await api.getFoods({ limit: 100 });
       if (foodsResponse.success) {
         setDishes(foodsResponse.data.foods);
       }

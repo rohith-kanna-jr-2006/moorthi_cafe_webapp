@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1C1917" />
+      <stop offset="100%" stop-color="#0C0A09" />
+    </linearGradient>
+    <radialGradient id="plateGlow" cx="50%" cy="55%" r="45%">
+      <stop offset="0%" stop-color="#B45309" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#0C0A09" stop-opacity="0" />
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="600" fill="url(#bgGrad)" />
+  <circle cx="400" cy="340" r="280" fill="url(#plateGlow)" />
+
+  <!-- Restaurant Header Ribbon -->
+  <rect x="0" y="0" width="800" height="64" fill="#18181B" opacity="0.9" />
+  <rect x="0" y="62" width="800" height="3" fill="#D97706" />
+  <text x="40" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#F59E0B" letter-spacing="1.5">HOTEL NEW MOORTHI CAFE</text>
+  <text x="760" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#A1A1AA" text-anchor="end">CHIDAMBARAM — SINCE HERITAGE</text>
+
+  <!-- Dish Graphic -->
+  <g filter="url(#shadow)">
+    
+        <!-- Banana Leaf with Flaky Parotta / Breads -->
+        <path d="M 180 340 C 220 220 580 220 620 340 C 580 460 220 460 180 340 Z" fill="#15803D" />
+        <!-- Layered flaky golden disc -->
+        <ellipse cx="380" cy="335" rx="130" ry="75" fill="#D97706" />
+        <ellipse cx="380" cy="330" rx="115" ry="65" fill="#FDE68A" />
+        <circle cx="380" cy="330" r="45" fill="none" stroke="#B45309" stroke-width="6" opacity="0.7" />
+        <circle cx="380" cy="330" r="25" fill="none" stroke="#B45309" stroke-width="5" opacity="0.6" />
+        <!-- Salna bowl on the side -->
+        <circle cx="490" cy="310" r="42" fill="#3E1107" />
+        <circle cx="490" cy="310" r="36" fill="#B45309" />
+      
+  </g>
+
+  <!-- Title & Metadata Card -->
+  <rect x="40" y="450" width="720" height="115" rx="16" fill="#18181B" opacity="0.95" stroke="#27272A" stroke-width="2" />
+  
+  <!-- Status Badge -->
+  <rect x="60" y="468" width="310" height="24" rx="6" fill="#15803D" />
+  <text x="70" y="484" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">AUTHENTIC CHIDAMBARAM SPECIALTY</text>
+  
+  <!-- Category tag -->
+  <text x="740" y="484" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#D97706" text-anchor="end">Parotta & Breads</text>
+
+  <!-- Tamil & English Names -->
+  <text x="60" y="525" font-family="system-ui, -apple-system, 'Noto Sans Tamil', sans-serif" font-size="24" font-weight="700" fill="#F43F5E">பன் பரோட்டா</text>
+  <text x="60" y="552" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#F4F4F5">Bun Parotta</text>
+</svg>

@@ -181,6 +181,69 @@ const api = {
     });
     return response.json();
   },
+
+  // Customer Orders Endpoints
+  previewOrder: async (items, token) => {
+    const response = await fetch(`${API_BASE_URL}/orders/preview`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ items }),
+    });
+    return response.json();
+  },
+
+  placeOrder: async (orderPayload, token, idempotencyKey) => {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    };
+    if (idempotencyKey) {
+      headers['Idempotency-Key'] = idempotencyKey;
+    }
+    const response = await fetch(`${API_BASE_URL}/orders`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(orderPayload),
+    });
+    return response.json();
+  },
+
+  getMyOrders: async (token) => {
+    const response = await fetch(`${API_BASE_URL}/orders/my`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.json();
+  },
+
+  getOrderById: async (id, token) => {
+    const response = await fetch(`${API_BASE_URL}/orders/${id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.json();
+  },
+
+  cancelOrder: async (id, reason, token) => {
+    const response = await fetch(`${API_BASE_URL}/orders/${id}/cancel`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ reason: reason || 'Customer requested cancellation' }),
+    });
+    return response.json();
+  },
 };
 
 export default api;

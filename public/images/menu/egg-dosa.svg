@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1C1917" />
+      <stop offset="100%" stop-color="#0C0A09" />
+    </linearGradient>
+    <radialGradient id="plateGlow" cx="50%" cy="55%" r="45%">
+      <stop offset="0%" stop-color="#D97706" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#0C0A09" stop-opacity="0" />
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="600" fill="url(#bgGrad)" />
+  <circle cx="400" cy="340" r="280" fill="url(#plateGlow)" />
+
+  <!-- Restaurant Header Ribbon -->
+  <rect x="0" y="0" width="800" height="64" fill="#18181B" opacity="0.9" />
+  <rect x="0" y="62" width="800" height="3" fill="#D97706" />
+  <text x="40" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#F59E0B" letter-spacing="1.5">HOTEL NEW MOORTHI CAFE</text>
+  <text x="760" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#A1A1AA" text-anchor="end">CHIDAMBARAM — SINCE HERITAGE</text>
+
+  <!-- Dish Graphic -->
+  <g filter="url(#shadow)">
+    
+        <!-- Plantain Leaf with Crisp Dosa Cone & Chutneys -->
+        <path d="M 170 345 C 210 230 590 230 630 345 C 590 460 210 460 170 345 Z" fill="#16A34A" />
+        <!-- Golden crisp cone dosa -->
+        <polygon points="400,190 300,360 480,360" fill="#F59E0B" />
+        <polygon points="400,190 320,355 460,355" fill="#FEF08A" />
+        <polygon points="400,190 340,350 440,350" fill="#FBBF24" opacity="0.8" />
+        <!-- Chutney Katoris -->
+        <circle cx="280" cy="365" r="24" fill="#F8FAFC" stroke="#94A3B8" stroke-width="4" />
+        <circle cx="330" cy="385" r="22" fill="#EF4444" stroke="#94A3B8" stroke-width="4" />
+        <circle cx="490" cy="375" r="26" fill="#D97706" stroke="#94A3B8" stroke-width="4" />
+      
+  </g>
+
+  <!-- Title & Metadata Card -->
+  <rect x="40" y="450" width="720" height="115" rx="16" fill="#18181B" opacity="0.95" stroke="#27272A" stroke-width="2" />
+  
+  <!-- Status Badge -->
+  <rect x="60" y="468" width="310" height="24" rx="6" fill="#15803D" />
+  <text x="70" y="484" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">AUTHENTIC CHIDAMBARAM SPECIALTY</text>
+  
+  <!-- Category tag -->
+  <text x="740" y="484" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#D97706" text-anchor="end">Dosa Items</text>
+
+  <!-- Tamil & English Names -->
+  <text x="60" y="525" font-family="system-ui, -apple-system, 'Noto Sans Tamil', sans-serif" font-size="24" font-weight="700" fill="#F43F5E">முட்டை தோசை</text>
+  <text x="60" y="552" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#F4F4F5">Egg Dosa</text>
+</svg>
