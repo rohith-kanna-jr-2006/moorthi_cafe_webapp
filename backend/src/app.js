@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 
+const path = require('path');
 const env = require('./config/env');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
@@ -52,9 +53,12 @@ const globalLimiter = rateLimit({
 });
 app.use(globalLimiter);
 
-// Body parser
-app.use(express.json({ limit: '1mb' }));
-app.use(express.urlencoded({ extended: true, limit: '1mb' }));
+// Body parser (supports up to 5MB image base64 uploads)
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Static asset delivery for food photos and uploaded media
+app.use('/images', express.static(path.join(__dirname, '../public/images')));
 
 // Health Check Endpoint
 app.get('/api/v1/health', (req, res) => {

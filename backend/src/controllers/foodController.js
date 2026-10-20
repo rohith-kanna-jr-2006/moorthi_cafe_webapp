@@ -19,14 +19,25 @@ const getFoods = asyncHandler(async (req, res, next) => {
 
   const query = {};
 
-  // Availability filter: Public users only view available foods unless explicitly requested by admin
-  if (isAvailable !== undefined) {
-    if (isAvailable !== 'true' && isAvailable !== 'false') {
-      return next(new AppError("Query parameter 'isAvailable' must be either 'true' or 'false'", 400));
-    }
-    query.isAvailable = isAvailable === 'true';
-  } else if (!req.user || req.user.role !== 'admin') {
+  // Default availability and publication filters:
+  // Public diners only see available, published, non-archived foods
+  if (!req.user || req.user.role !== 'admin') {
     query.isAvailable = true;
+    query.isPublished = true;
+    query.isArchived = { $ne: true };
+  } else {
+    if (isAvailable !== undefined) {
+      if (isAvailable !== 'true' && isAvailable !== 'false') {
+        return next(new AppError("Query parameter 'isAvailable' must be either 'true' or 'false'", 400));
+      }
+      query.isAvailable = isAvailable === 'true';
+    }
+    if (req.query.isPublished !== undefined) {
+      query.isPublished = req.query.isPublished === 'true';
+    }
+    if (req.query.isArchived !== undefined) {
+      query.isArchived = req.query.isArchived === 'true';
+    }
   }
 
   // Category filter: support category ObjectId or slug
@@ -51,11 +62,13 @@ const getFoods = asyncHandler(async (req, res, next) => {
     }
   }
 
-  // Search filter with literal regex escaping
+  // Search filter with literal regex escaping across English, Tamil and description
   if (search) {
     const escaped = escapeRegex(search);
     query.$or = [
       { name: { $regex: escaped, $options: 'i' } },
+      { nameEnglish: { $regex: escaped, $options: 'i' } },
+      { nameTamil: { $regex: escaped, $options: 'i' } },
       { description: { $regex: escaped, $options: 'i' } },
       { tags: { $in: [new RegExp(escaped, 'i')] } },
     ];
@@ -120,20 +133,53 @@ const getFoodById = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/foods
 // @access  Private (Admin only)
 const createFood = asyncHandler(async (req, res, next) => {
-  const { name, description, price, category, imageUrl, isAvailable, isVeg, portion, prepTimeMinutes, tags } = req.body;
+  const {
+    name,
+    nameTamil,
+    nameEnglish,
+    description,
+    price,
+    pricePaise,
+    variants,
+    category,
+    imageUrl,
+    imageAlt,
+    imageSource,
+    imageLicense,
+    isAvailable,
+    isPublished,
+    needsVerification,
+    verificationNotes,
+    isVeg,
+    portion,
+    prepTimeMinutes,
+    tags,
+  } = req.body;
 
   const categoryExists = await Category.findById(category);
   if (!categoryExists) {
     return next(new AppError('Referenced category does not exist', 404));
   }
 
+  const finalRupeePrice = price !== undefined ? price : (pricePaise !== undefined ? pricePaise / 100 : 0);
+
   const food = await Food.create({
-    name: name.trim(),
+    name: (name || nameEnglish || '').trim(),
+    nameTamil: nameTamil ? nameTamil.trim() : '',
+    nameEnglish: (nameEnglish || name || '').trim(),
     description: description ? description.trim() : '',
-    price,
+    price: finalRupeePrice,
+    pricePaise: pricePaise !== undefined ? pricePaise : Math.round(finalRupeePrice * 100),
+    variants: Array.isArray(variants) ? variants : [],
     category,
     imageUrl: imageUrl ? imageUrl.trim() : '',
+    imageAlt: imageAlt ? imageAlt.trim() : (name || nameEnglish || ''),
+    imageSource: imageSource ? imageSource.trim() : '',
+    imageLicense: imageLicense ? imageLicense.trim() : '',
     isAvailable: isAvailable !== undefined ? isAvailable : true,
+    isPublished: isPublished !== undefined ? isPublished : true,
+    needsVerification: needsVerification !== undefined ? needsVerification : false,
+    verificationNotes: verificationNotes ? verificationNotes.trim() : '',
     isVeg: isVeg !== undefined ? isVeg : true,
     portion: portion ? portion.trim() : 'Standard Serving',
     prepTimeMinutes: prepTimeMinutes || 15,
@@ -154,7 +200,7 @@ const createFood = asyncHandler(async (req, res, next) => {
 // @access  Private (Admin only)
 const updateFood = asyncHandler(async (req, res, next) => {
   normalizeFoodBody(req.body);
-  const { category, price } = req.body;
+  const { category, price, pricePaise } = req.body;
 
   if (category) {
     if (typeof category !== 'string' || !category.match(/^[0-9a-fA-F]{24}$/)) {
@@ -172,10 +218,42 @@ const updateFood = asyncHandler(async (req, res, next) => {
       return next(new AppError('Price must be a valid non-negative number in INR (e.g. 120 or 120.50)', 400));
     }
     req.body.price = parsedPrice;
+    req.body.pricePaise = Math.round(parsedPrice * 100);
+  } else if (pricePaise !== undefined) {
+    const pPaise = parseInt(pricePaise, 10);
+    if (isNaN(pPaise) || pPaise < 0) {
+      return next(new AppError('pricePaise must be a valid non-negative integer', 400));
+    }
+    req.body.pricePaise = pPaise;
+    req.body.price = pPaise / 100;
   }
 
   // Preserve partial update integrity: only update explicitly provided allowed fields
-  const allowedUpdates = ['name', 'description', 'price', 'category', 'imageUrl', 'isAvailable', 'isVeg', 'portion', 'prepTimeMinutes', 'tags'];
+  const allowedUpdates = [
+    'name',
+    'nameTamil',
+    'nameEnglish',
+    'description',
+    'price',
+    'pricePaise',
+    'variants',
+    'category',
+    'imageUrl',
+    'imageAlt',
+    'imageSource',
+    'imageLicense',
+    'imageStatus',
+    'isAvailable',
+    'isPublished',
+    'isArchived',
+    'needsVerification',
+    'verificationNotes',
+    'discount',
+    'isVeg',
+    'portion',
+    'prepTimeMinutes',
+    'tags',
+  ];
   const updateData = {};
   for (const field of allowedUpdates) {
     if (req.body[field] !== undefined) {
@@ -208,26 +286,29 @@ const deleteFood = asyncHandler(async (req, res, next) => {
     return next(new AppError('Food item not found', 404));
   }
 
-  // Safe Deactivation Policy:
-  // If historical orders reference this food, do not hard-delete; toggle isAvailable = false
+  // Archive-Only Policy:
+  // Food dishes are safely retired/archived rather than hard-deleted from MongoDB
+  // to preserve historical order snapshots and foreign-key referential integrity
+  food.isArchived = true;
+  food.isAvailable = false;
+  food.isPublished = false;
+  await food.save();
+
   const orderCount = await Order.countDocuments({ 'items.food': food._id });
-  if (orderCount > 0) {
-    food.isAvailable = false;
-    await food.save();
 
-    return res.status(200).json({
-      success: true,
-      message: `Food item is referenced in ${orderCount} historical orders. Safely marked unavailable to preserve order integrity.`,
-      data: { food, deactivated: true },
-    });
-  }
-
-  await food.deleteOne();
-
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
-    message: 'Food item permanently deleted',
-    data: { id: req.params.id, deleted: true },
+    message: `Food item '${food.name}' has been safely archived and retired from the menu.`,
+    data: {
+      food,
+      archived: true,
+      deleted: false,
+      deactivated: true,
+      isArchived: true,
+      isAvailable: false,
+      isPublished: false,
+      historicalOrderCount: orderCount,
+    },
   });
 });
 

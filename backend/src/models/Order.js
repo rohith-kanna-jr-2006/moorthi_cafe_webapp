@@ -27,6 +27,46 @@ const orderItemSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
+    variantName: {
+      type: String,
+      trim: true,
+      default: null,
+    },
+    originalPrice: {
+      type: Number,
+      min: 0,
+    },
+    originalPricePaise: {
+      type: Number,
+      min: 0,
+    },
+    pricePaise: {
+      type: Number,
+      min: 0,
+    },
+    lineTotalPaise: {
+      type: Number,
+      min: 0,
+    },
+    discountApplied: {
+      type: {
+        type: String,
+        enum: ['PERCENTAGE', 'FIXED_AMOUNT', null],
+        default: null,
+      },
+      value: {
+        type: Number,
+        default: 0,
+      },
+      discountAmount: {
+        type: Number,
+        default: 0,
+      },
+      discountAmountPaise: {
+        type: Number,
+        default: 0,
+      },
+    },
   },
   { _id: false }
 );

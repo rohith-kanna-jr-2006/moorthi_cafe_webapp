@@ -1,3 +1,4 @@
+require('./setupTestEnv');
 const { spawn } = require('child_process');
 const path = require('path');
 
@@ -8,6 +9,7 @@ const testFiles = [
   'tests/concurrency_token.test.js',
   'tests/admin.test.js',
   'tests/security_regression.test.js',
+  'tests/admin_foods_discount.test.js',
 ];
 
 console.log('====================================================');
@@ -34,6 +36,11 @@ function runNext() {
   const child = spawn(process.execPath, ['--test', file], {
     cwd: path.resolve(__dirname, '..'),
     stdio: 'inherit',
+    env: {
+      ...process.env,
+      NODE_ENV: 'test',
+      MONGODB_URI: process.env.TEST_MONGODB_URI || 'mongodb://127.0.0.1:27017/moorthi_cafe_test',
+    },
   });
 
   child.on('close', (code) => {
