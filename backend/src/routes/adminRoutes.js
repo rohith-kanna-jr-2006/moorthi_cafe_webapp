@@ -25,4 +25,25 @@ router.get('/orders', getAdminOrders);
 router.get('/orders/:id', getAdminOrderById);
 router.patch('/orders/:id/status', updateOrderStatus);
 
+const {
+  getAdminFoods,
+  getAdminFoodById,
+  createAdminFood,
+  updateAdminFood,
+  setFoodPublication,
+  setFoodAvailability,
+  deleteAdminFood,
+  uploadOrUpdateFoodImage,
+} = require('../controllers/adminFoodController');
+
+// Admin Food Management
+router.get('/foods', getAdminFoods);
+router.get('/foods/:id', getAdminFoodById);
+router.post('/foods', createAdminFood);
+router.patch('/foods/:id', updateAdminFood);
+router.patch('/foods/:id/publish', setFoodPublication);
+router.patch('/foods/:id/availability', setFoodAvailability);
+router.delete('/foods/:id', deleteAdminFood);
+router.post('/foods/:id/image', uploadOrUpdateFoodImage);
+
 module.exports = router;

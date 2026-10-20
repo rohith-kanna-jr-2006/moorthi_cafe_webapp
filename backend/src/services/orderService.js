@@ -6,6 +6,8 @@ const { getKolkataBusinessDate, validatePickupTime } = require('../utils/dateTim
 const { getNextDailyToken } = require('./counterService');
 const generateOrderId = require('../utils/generateOrderId');
 
+const { isDiscountCurrentlyActive, computeEffectivePrice } = require('../utils/discountCalculator');
+
 /**
  * Calculates authoritative order pricing strictly from MongoDB Food records
  */
@@ -14,10 +16,12 @@ async function calculateOrderPricing(itemsInput) {
     throw new AppError('Order must contain at least one food item', 400);
   }
 
-  // 1. Consolidate duplicate food IDs by summing their quantities
+  // 1. Group items by foodId AND variantName (if any)
   const aggregatedMap = new Map();
+  const distinctFoodIds = new Set();
+
   for (const item of itemsInput) {
-    const { foodId, quantity } = item;
+    const { foodId, quantity, variantName } = item;
     if (!foodId || !foodId.match(/^[0-9a-fA-F]{24}$/)) {
       throw new AppError(`Invalid foodId format: '${foodId}'`, 400);
     }
@@ -25,44 +29,93 @@ async function calculateOrderPricing(itemsInput) {
     if (isNaN(qty) || qty <= 0) {
       throw new AppError(`Quantity for foodId '${foodId}' must be a positive integer`, 400);
     }
-    aggregatedMap.set(foodId, (aggregatedMap.get(foodId) || 0) + qty);
+    const cleanVariant = variantName ? String(variantName).trim() : null;
+    const key = `${foodId}:::${cleanVariant ? cleanVariant.toLowerCase() : ''}`;
+
+    if (!aggregatedMap.has(key)) {
+      aggregatedMap.set(key, { foodId, quantity: 0, variantName: cleanVariant });
+    }
+    aggregatedMap.get(key).quantity += qty;
+    distinctFoodIds.add(foodId);
   }
 
-  const foodIds = Array.from(aggregatedMap.keys());
-  const foods = await Food.find({ _id: { $in: foodIds } });
+  const foodIdList = Array.from(distinctFoodIds);
+  const foods = await Food.find({ _id: { $in: foodIdList } });
 
-  if (foods.length !== foodIds.length) {
+  if (foods.length !== foodIdList.length) {
     const foundIds = new Set(foods.map((f) => f._id.toString()));
-    const missing = foodIds.filter((id) => !foundIds.has(id));
+    const missing = foodIdList.filter((id) => !foundIds.has(id));
     throw new AppError(`The following food items do not exist: ${missing.join(', ')}`, 404);
   }
 
+  const foodMap = new Map(foods.map((f) => [f._id.toString(), f]));
+
   // 2. Validate availability and build line item snapshots
   const itemsSnapshot = [];
-  let subtotal = 0;
+  let subtotalPaise = 0;
 
-  for (const food of foods) {
-    if (!food.isAvailable) {
+  for (const [, itemData] of aggregatedMap.entries()) {
+    const food = foodMap.get(itemData.foodId);
+    if (!food.isAvailable || food.isPublished === false || food.isArchived === true) {
       throw new AppError(
         `'${food.name}' is currently sold out / unavailable. Please remove it from your tray to proceed.`,
         400
       );
     }
 
-    const quantity = aggregatedMap.get(food._id.toString());
-    const lineTotal = Math.round(food.price * quantity * 100) / 100;
-    subtotal += lineTotal;
+    let basePriceRupees = food.price;
+    let applicableDiscount = food.discount;
+    let selectedVariant = null;
+
+    if (itemData.variantName) {
+      if (!Array.isArray(food.variants) || food.variants.length === 0) {
+        throw new AppError(`Dish '${food.name}' does not have any variants`, 400);
+      }
+      selectedVariant = food.variants.find(
+        (v) => v.name.toLowerCase() === itemData.variantName.toLowerCase()
+      );
+      if (!selectedVariant) {
+        throw new AppError(
+          `Variant '${itemData.variantName}' does not exist for dish '${food.name}'`,
+          400
+        );
+      }
+      basePriceRupees = selectedVariant.price;
+      // Stacking rule: Variant discount overrides dish discount if present and active
+      if (selectedVariant.discount && isDiscountCurrentlyActive(selectedVariant.discount)) {
+        applicableDiscount = selectedVariant.discount;
+      } else {
+        // Fall back to dish-level discount on the variant price
+        applicableDiscount = food.discount;
+      }
+    }
+
+    const priceCalc = computeEffectivePrice(basePriceRupees, applicableDiscount);
+    const unitPriceRupees = priceCalc.effectivePrice;
+    const unitPricePaise = priceCalc.effectivePricePaise;
+    const regularPriceRupees = priceCalc.regularPrice;
+    const regularPricePaise = priceCalc.regularPricePaise;
+    const lineTotalPaise = unitPricePaise * itemData.quantity;
+    const lineTotalRupees = lineTotalPaise / 100;
+
+    subtotalPaise += lineTotalPaise;
 
     itemsSnapshot.push({
       food: food._id,
       name: food.name,
-      price: food.price,
-      quantity,
-      lineTotal,
+      variantName: selectedVariant ? selectedVariant.name : null,
+      price: unitPriceRupees,
+      pricePaise: unitPricePaise,
+      originalPrice: regularPriceRupees,
+      originalPricePaise: regularPricePaise,
+      quantity: itemData.quantity,
+      lineTotal: lineTotalRupees,
+      lineTotalPaise: lineTotalPaise,
+      discountApplied: priceCalc.discountApplied,
     });
   }
 
-  subtotal = Math.round(subtotal * 100) / 100;
+  const subtotal = Math.round((subtotalPaise / 100) * 100) / 100;
   // GST calculation (5% statutory food services)
   const gst = Math.round(subtotal * (env.gstPercentage / 100) * 100) / 100;
   // Eco-friendly takeaway parcel packaging charge
@@ -115,28 +168,32 @@ function assertIdempotencyMatch(existingOrder, { customerId, itemsInput, pickupT
     }
   }
 
-  // 6. Normalized cart items (food IDs and quantities)
+  // 6. Normalized cart items (food IDs, variants, and quantities)
   if (Array.isArray(itemsInput)) {
     const reqMap = new Map();
     for (const item of itemsInput) {
       const fid = item.foodId?.toString();
+      const variant = item.variantName ? String(item.variantName).trim().toLowerCase() : '';
+      const key = `${fid}:::${variant}`;
       const qty = parseInt(item.quantity, 10) || 0;
-      reqMap.set(fid, (reqMap.get(fid) || 0) + qty);
+      reqMap.set(key, (reqMap.get(key) || 0) + qty);
     }
 
     const existMap = new Map();
     for (const item of existingOrder.items) {
       const fid = (item.food?._id || item.food).toString();
+      const variant = item.variantName ? String(item.variantName).trim().toLowerCase() : '';
+      const key = `${fid}:::${variant}`;
       const qty = item.quantity || 0;
-      existMap.set(fid, (existMap.get(fid) || 0) + qty);
+      existMap.set(key, (existMap.get(key) || 0) + qty);
     }
 
     if (reqMap.size !== existMap.size) {
       throw new AppError('Idempotency-Key conflict: key was already used for a different order payload', 409);
     }
 
-    for (const [fid, qty] of reqMap.entries()) {
-      if (existMap.get(fid) !== qty) {
+    for (const [key, qty] of reqMap.entries()) {
+      if (existMap.get(key) !== qty) {
         throw new AppError('Idempotency-Key conflict: key was already used for a different order payload (quantity mismatch)', 409);
       }
     }

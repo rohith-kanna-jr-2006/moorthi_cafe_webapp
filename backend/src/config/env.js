@@ -26,9 +26,12 @@ const env = {
   businessOpenTime: process.env.BUSINESS_OPEN_TIME || '06:00',
   businessCloseTime: process.env.BUSINESS_CLOSE_TIME || '22:30',
   minPreparationMinutes: parseInt(process.env.MIN_PREPARATION_MINUTES, 10) || 15,
-  maxAdvanceBookingDays: parseInt(process.env.MAX_ADVANCE_BOOKING_DAYS, 10) || 2,
-  packagingCharge: parseFloat(process.env.PACKAGING_CHARGE) || 15.0,
-  gstPercentage: parseFloat(process.env.GST_PERCENTAGE) || 5.0,
+  packagingCharge: process.env.PACKAGING_CHARGE !== undefined && !isNaN(parseFloat(process.env.PACKAGING_CHARGE))
+    ? parseFloat(process.env.PACKAGING_CHARGE)
+    : 15.0,
+  gstPercentage: process.env.GST_PERCENTAGE !== undefined && !isNaN(parseFloat(process.env.GST_PERCENTAGE))
+    ? parseFloat(process.env.GST_PERCENTAGE)
+    : 5.0,
 };
 
 module.exports = env;
