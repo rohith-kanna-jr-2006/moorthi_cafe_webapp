@@ -141,7 +141,7 @@ const CustomerLogin = () => {
             )}
 
             {(errors.general || Object.keys(errors).length > 0) && (
-              <div style={{
+              <div className="alert alert-danger" style={{
                 padding: '0.85rem 1rem',
                 backgroundColor: '#ffebee',
                 border: '1px solid #d32f2f',

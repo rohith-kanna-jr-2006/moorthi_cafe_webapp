@@ -56,8 +56,8 @@ test.describe('Authentication Form Validation', () => {
 
   test('link from signup to login page works', async ({ page }) => {
     await page.goto('/signup');
-    await page.click('text=Already have an account? Login');
+    await page.click('text=Sign In to Your Account');
     await expect(page).toHaveURL('/login');
-    await expect(page.locator('h1')).toHaveText(/Customer Login/i);
+    await expect(page.locator('h1')).toHaveText(/Customer Sign In/i);
   });
 });

@@ -1,4 +1,3 @@
-
 {
   "name": "moorthi_cafe_webapp",
   "version": "1.0.0",
@@ -7,8 +6,10 @@
   "scripts": {
     "test": "playwright test",
     "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:report": "playwright show-report",
+    "mcp:playwright": "playwright-mcp-server",
     "build": "webpack --config webpack.cjs --mode production",
     "start": "webpack serve --config webpack.cjs --mode development"
   },
@@ -33,6 +34,7 @@
     "@babel/core": "^8.0.7",
     "@babel/preset-env": "^8.0.7",
     "@babel/preset-react": "^8.0.1",
+    "@executeautomation/playwright-mcp-server": "^1.0.12",
     "@playwright/test": "^1.64.1",
     "babel-loader": "^10.1.1",
     "css-loader": "^7.1.5",
