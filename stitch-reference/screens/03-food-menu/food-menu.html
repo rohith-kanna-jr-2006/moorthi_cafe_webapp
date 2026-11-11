@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-highest": "#e6e2dc", "outline-variant": "#dec0b5", "on-primary": "#ffffff", "on-primary-container": "#fffeff", "inverse-primary": "#ffb596", "error-container": "#ffdad6", "background": "#fef9f3", "surface-tint": "#a14009", "tertiary-fixed-dim": "#f8bc4b", "secondary-fixed": "#9ff5c1", "error": "#ba1a1a", "primary": "#9f3e07", "on-tertiary-container": "#fffeff", "surface": "#fef9f3", "on-error": "#ffffff", "tertiary": "#7b5600", "surface-bright": "#fef9f3", "on-secondary-container": "#167249", "inverse-surface": "#32302c", "surface-dim": "#ded9d4", "secondary-fixed-dim": "#83d8a6", "surface-container-lowest": "#ffffff", "on-secondary": "#ffffff", "tertiary-container": "#9b6d00", "on-tertiary-fixed-variant": "#5f4100", "on-secondary-fixed-variant": "#005231", "surface-container-low": "#f8f3ed", "on-error-container": "#93000a", "outline": "#8a7268", "primary-container": "#c05621", "inverse-on-surface": "#f5f0ea", "on-primary-fixed-variant": "#7d2d00", "on-secondary-fixed": "#002111", "tertiary-fixed": "#ffdeaa", "on-primary-fixed": "#360f00", "secondary": "#0a6c44", "surface-container-high": "#ece7e2", "on-surface": "#1d1b18", "on-surface-variant": "#57423a", "on-background": "#1d1b18", "primary-fixed": "#ffdbcd", "on-tertiary": "#ffffff", "primary-fixed-dim": "#ffb596", "surface-container": "#f2ede7", "secondary-container": "#9ff5c1", "on-tertiary-fixed": "#271900", "surface-variant": "#e6e2dc" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-mobile": "1.25rem", "space-lg": "1.5rem", "gutter-mobile": "1rem", "gutter": "1.5rem", "space-xs": "0.25rem", "margin": "2.5rem", "space-md": "1rem", "space-xl": "2.5rem", "space-sm": "0.5rem" }, fontFamily: { "display-lg-mobile": ["Noto Serif"], "body-sm": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "headline-sm": ["Noto Serif"], "display-lg": ["Noto Serif"], "title-lg": ["Plus Jakarta Sans"], "headline-lg": ["Noto Serif"], "body-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Noto Serif"], "headline-md": ["Noto Serif"], "label-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "title-md": ["Plus Jakarta Sans"] }, fontSize: { "display-lg-mobile": ["34px", { lineHeight: "42px", letterSpacing: "-0.01em", fontWeight: "700" }], "body-sm": ["13px", { lineHeight: "20px", fontWeight: "400" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.02em", fontWeight: "600" }], "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }], "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }], "title-lg": ["18px", { lineHeight: "26px", fontWeight: "700" }], "headline-lg": ["36px", { lineHeight: "44px", letterSpacing: "-0.015em", fontWeight: "600" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "600" }], "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }], "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }], "title-md": ["16px", { lineHeight: "24px", fontWeight: "600" }] } } } };</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="bg-secondary text-on-secondary px-margin-mobile lg:px-margin py-space-xs text-center"><div class="max-w-7xl mx-auto flex items-center justify-center gap-space-sm font-label-sm text-label-sm tracking-wide"><span class="w-2 h-2 rounded-full bg-secondary-fixed"></span><span>Pure Vegetarian Kitchen • Authentic Traditional Tiffin &amp; Filter Kaapi • Takeaway &amp; Pickup Counter</span></div></div><div class="h-20 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center font-display-lg text-title-lg shadow-sm">M</div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-tight">Hotel New Moorthi Cafe</span><span class="font-label-sm text-label-sm text-secondary flex items-center gap-space-xs"><span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>Est. Chidambaram • Heritage Tiffin</span></div></div><div class="hidden xl:flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm"><span class="material-symbols-outlined text-[16px] text-tertiary">storefront</span><span>Counter: Chidambaram Dining Hall</span></div></div><nav class="hidden md:flex items-center gap-space-xs p-space-xs rounded-xl bg-surface-container-low" data-active-classes="bg-primary text-on-primary font-bold shadow-sm rounded-lg"><a class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a aria-current="page" class="px-space-md py-space-xs transition-colors bg-primary text-on-primary font-bold shadow-sm rounded-lg" data-path="full-menu" href="#">Full Menu</a><a class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="my-orders" href="#">My Orders</a><a class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="order-tracking" href="#">Order Tracking</a></nav><div class="flex items-center gap-space-sm"><button class="flex items-center gap-space-sm px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-primary-container transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">shopping_bag</span><span class="hidden sm:inline font-title-md text-title-md">₹ 0</span><span class="w-5 h-5 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm flex items-center justify-center">0</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-28 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Subtle Ornamental Accent Under Header -->
+<div class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin mb-space-md">
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs text-on-surface-variant font-label-md text-label-md">
+<div class="flex items-center gap-space-xs">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-secondary font-bold">Kitchen Token Line Open</span>
+<span class="text-outline-variant">•</span>
+<span>Average Counter Prep: 8-12 Mins</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-space-xs text-tertiary">
+<span class="material-symbols-outlined text-[16px]">local_fire_department</span>
+          Pure Cow Ghee Roasts
+        </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">lunch_dining</span>
+          Plantain Leaf Parcel Packaging
+        </span>
+</div>
+</div>
+</div>
+<!-- Hero Banner Strip: Heritage Chidambaram Wood-Fired Kitchen -->
+<section class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin mb-space-lg">
+<div class="relative overflow-hidden rounded-xl bg-surface-container-high p-space-lg shadow-sm">
+<div class="absolute -right-8 -top-8 w-64 h-64 rounded-full bg-primary/5 pointer-events-none blur-2xl"></div>
+<div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="max-w-2xl">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-lowest text-tertiary font-label-sm text-label-sm mb-space-xs shadow-sm">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+<span>Est. 1954 • Heritage Wood-Fire &amp; Brass Davarah Tiffin</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Authentic Counter Tiffin &amp; Kaapi</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
+            Slow-fermented stoneground batters, cold-pressed gingelly oil, and fragrant wood-fired tadkas prepared fresh for takeaway and dining hall pickups.
+          </p>
+</div>
+<!-- Live Quick Stats Strip -->
+<div class="flex items-center gap-space-md shrink-0 bg-surface-container-lowest/80 backdrop-blur-sm p-space-md rounded-xl shadow-sm">
+<div class="text-center px-space-sm">
+<span class="block font-headline-sm text-headline-sm text-primary">35+</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Daily Batches</span>
+</div>
+<div class="w-px h-8 bg-outline-variant/40"></div>
+<div class="text-center px-space-sm">
+<span class="block font-headline-sm text-headline-sm text-secondary">100%</span>
+<span class="font-label-sm text-label-sm text-secondary">Pure Butter Ghee</span>
+</div>
+<div class="w-px h-8 bg-outline-variant/40"></div>
+<div class="text-center px-space-sm">
+<span class="block font-headline-sm text-headline-sm text-tertiary">#1</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Brass Filter Brew</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Live Search & Dietary Filter Controls -->
+<section class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin mb-space-lg">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Search Input + Category Chips -->
+<div class="flex flex-col md:flex-row items-stretch md:items-center gap-space-md">
+<!-- Search bar -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-11 pr-10 py-space-sm bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface placeholder-on-surface-variant/60 focus:bg-surface-container-lowest focus:outline-none transition-all" id="menu-search-input" placeholder="Search stoneground dosas, Podi idli, filter kaapi, ghee roast..." type="text"/>
+<button class="hidden absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" id="clear-search-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Quick Prep Filter Switch -->
+<div class="flex items-center gap-space-xs shrink-0 self-start md:self-auto bg-surface-container-low p-space-xs rounded-lg">
+<button class="px-space-sm py-space-xs rounded font-label-sm text-label-sm bg-surface-container-lowest text-primary font-bold shadow-sm" type="button">
+            All Menus
+          </button>
+<button class="px-space-sm py-space-xs rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface" type="button">
+            Ready in &lt;10 Mins
+          </button>
+<button class="px-space-sm py-space-xs rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface" type="button">
+            Parcel Favorites
+          </button>
+</div>
+</div>
+<!-- Quick Filter Pills -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-space-xs scrollbar-none">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider shrink-0 mr-space-xs">Kitchen Tags:</span>
+<button class="filter-pill active px-space-md py-space-xs rounded-full bg-primary text-on-primary font-label-md text-label-md shrink-0 shadow-sm transition-all" data-filter="all" type="button">
+          All Specialities
+        </button>
+<button class="filter-pill px-space-md py-space-xs rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md shrink-0 transition-all" data-filter="chef-special" type="button">
+          ★ Chef's Special
+        </button>
+<button class="filter-pill px-space-md py-space-xs rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md shrink-0 transition-all" data-filter="wood-fired" type="button">
+          Traditional Wood-Fired
+        </button>
+<button class="filter-pill px-space-md py-space-xs rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md shrink-0 transition-all" data-filter="stoneground" type="button">
+          Stoneground Batters
+        </button>
+<button class="filter-pill px-space-md py-space-xs rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md shrink-0 transition-all" data-filter="low-spice" type="button">
+          Mild &amp; Gentle Spice
+        </button>
+<button class="filter-pill px-space-md py-space-xs rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md shrink-0 transition-all" data-filter="pure-ghee" type="button">
+          A2 Ghee Specialties
+        </button>
+</div>
+</div>
+</section>
+<!-- Sticky Category Navigation Bar -->
+<section class="sticky top-28 z-40 w-full bg-surface/95 backdrop-blur-md py-space-xs mb-space-lg shadow-sm">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center gap-space-xs overflow-x-auto scrollbar-none">
+<a class="category-nav-link active px-space-md py-space-xs rounded-lg font-label-lg text-label-lg bg-primary text-on-primary font-bold shadow-sm shrink-0 transition-all" href="#morning-tiffin">
+        Morning Tiffin <span class="ml-space-xs px-1.5 py-0.5 rounded-full bg-white/20 text-[11px]">12</span>
+</a>
+<a class="category-nav-link px-space-md py-space-xs rounded-lg font-label-lg text-label-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface shrink-0 transition-all" href="#afternoon-meals">
+        Afternoon Thali &amp; Meals <span class="ml-space-xs px-1.5 py-0.5 rounded-full bg-surface-container-high text-[11px]">8</span>
+</a>
+<a class="category-nav-link px-space-md py-space-xs rounded-lg font-label-lg text-label-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface shrink-0 transition-all" href="#evening-snacks">
+        Evening Tiffin &amp; Snacks <span class="ml-space-xs px-1.5 py-0.5 rounded-full bg-surface-container-high text-[11px]">10</span>
+</a>
+<a class="category-nav-link px-space-md py-space-xs rounded-lg font-label-lg text-label-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface shrink-0 transition-all" href="#traditional-sweets">
+        Traditional Sweets <span class="ml-space-xs px-1.5 py-0.5 rounded-full bg-surface-container-high text-[11px]">5</span>
+</a>
+<a class="category-nav-link px-space-md py-space-xs rounded-lg font-label-lg text-label-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface shrink-0 transition-all" href="#beverages-kaapi">
+        Filter Kaapi &amp; Drinks <span class="ml-space-xs px-1.5 py-0.5 rounded-full bg-surface-container-high text-[11px]">6</span>
+</a>
+</div>
+</section>
+<!-- Main Menu Grid Section -->
+<div class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin space-y-space-xl pb-32">
+<!-- CATEGORY 1: Morning Tiffin -->
+<section class="scroll-mt-48" id="morning-tiffin">
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Morning Tiffin</h2>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">Serving: 6:00 AM – 11:45 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Slow-fermented overnight rice-urad dal batters, stoneground coconut chutneys &amp; piping hot drumstick sambar.</p>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-bold shrink-0 hidden sm:inline-block">100% Pure Veg Kitchen</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-space-md">
+<!-- Dish 1: Medu Vada -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between" data-tags="chef-special wood-fired">
+<div class="flex gap-space-md">
+<div class="w-28 h-28 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Golden crisp South Indian Medu Vada on fresh green banana leaf with side cups of white coconut chutney and red tomato chutney, steam rising, warm restaurant lighting, authentic Tamil Nadu culinary style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCixiMoZK7nzGkS8Do2D9edWRLhJwvqI1u9BXiISrqD596qcrkL1XJI2w0e9VqcqQzYzxUIUpJ43FwhJ6_LgufixvLxZAcO2ZCmTC8NhpoxqNfuTS-nuGsqxNHjy_bTPcfSqjamhnIvJWRDk3enEnxacOBr2mSmkHg_kPiSzMg18qPJwogHM0wrxfOOIqjdVFNV45-Jc7BA6eFLEejjdTcdLdrJZnmKcMUQQ6koewsDbQTMyfjVOsBAhg"/>
+<span class="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-surface-container-lowest/90 font-label-sm text-label-sm text-primary font-bold">2 Pcs</span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-4 h-4 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0" title="Pure Veg">
+<span class="w-2 h-2 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Medu Vada (2 Pcs)</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">₹80</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                  Airy urad dal crisp fritters studded with crushed black pepper, fresh curry leaves &amp; ginger. Served with shallot sambar.
+                </p>
+</div>
+<div class="flex items-center gap-space-xs mt-2 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Available Now • 5 mins prep</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-tertiary">restaurant</span>
+<span>Crispy exterior • Soft core</span>
+</div>
+<!-- Counter Stepper / Add button -->
+<div class="action-slot flex items-center gap-space-xs">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="101" data-name="Medu Vada (2 Pcs)" data-price="80" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+</div>
+</div>
+</article>
+<!-- Dish 2: Special Onion Rava Dosa -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between" data-tags="chef-special pure-ghee">
+<div class="flex gap-space-md">
+<div class="w-28 h-28 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Delicately netted golden brown Onion Rava Dosa drizzled with golden melted ghee, roasted chopped red onions and green chilies, served with three chutneys in traditional brass katoris" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBALA1t0cYuZJxDRJzF6mDMnuYnWVY_HNsBxd03qFz7C0b746HvJ4b4OgmvWdPAICvP8-Mimti1mavTsdVdZZoPeC8H52OVZNTq_mf-YpIcx3oAP25ORXoIsuOfW8kg5rluyEeU9wGzEqOAPsR-1CDUcGmUi64lYTeGeg0YXhhdHPcXgzmVozd6TXiKimZ86bbAjL2b8O6TdrI0XNZDxbRk4wlVRrG3BPGlG9oOOrBviaX4LD7_EasStA"/>
+<span class="absolute top-1 right-1 px-1.5 py-0.5 rounded bg-tertiary text-on-tertiary font-label-sm text-label-sm font-bold">Chef Pick</span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-4 h-4 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0" title="Pure Veg">
+<span class="w-2 h-2 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Special Onion Rava Dosa</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">₹150</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                  Lacy semolina crepe roasted on cast iron with pure Salem ghee, finely chopped shallots, peppercorns, and roasted cashews.
+                </p>
+</div>
+<div class="flex items-center gap-space-xs mt-2 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Available Now • 8 mins prep</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-tertiary">dinner_dining</span>
+<span>Ghee Roasted • Net Lattice</span>
+</div>
+<div class="action-slot flex items-center gap-space-xs">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="102" data-name="Special Onion Rava Dosa" data-price="150" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+</div>
+</div>
+</article>
+<!-- Dish 3: Podi Thatte Idli -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between" data-tags="stoneground pure-ghee">
+<div class="flex gap-space-md">
+<div class="w-28 h-28 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Generous round plate-sized Podi Thatte Idli smothered in coarse fiery red gun powder idli podi and melted butter ghee, served on plantain leaf with rich yellow dal sambar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl3yRmdCV6Cd-nizsJU2ogyQ4B0WKlvRuuUHbWPPaTdhZ5vGg8jHoY9v3fG9Cg7AuPx6BEQlieZCKX6FTw1DI3LrNV-CFDg-zvvObWqioXKi15oujXTd2o4jeVX9NriTixKM3CUHDm5aax_qzk8kck___LbEjDoe-EL7wYEKgH_9HHukGS7G-N4B-uhfeVrZAUDfAHvk71IfueeiEAkwBziNIjaoEZJ0DasVEY1sIDD3ldC1W2Rrvj_Q"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-4 h-4 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0" title="Pure Veg">
+<span class="w-2 h-2 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Podi Thatte Idli</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">₹110</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                  Karnataka-style soft thick disc steamed in cloth moulds, soaked thoroughly in spicy house-podi and melting churned butter ghee.
+                </p>
+</div>
+<div class="flex items-center gap-space-xs mt-2 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Available Now • 6 mins prep</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-primary">local_fire_department</span>
+<span>Spicy Podi • Melting Ghee</span>
+</div>
+<div class="action-slot flex items-center gap-space-xs">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="103" data-name="Podi Thatte Idli" data-price="110" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+</div>
+</div>
+</article>
+<!-- Dish 4: Poori Masala -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between" data-tags="low-spice">
+<div class="flex gap-space-md">
+<div class="w-28 h-28 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Two puffed fluffy golden pooris alongside a warm bowl of turmeric potato masala with green peas, sliced onions and fresh coriander garnish, authentic South Indian breakfast photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7I0Lhe4ydiGS_EOp_tOw4BQ3UPNNaDJUDE0h0PMlyKhchuvbJLFuUYD7MXxqpRrEZe7lu7KTYVI8LFfJN_5kmxbIjRUQR79Cq4tHf8GwudLIFw3urU8dnJLWInziuQmerqveoOJK0MbJr0QyILEzcV7yBIPb938GdixNkPqnFFcQHhIbAs_Qi2LG6Zx0HBMIbbNcxuZLx_Q0BnEf2Mo4_o0Need6VF0HeO6Yg37mwnxw1ZDO_E45CWg"/>
+<span class="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-surface-container-lowest/90 font-label-sm text-label-sm text-primary font-bold">2 Puffed</span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-4 h-4 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0" title="Pure Veg">
+<span class="w-2 h-2 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Poori Masala (2 Pcs)</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">₹120</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                  Golden wheat puffed pooris accompanied by traditional urulaikizhangu (potato) masala cooked with green chilies, ginger &amp; mustard seeds.
+                </p>
+</div>
+<div class="flex items-center gap-space-xs mt-2 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Available Now • 7 mins prep</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-tertiary">check_circle</span>
+<span>Mildly Spiced • Made Fresh</span>
+</div>
+<div class="action-slot flex items-center gap-space-xs">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="104" data-name="Poori Masala (2 Pcs)" data-price="120" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- CATEGORY 2: Afternoon Thali & Meals -->
+<section class="scroll-mt-48" id="afternoon-meals">
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Afternoon Thali &amp; Meals (Lunch)</h2>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-tertiary font-label-sm text-label-sm font-semibold">11:30 AM – 3:45 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Slow-simmered vatha kuzhambu, heirloom ponni rice, brass bowl thali sides and wood-fire roasted appalams.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+<!-- Dish 5: South Indian Raja Thali -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between" data-tags="chef-special wood-fired">
+<div class="flex flex-col gap-space-sm">
+<div class="w-full h-44 rounded-lg overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Grand South Indian Thali served in traditional brass bowls around mound of white rice with ghee, sambar, rasam, kootu, poriyal, curd, appalam, sweet payasam on fresh dark green banana leaf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYDRPeHNqyJcOTeg0IBBco3BmfKfK8UmcU9Vsc1Byfb64RDe4KVJvMFGHvbOFWkW5sYkYtVcvS52aqpxEEmBsn1RIZCxl6mhPUOfmD3JV5MbhA49-mAIJKM-myv5Qw665X0epXtUag4JtkJQOTaysKsr1JLm1N3x7Oyzf7hvsVTogG_pILTMWJlbeHc1_wNuwl2ZNf2soRj6FJMrog7j1agnXysts_PdVTJzCTEntO_RiDWj22fh3kZw"/>
+<span class="absolute top-2 left-2 px-space-xs py-0.5 rounded bg-tertiary text-on-tertiary font-label-sm text-label-sm font-bold shadow-sm">Bestseller Meal</span>
+</div>
+<div>
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-4 h-4 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0" title="Pure Veg">
+<span class="w-2 h-2 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">South Indian Raja Thali</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">₹280</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Unlimited ponni rice, drumstick sambar, pepper rasam, mor kuzhambu, vegetable kootu, poriyal, appalam, vadai, house pickle &amp; warm paruppu payasam.
+              </p>
+</div>
+<div class="flex items-center gap-space-xs text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Available Now • 8 mins prep</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Includes 12 Varietal Sides</span>
+<div class="action-slot flex items-center gap-space-xs">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="201" data-name="South Indian Raja Thali" data-price="280" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+</div>
+</div>
+</article>
+<!-- Dish 6: Chettinad Mushroom Biryani -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between" data-tags="wood-fired">
+<div class="flex flex-col gap-space-sm">
+<div class="w-full h-44 rounded-lg overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Claypot Chettinad Mushroom Seeraga Samba Biryani garnished with crispy fried onions, fresh mint leaves, roasted whole cashews with cucumber raita and spicy salna on side" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5BaZ2TxzelBE78vMy1ah-2MIH5aat6dlddVD0a-QOkgHTKq2qbWT7dOa_KYGluowRheH50KubbT17FoFSzYFd7dbAN04af9e_tOWx8bhBdITCLk6T4acHYOk4o_yp9AYII-Qf2qBfAQJ3DFc_m4Lfagk94fvTxKoo14bEL3XfLKlCEJDtPDa4wExWWQR4dPyOk2jkZTCF4Kr8zLM2zZO-M8gZ7zBwV97urNzdZb9555QC4ogBjM_ztA"/>
+<span class="absolute top-2 left-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 font-label-sm text-label-sm text-primary font-bold shadow-sm">Claypot Sealed</span>
+</div>
+<div>
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-4 h-4 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0" title="Pure Veg">
+<span class="w-2 h-2 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Chettinad Mushroom Biryani</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">₹220</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Fragrant tiny Seeraga Samba rice cooked in earthen pots with button mushrooms, stone-ground Chettinad spices, star anise &amp; mint. With cucumber pachadi.
+              </p>
+</div>
+<div class="flex items-center gap-space-xs text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Available Now • 10 mins prep</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Seeraga Samba Rice</span>
+<div class="action-slot flex items-center gap-space-xs">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="202" data-name="Chettinad Mushroom Biryani" data-price="220" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+</div>
+</div>
+</article>
+<!-- Dish 7: Bisi Bele Bath with Boondi -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between" data-tags="pure-ghee low-spice">
+<div class="flex flex-col gap-space-sm">
+<div class="w-full h-44 rounded-lg overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Hot fragrant Mysore style Bisi Bele Bath topped with spoonful of golden ghee, crunchy kara boondi and roasted cashews in rustic terracotta bowl with South Indian papad" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnztRIW2SB_RyahWjlW9uWg0Z-Tz85BN584ET8eW7rq_9Qo7YA5bjfpnuZB7buJYTeVBZZqMLNGWYIif6KiOQnyEOM_2GZzkdjJ4pfgPqthhngbbfFrIPjvNnfx2yfrm6LE2ViLftOGkSMmgkIUYSb1JQPz3NCN86-fPvqRJSyJE4bMB0mXxzADb0oWVk50CnvR-wIJ5vFSYs7Ki_4w7kC1URhaDMXPjo-PBnH5GLWu86sc6KqLfhZkA"/>
+</div>
+<div>
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-4 h-4 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0" title="Pure Veg">
+<span class="w-2 h-2 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Bisi Bele Bath with Boondi</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">₹140</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Slow-simmered rice, toor dal, and fresh country vegetables infused with aromatic roasted spices, tamarind, and topped with crunchy spiced boondi.
+              </p>
+</div>
+<div class="flex items-center gap-space-xs text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Available Now • 6 mins prep</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Served with Kara Boondi</span>
+<div class="action-slot flex items-center gap-space-xs">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="203" data-name="Bisi Bele Bath with Boondi" data-price="140" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- CATEGORY 3: Evening Tiffin & Snacks -->
+<section class="scroll-mt-48" id="evening-snacks">
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Evening Tiffin &amp; Snacks</h2>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-semibold">Serving: 3:30 PM – 10:30 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Crispy savouries, button idlis tossed in gun powder, and fresh hot tea-time bites.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+<!-- Dish 8: Podi Mini Idlis (14 Pcs) -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between" data-tags="chef-special stoneground pure-ghee">
+<div class="flex gap-space-md">
+<div class="w-24 h-24 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Fourteen bite-sized mini idlis coated liberally in red spiced podi and melted ghee tossed with fresh curry leaves served in a small plantain leaf boat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE1T4GpleGtjqEpgAszsig8lbNFI_eLxrtwhlYVMQQg8ovBdnrs11ws1OwGUxBO3jn-ZRRIbfbzzjeoBV8ivtuuU3XCT69GquG4lfcRTTn7eVBOkqm2_HCmOd4NDOgTjiVxK_SSU7BcKc6N5xzcVo5bqkecT4w_cxQIk6yfD5QWNbPwBznc5WXDxLJk9K5DiueZbaRriinqqgoQtxnFsXi02lFj-0qOr1gdwPehuMhusa7k4MdHnfM4Q"/>
+<span class="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-surface-container-lowest/90 font-label-sm text-label-sm text-primary font-bold">14 Pcs</span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-4 h-4 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0" title="Pure Veg">
+<span class="w-2 h-2 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Podi Mini Idlis (14 Pcs)</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">₹130</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                  14 bite-sized button idlis tossed in hot Salem ghee and coarse spicy gun powder.
+                </p>
+</div>
+<div class="flex items-center gap-space-xs mt-2 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Available Now • 5 mins prep</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Tossed in Ghee</span>
+<div class="action-slot flex items-center gap-space-xs">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="301" data-name="Podi Mini Idlis (14 Pcs)" data-price="130" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+</div>
+</div>
+</article>
+<!-- Dish 9: Keerai Vadai -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between" data-tags="wood-fired">
+<div class="flex gap-space-md">
+<div class="w-24 h-24 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Crunchy golden South Indian Keerai Vadai infused with fresh green spinach leaves, lentils, cracked coriander seeds and dry red chili served on brown parchment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAojGnhgsTeENWQCmMRHNT4b_zuJeknOlXTAKQ5G5OiytZF0L-ao2oINJ-L1li1_pHFmATt0AHJbVvIpcFqb1E0GbVKjE6H6LuoegdThbPm-nvcymw10hMySUnrYdquFss1cqStlm3kJCgOzxdhktC9SVOC3KfuHjzi_DjvjULun61XUh6b51oS6pqI6wIKO4YqGbMub5kstVIXJBWU97O9v3VkhXp2TjP6nzvPvz2CEWkn0OcbNW380g"/>
+<span class="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-surface-container-lowest/90 font-label-sm text-label-sm text-primary font-bold">2 Pcs</span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-4 h-4 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0" title="Pure Veg">
+<span class="w-2 h-2 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Keerai Vadai (2 Pcs)</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">₹70</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                  Chana dal patties folded with fresh farm amaranth leaves (Arai Keerai), fennel, and dried red chilies. Extra crunchy.
+                </p>
+</div>
+<div class="flex items-center gap-space-xs mt-2 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Available Now • 4 mins prep</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Farm Fresh Spinach</span>
+<div class="action-slot flex items-center gap-space-xs">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="302" data-name="Keerai Vadai (2 Pcs)" data-price="70" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+</div>
+</div>
+</article>
+<!-- Dish 10: Mysore Bonda -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between" data-tags="low-spice">
+<div class="flex gap-space-md">
+<div class="w-24 h-24 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Spherical fluffy golden Mysore Bonda with crisp crust, dotted with bits of coconut and ginger, served with ginger coconut chutney and fresh coriander" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKjQLasqckXPduEG06Yb3CJldTAVA0e278ly_flcfbs-WQ_DZmEhD4G8Zrlz6WF8_8fu7DWHL5eSWeMQjIFeVOsH7_yi4zjS4CK5di1SEIJxeY_-0YEXDlh5ZC40Gjxa-nfRxhA9xf2BpNGbVfICQwn3jQz6ZIMCBUxcZg1Th1_WKzbBV5dS7VBv78-eRvFiCSWIgmk7g0PV_GrNCoCl3u5HVNZ5R3KRjOqxs7Jy6pN4V2LEE74utWqQ"/>
+<span class="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-surface-container-lowest/90 font-label-sm text-label-sm text-primary font-bold">3 Pcs</span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-4 h-4 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0" title="Pure Veg">
+<span class="w-2 h-2 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Mysore Bonda (3 Pcs)</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">₹85</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                  Soft, pillowy fried orbs flavored with coconut bits, crushed cumin, and ginger. Paired with allam (ginger) chutney.
+                </p>
+</div>
+<div class="flex items-center gap-space-xs mt-2 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Available Now • 5 mins prep</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Classic Karnataka Style</span>
+<div class="action-slot flex items-center gap-space-xs">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="303" data-name="Mysore Bonda (3 Pcs)" data-price="85" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- CATEGORY 4: Traditional Sweets & Beverages -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- Sweets Section -->
+<section class="scroll-mt-48 flex flex-col justify-between" id="traditional-sweets">
+<div>
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Traditional Sweets</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">Hand-poured pure ghee mithai and temple payasams.</p>
+<div class="space-y-space-md">
+<!-- Dish 11: Traditional Ghee Mysore Pak -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex items-center justify-between gap-space-md" data-tags="pure-ghee chef-special">
+<div class="flex items-center gap-space-md">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Melt in the mouth porous golden brown Ghee Mysore Pak blocks glistening with warm cow ghee arranged on vintage brass plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYXPg4vyaku2PB8REWJ3WbIWGLISagnxB5Kq-WDo94U2CqrsNHWvr7hdb4zagGIjihlaspnS0VpHak8aktDQHple3lllX9P4vDtivePLWZnE6Oc9iiuDAdELbJhLWMad2aCI23Q_ystjRARHPbkgMiqlrLDT8R3jsiDD-MO8nwM67ky155zCBpH82TCknJotM4zDBGTrZ-Bt_EialxilHyUbG0TQskEfFBpb8XLd-YUdKBpxRz7scIsQ"/>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3.5 h-3.5 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Ghee Mysore Pak</h3>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">100g Box • Melts in mouth</span>
+<span class="font-title-lg text-title-lg text-primary font-bold mt-1 block">₹95</span>
+</div>
+</div>
+<div class="action-slot">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="401" data-name="Ghee Mysore Pak (100g)" data-price="95" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+                </button>
+</div>
+</article>
+<!-- Dish 12: Elaneer Payasam -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex items-center justify-between gap-space-md" data-tags="chef-special low-spice">
+<div class="flex items-center gap-space-md">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Chilled creamy Elaneer Payasam with tender coconut pulp and cardamom in a small earthen cup garnished with pistachio slivers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4KfDXt3aTtZxk8ItXAJLo7cgUygU75ZoZ-qng1BxtKybE9LKbTisERqIakL9kh19AOToGzNuOhzKoEL0iqlVfU3dfuI7Ts63pKRI08im-1hSq-qk364-VI5p8xGwEqUY35gTlorG473D9N8ure2k0IQ4sT1J0aN-XmYKPZqBMXhlEDCrcS9gRFws1EVsQM8KfSk6oH8DiWbclYe4g9MA5dwVA_xNWth0IjvdWPhqpw_HCs0dzwMw6Eg"/>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3.5 h-3.5 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Elaneer Payasam</h3>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Fresh Tender Coconut &amp; Cardamom</span>
+<span class="font-title-lg text-title-lg text-primary font-bold mt-1 block">₹110</span>
+</div>
+</div>
+<div class="action-slot">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="402" data-name="Elaneer Payasam" data-price="110" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+                </button>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- Beverages Section -->
+<section class="scroll-mt-48 flex flex-col justify-between" id="beverages-kaapi">
+<div>
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Filter Kaapi &amp; Drinks</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">Brass davarah poured chicory brews and digestive country refreshers.</p>
+<div class="space-y-space-md">
+<!-- Dish 13: Signature Degree Filter Coffee -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex items-center justify-between gap-space-md" data-tags="chef-special">
+<div class="flex items-center gap-space-md">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Frothy South Indian filter coffee poured high into a shining traditional brass tumbler and davarah with rich crema on top on wooden tabletop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv60fO_vq-F_sODGaRlgP2JyxjS9cq8KsGSPU6iGfFdgBF71pCdGb70k5GpIf3bijg7PBrnYeqAJBeONdpV6_-yzG0jtjYglmnL2hRZN8NA1NgS-VxbcoZhCq2ZC17oeq_RU1oPU5LMmpCknCPl2RnA-KiFBlUyWdak3kW7sJIwQLGO2Q4S6SV85cTYyzHC_JHGUtTyGHnQICViquVl9LALk1vmetJ2vAQCRh8YWtL8WYlrGQ0dlr0Pw"/>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3.5 h-3.5 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Signature Degree Kaapi</h3>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">First decoction • Brass Davarah</span>
+<span class="font-title-lg text-title-lg text-primary font-bold mt-1 block">₹65</span>
+</div>
+</div>
+<div class="action-slot">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="501" data-name="Signature Degree Kaapi" data-price="65" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+                </button>
+</div>
+</article>
+<!-- Dish 14: Sukku Malli Coffee -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex items-center justify-between gap-space-md" data-tags="low-spice">
+<div class="flex items-center gap-space-md">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Steaming dark Sukku Malli herbal brew made with dry ginger coriander seeds and palm jaggery in traditional clay cup with whole spices beside it" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARCWxi6TSMdWbYx3gF7wKpIzyCSxySP4phUYd5P4PApNtk3toaEHfjmFiehgRohn2WT5FQh7fkVID7YtmZEta7L9zLRB7HTfiJnY1NXEGQw50pzlUSxcKiBq0kUkXQmNebD0K8OUiw8Xp1zJF63TdBe7zgKuKjpr2WvtmBr48LNnToK8yiRX1p1RHLHLqvNyATnyDVU5BzFXt7-bn1AmZio3Ap6sFyL115M2oaQWNb4cV9myBeV2oFSQ"/>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3.5 h-3.5 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Sukku Malli Herbal Brew</h3>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Dry ginger, coriander seeds &amp; palm jaggery</span>
+<span class="font-title-lg text-title-lg text-primary font-bold mt-1 block">₹50</span>
+</div>
+</div>
+<div class="action-slot">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="502" data-name="Sukku Malli Herbal Brew" data-price="50" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+                </button>
+</div>
+</article>
+<!-- Dish 15: Spiced Moru (Buttermilk) -->
+<article class="food-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex items-center justify-between gap-space-md" data-tags="low-spice">
+<div class="flex items-center gap-space-md">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Chilled South Indian spiced buttermilk (neer moru) in a terracotta tumbler garnished with crushed ginger green chilies asafoetida and finely chopped curry leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHvbT890qVyVVCQPR2npdi78of2iYHxNPbDwxxdMFYZ8DV7SRFEeF5EkQfZ-Ylzz7pEnk-eIlFXE1Bg5sqbPwt63LgOAk8hvrbzT3g_V6ftEW5BKqGtSIyLHa46uGiNGDhI-63Nqe5LTbHsWkHJOVB25UfXAsMFPoAIRaPCHUZFiFWuxsjTEBpnl0C4Js9TkURTTJ0rv3m5uYwkI6B075V8fonIsz5eaflWdnOlopFupZpTjxM1I9cnQ"/>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3.5 h-3.5 rounded-xs border border-[#2F855A] flex items-center justify-center p-0.5 shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2F855A]"></span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Neer Moru (Spiced Buttermilk)</h3>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Churned with asafoetida, curry leaf &amp; ginger</span>
+<span class="font-title-lg text-title-lg text-primary font-bold mt-1 block">₹45</span>
+</div>
+</div>
+<div class="action-slot">
+<button class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="503" data-name="Neer Moru (Spiced Buttermilk)" data-price="45" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+                </button>
+</div>
+</article>
+</div>
+</div>
+</section>
+</div>
+<!-- Takeaway Counter Notice -->
+<div class="p-space-lg rounded-xl bg-surface-container-high flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">takeout_dining</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface font-bold">Direct Pickup Counter Protocol</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Show your digital token slip at Counter #2 for quick parcel pickup wrapped in authentic, eco-friendly banana leaves.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<span class="font-label-sm text-label-sm text-tertiary font-bold">Temple Gopuram Gate View</span>
+</div>
+</div>
+</div>
+<!-- Persistent Floating Bottom Mini-Cart Drawer Bar -->
+<aside class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-4xl bg-inverse-surface text-inverse-on-surface rounded-2xl p-space-md shadow-2xl flex items-center justify-between transition-all duration-300" id="floating-cart-bar">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center relative shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+<span class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm flex items-center justify-center font-bold" id="cart-badge-count">
+          2
+        </span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md font-bold truncate" id="cart-item-summary">2 items added</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-sm text-label-sm text-secondary-fixed">Pickup Counter Ready</span>
+</div>
+<p class="font-body-sm text-body-sm text-inverse-on-surface/70 truncate">
+          1x Medu Vada (2 Pcs), 1x Special Onion Rava Dosa
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-inverse-on-surface/60 block">Total Amount</span>
+<span class="font-title-lg text-title-lg text-white font-bold" id="cart-total-price">₹ 230</span>
+</div>
+<button class="px-space-lg py-space-sm rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold shadow-md hover:bg-primary-container transition-colors flex items-center gap-space-xs" id="proceed-checkout-btn" type="button">
+<span>Proceed to Token</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</aside>
+<!-- Interactive JavaScript Handling Cart, Quantities, Search, and Category Highlights -->
+<script>
+    (function initMenuInteractions() {
+      // Local state for interactive prototype
+      const cartState = {
+        101: { name: "Medu Vada (2 Pcs)", price: 80, count: 1 },
+        102: { name: "Special Onion Rava Dosa", price: 150, count: 1 }
+      };
+
+      const floatingCart = document.getElementById('floating-cart-bar');
+      const badgeCount = document.getElementById('cart-badge-count');
+      const itemSummary = document.getElementById('cart-item-summary');
+      const totalPriceEl = document.getElementById('cart-total-price');
+      const searchInput = document.getElementById('menu-search-input');
+      const clearSearchBtn = document.getElementById('clear-search-btn');
+
+      // Sync DOM Add buttons with current cartState
+      function syncActionSlots() {
+        const foodCards = document.querySelectorAll('.food-card');
+        foodCards.forEach(card => {
+          const actionSlot = card.querySelector('.action-slot');
+          const addBtn = card.querySelector('.add-to-cart-btn');
+          const dishId = addBtn ? addBtn.getAttribute('data-id') : (actionSlot.querySelector('[data-id]') ? actionSlot.querySelector('[data-id]').getAttribute('data-id') : null);
+          
+          if (!dishId) return;
+
+          const currentCount = cartState[dishId] ? cartState[dishId].count : 0;
+
+          if (currentCount > 0) {
+            actionSlot.innerHTML = `
+              <div class="flex items-center bg-surface-container-low rounded-lg p-0.5 border-0 shadow-sm" data-id="${dishId}">
+                <button type="button" class="btn-decrease w-8 h-8 rounded bg-surface-container-lowest text-primary hover:bg-surface-container flex items-center justify-center font-bold text-base transition-colors" data-id="${dishId}">−</button>
+                <span class="w-8 text-center font-title-md text-title-md text-on-surface font-bold">${currentCount}</span>
+                <button type="button" class="btn-increase w-8 h-8 rounded bg-primary text-on-primary hover:bg-primary-container flex items-center justify-center font-bold text-base transition-colors" data-id="${dishId}">+</button>
+              </div>
+            `;
+          } else {
+            const name = card.querySelector('h3').textContent.trim();
+            const priceText = card.querySelector('.font-title-lg').textContent.replace('₹', '').trim();
+            actionSlot.innerHTML = `
+              <button type="button" class="add-to-cart-btn px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1 transition-colors" data-id="${dishId}" data-name="${name}" data-price="${priceText}">
+                <span class="material-symbols-outlined text-[16px]">add</span> ADD
+              </button>
+            `;
+          }
+        });
+        updateCartDrawer();
+      }
+
+      function updateCartDrawer() {
+        let totalItems = 0;
+        let grandTotal = 0;
+        const itemNames = [];
+
+        Object.keys(cartState).forEach(id => {
+          const item = cartState[id];
+          if (item.count > 0) {
+            totalItems += item.count;
+            grandTotal += (item.price * item.count);
+            itemNames.push(`${item.count}x ${item.name}`);
+          }
+        });
+
+        if (totalItems > 0) {
+          floatingCart.classList.remove('hidden');
+          floatingCart.classList.add('flex');
+          badgeCount.textContent = totalItems;
+          itemSummary.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'items'} added`;
+          totalPriceEl.textContent = `₹ ${grandTotal}`;
+        } else {
+          floatingCart.classList.add('hidden');
+          floatingCart.classList.remove('flex');
+        }
+      }
+
+      // Delegate Click Handling for Add, Increase, Decrease
+      document.addEventListener('click', function(e) {
+        // Add Button
+        const addBtn = e.target.closest('.add-to-cart-btn');
+        if (addBtn) {
+          const id = addBtn.getAttribute('data-id');
+          const name = addBtn.getAttribute('data-name');
+          const price = parseFloat(addBtn.getAttribute('data-price')) || 0;
+          cartState[id] = { name, price, count: 1 };
+          syncActionSlots();
+          return;
+        }
+
+        // Increase Button
+        const incBtn = e.target.closest('.btn-increase');
+        if (incBtn) {
+          const id = incBtn.getAttribute('data-id');
+          if (cartState[id]) {
+            cartState[id].count += 1;
+            syncActionSlots();
+          }
+          return;
+        }
+
+        // Decrease Button
+        const decBtn = e.target.closest('.btn-decrease');
+        if (decBtn) {
+          const id = decBtn.getAttribute('data-id');
+          if (cartState[id]) {
+            cartState[id].count -= 1;
+            if (cartState[id].count <= 0) {
+              delete cartState[id];
+            }
+            syncActionSlots();
+          }
+          return;
+        }
+
+        // Filter Pills
+        const filterBtn = e.target.closest('.filter-pill');
+        if (filterBtn) {
+          document.querySelectorAll('.filter-pill').forEach(b => {
+            b.classList.remove('active', 'bg-primary', 'text-on-primary');
+            b.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+          });
+          filterBtn.classList.add('active', 'bg-primary', 'text-on-primary');
+          filterBtn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+
+          const filter = filterBtn.getAttribute('data-filter');
+          applyFilters(filter, searchInput.value.trim().toLowerCase());
+          return;
+        }
+
+        // Category Nav Links
+        const navLink = e.target.closest('.category-nav-link');
+        if (navLink) {
+          document.querySelectorAll('.category-nav-link').forEach(link => {
+            link.classList.remove('active', 'bg-primary', 'text-on-primary', 'font-bold');
+            link.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+          });
+          navLink.classList.add('active', 'bg-primary', 'text-on-primary', 'font-bold');
+          navLink.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+        }
+      });
+
+      // Search & Tag Filter logic
+      function applyFilters(tagFilter, searchKeyword) {
+        const cards = document.querySelectorAll('.food-card');
+        cards.forEach(card => {
+          const dishName = card.querySelector('h3').textContent.toLowerCase();
+          const desc = card.querySelector('p').textContent.toLowerCase();
+          const tags = card.getAttribute('data-tags') || '';
+
+          const matchesTag = (tagFilter === 'all' || !tagFilter) ? true : tags.includes(tagFilter);
+          const matchesSearch = !searchKeyword ? true : (dishName.includes(searchKeyword) || desc.includes(searchKeyword));
+
+          if (matchesTag && matchesSearch) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          const val = this.value.trim().toLowerCase();
+          if (val.length > 0) {
+            clearSearchBtn.classList.remove('hidden');
+          } else {
+            clearSearchBtn.classList.add('hidden');
+          }
+          const activeFilterPill = document.querySelector('.filter-pill.active');
+          const currentFilter = activeFilterPill ? activeFilterPill.getAttribute('data-filter') : 'all';
+          applyFilters(currentFilter, val);
+        });
+
+        clearSearchBtn.addEventListener('click', function() {
+          searchInput.value = '';
+          clearSearchBtn.classList.add('hidden');
+          const activeFilterPill = document.querySelector('.filter-pill.active');
+          const currentFilter = activeFilterPill ? activeFilterPill.getAttribute('data-filter') : 'all';
+          applyFilters(currentFilter, '');
+        });
+      }
+
+      // Initial Sync
+      syncActionSlots();
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container text-on-surface py-space-xl border-t border-outline-variant/30"><div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-xl mb-space-xl"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-display-lg text-label-lg">M</div><span class="font-headline-sm text-headline-sm text-primary">Hotel New Moorthi Cafe</span></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Preserving genuine Chidambaram tiffin heritage since inception. Slow-steamed idlis, crispy ghee dosas, traditional sambar, and aromatic brass-filter kaapi served fresh.</p><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-secondary font-semibold"><span class="w-3 h-3 border border-secondary flex items-center justify-center rounded-xs"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span></span><span>100% Pure Vegetarian Preparation</span></div></div><div class="flex flex-col gap-space-sm"><span class="font-title-md text-title-md text-on-surface">Tiffin Menu Categories</span><div class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Breakfast Tiffin (Idli, Vadai, Pongal)</a><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Afternoon Lunch Meals &amp; Thali</a><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Evening Snacks &amp; Crispy Dosas</a><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Kumbakonam Degree Filter Kaapi</a><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Sweets &amp; Savoury Tiffin Add-ons</a></div></div><div class="flex flex-col gap-space-sm"><span class="font-title-md text-title-md text-on-surface">Kitchen Counter Policy</span><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">All orders are prepared hot for prompt dining hall pick-up and parcel takeaway. Please collect token slips from the central counter upon arrival.</p><div class="p-space-sm rounded-lg bg-surface-container-high"><span class="font-label-md text-label-md text-tertiary block font-semibold">Dining Hall &amp; Parcel Counter</span><span class="font-body-sm text-body-sm text-on-surface-variant">East Car Street, Opp. Natarajar Temple Outer Gopuram, Chidambaram, Tamil Nadu</span></div></div><div class="flex flex-col gap-space-sm"><span class="font-title-md text-title-md text-on-surface">Statutory &amp; Safety Badges</span><div class="p-space-md rounded-xl bg-surface-container-lowest border border-outline-variant/40 flex flex-col gap-space-xs"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-[20px]">verified</span><span class="font-label-md text-label-md text-on-surface font-semibold">FSSAI Central Compliant</span></div><span class="font-label-sm text-label-sm text-on-surface-variant">Lic. No. 12421008000491</span><div class="pt-space-xs border-t border-outline-variant/30 flex justify-between items-center"><span class="font-label-sm text-label-sm text-on-surface-variant">GST State Code: 33 (TN)</span><span class="font-label-sm text-label-sm text-primary font-bold">Pure Veg</span></div></div><div class="font-label-sm text-label-sm text-on-surface-variant"><span class="block">Token Inquiries: +91 4144 222 341</span><span class="block">Direct Counter Pickups Only</span></div></div></div><div class="pt-space-lg border-t border-outline-variant/30 flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-on-surface-variant"><p>© 2025 Hotel New Moorthi Cafe, Chidambaram. All culinary rights reserved.</p><div class="flex items-center gap-space-md font-label-md text-label-md"><a class="hover:text-primary transition-colors" data-path="dashboard" href="#">Counter Timings: 6:00 AM - 10:30 PM</a><span class="text-outline-variant">•</span><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Ghee Preparations Daily</a></div></div></div></footer></body></html>

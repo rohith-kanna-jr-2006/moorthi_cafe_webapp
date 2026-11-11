@@ -1,0 +1,18 @@
+{
+  "name": "assets/dca49bb148884e3d9950cfb9729655cb",
+  "displayName": "Heritage Culinary Warmth",
+  "theme": {
+    "colorMode": "LIGHT",
+    "font": "NOTO_SERIF",
+    "roundness": "ROUND_EIGHT",
+    "customColor": "#c05621",
+    "headlineFont": "NOTO_SERIF",
+    "bodyFont": "PLUS_JAKARTA_SANS",
+    "labelFont": "PLUS_JAKARTA_SANS",
+    "colorVariant": "FIDELITY",
+    "overridePrimaryColor": "#c05621",
+    "overrideSecondaryColor": "#2f855a",
+    "overrideTertiaryColor": "#d69e2e",
+    "overrideNeutralColor": "#faf5ef"
+  }
+}

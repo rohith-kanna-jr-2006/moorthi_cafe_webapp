@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-highest": "#e6e2dc", "outline-variant": "#dec0b5", "on-primary": "#ffffff", "on-primary-container": "#fffeff", "inverse-primary": "#ffb596", "error-container": "#ffdad6", "background": "#fef9f3", "surface-tint": "#a14009", "tertiary-fixed-dim": "#f8bc4b", "secondary-fixed": "#9ff5c1", "error": "#ba1a1a", "primary": "#9f3e07", "on-tertiary-container": "#fffeff", "surface": "#fef9f3", "on-error": "#ffffff", "tertiary": "#7b5600", "surface-bright": "#fef9f3", "on-secondary-container": "#167249", "inverse-surface": "#32302c", "surface-dim": "#ded9d4", "secondary-fixed-dim": "#83d8a6", "surface-container-lowest": "#ffffff", "on-secondary": "#ffffff", "tertiary-container": "#9b6d00", "on-tertiary-fixed-variant": "#5f4100", "on-secondary-fixed-variant": "#005231", "surface-container-low": "#f8f3ed", "on-error-container": "#93000a", "outline": "#8a7268", "primary-container": "#c05621", "inverse-on-surface": "#f5f0ea", "on-primary-fixed-variant": "#7d2d00", "on-secondary-fixed": "#002111", "tertiary-fixed": "#ffdeaa", "on-primary-fixed": "#360f00", "secondary": "#0a6c44", "surface-container-high": "#ece7e2", "on-surface": "#1d1b18", "on-surface-variant": "#57423a", "on-background": "#1d1b18", "primary-fixed": "#ffdbcd", "on-tertiary": "#ffffff", "primary-fixed-dim": "#ffb596", "surface-container": "#f2ede7", "secondary-container": "#9ff5c1", "on-tertiary-fixed": "#271900", "surface-variant": "#e6e2dc" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-mobile": "1.25rem", "space-lg": "1.5rem", "gutter-mobile": "1rem", "gutter": "1.5rem", "space-xs": "0.25rem", "margin": "2.5rem", "space-md": "1rem", "space-xl": "2.5rem", "space-sm": "0.5rem" }, fontFamily: { "display-lg-mobile": ["Noto Serif"], "body-sm": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "headline-sm": ["Noto Serif"], "display-lg": ["Noto Serif"], "title-lg": ["Plus Jakarta Sans"], "headline-lg": ["Noto Serif"], "body-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Noto Serif"], "headline-md": ["Noto Serif"], "label-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "title-md": ["Plus Jakarta Sans"] }, fontSize: { "display-lg-mobile": ["34px", { lineHeight: "42px", letterSpacing: "-0.01em", fontWeight: "700" }], "body-sm": ["13px", { lineHeight: "20px", fontWeight: "400" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.02em", fontWeight: "600" }], "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }], "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }], "title-lg": ["18px", { lineHeight: "26px", fontWeight: "700" }], "headline-lg": ["36px", { lineHeight: "44px", letterSpacing: "-0.015em", fontWeight: "600" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "600" }], "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }], "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }], "title-md": ["16px", { lineHeight: "24px", fontWeight: "600" }] } } } };</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="bg-secondary text-on-secondary px-margin-mobile lg:px-margin py-space-xs text-center"><div class="max-w-7xl mx-auto flex items-center justify-center gap-space-sm font-label-sm text-label-sm tracking-wide"><span class="w-2 h-2 rounded-full bg-secondary-fixed"></span><span>Pure Vegetarian Kitchen • Authentic Traditional Tiffin &amp; Filter Kaapi • Takeaway &amp; Pickup Counter</span></div></div><div class="h-20 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center font-display-lg text-title-lg shadow-sm">M</div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-tight">Hotel New Moorthi Cafe</span><span class="font-label-sm text-label-sm text-secondary flex items-center gap-space-xs"><span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>Est. Chidambaram • Heritage Tiffin</span></div></div><div class="hidden xl:flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm"><span class="material-symbols-outlined text-[16px] text-tertiary">storefront</span><span>Counter: Chidambaram Dining Hall</span></div></div><nav class="hidden md:flex items-center gap-space-xs p-space-xs rounded-xl bg-surface-container-low" data-active-classes="bg-primary text-on-primary font-bold shadow-sm rounded-lg"><a class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="full-menu" href="#">Full Menu</a><a aria-current="page" class="px-space-md py-space-xs transition-colors bg-primary text-on-primary font-bold shadow-sm rounded-lg" data-path="my-orders" href="#">My Orders</a><a class="px-space-md py-space-xs rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="order-tracking" href="#">Order Tracking</a></nav><div class="flex items-center gap-space-sm"><button class="flex items-center gap-space-sm px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-primary-container transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">shopping_bag</span><span class="hidden sm:inline font-title-md text-title-md">₹ 0</span><span class="w-5 h-5 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm flex items-center justify-center">0</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-28 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Content Canvas Container -->
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-md w-full">
+<!-- Top Editorial Header & Ambient Heritage Badge -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md pb-space-lg">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="inline-block w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-bold">Chidambaram Central Counter</span>
+<span class="text-outline-variant font-body-sm">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Token Verification Terminal</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+          My Orders &amp; Dining History
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Review counter pickup tokens, live kitchen preparation progress, and instant re-order receipts for our heritage vegetarian offerings.
+        </p>
+</div>
+<!-- Quick Summary Micro-Widget -->
+<div class="flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-container-low shadow-sm">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]">receipt_long</span>
+</div>
+<div class="flex flex-col pr-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Tiffin Served</span>
+<span class="font-title-lg text-title-lg text-on-surface font-bold">6 Orders <span class="font-body-sm text-body-sm text-secondary font-medium">₹2,010.50</span></span>
+</div>
+</div>
+</div>
+<!-- Filter Segmented Tabs Bar -->
+<div class="flex items-center justify-between flex-wrap gap-space-sm pb-space-lg">
+<div class="inline-flex p-1.5 rounded-xl bg-surface-container-high gap-space-xs shadow-inner overflow-x-auto max-w-full" id="filter-tab-bar">
+<button class="tab-trigger flex items-center gap-space-xs px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-all bg-primary text-on-primary shadow-sm font-bold" id="tab-btn-all" onclick="switchTab('all')" type="button">
+<span>All Orders</span>
+<span class="px-1.5 py-0.5 rounded-full text-label-sm text-label-sm bg-surface-container-lowest/20">6</span>
+</button>
+<button class="tab-trigger flex items-center gap-space-xs px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface" id="tab-btn-active" onclick="switchTab('active')" type="button">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Active Orders</span>
+<span class="px-1.5 py-0.5 rounded-full text-label-sm text-label-sm bg-surface-container text-on-surface-variant">1</span>
+</button>
+<button class="tab-trigger flex items-center gap-space-xs px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface" id="tab-btn-completed" onclick="switchTab('completed')" type="button">
+<span>Completed</span>
+<span class="px-1.5 py-0.5 rounded-full text-label-sm text-label-sm bg-surface-container text-on-surface-variant">4</span>
+</button>
+<button class="tab-trigger flex items-center gap-space-xs px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface" id="tab-btn-cancelled" onclick="switchTab('cancelled')" type="button">
+<span>Cancelled</span>
+<span class="px-1.5 py-0.5 rounded-full text-label-sm text-label-sm bg-surface-container text-on-surface-variant">1</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary">info</span>
+<span>Physical counter pickup token slips valid until 10:30 PM daily</span>
+</div>
+</div>
+<!-- MAIN GRID LAYOUT -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- Primary Left Column: Orders Flow -->
+<div class="lg:col-span-8 flex flex-col gap-space-xl">
+<!-- 1. SPOTLIGHT ACTIVE ORDER CARD (Active Orders section) -->
+<div class="order-group-item w-full rounded-2xl bg-surface-container-lowest overflow-hidden shadow-md flex flex-col relative transition-all" id="section-active-order">
+<!-- Top Deep Leaf Green Accent Banner -->
+<div class="bg-secondary text-on-secondary px-space-lg py-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-fixed opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-secondary-fixed"></span>
+</span>
+<span class="font-label-lg text-label-lg font-bold tracking-wide flex items-center gap-space-xs">
+                Active Order • Slow-Tawa Preparing
+              </span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-lowest/15 backdrop-blur-sm px-space-sm py-0.5 rounded-full font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>Pickup: Today, ~5:35 PM (12 mins remaining)</span>
+</div>
+</div>
+<!-- Card Content Body -->
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Token Header & Order ID Split -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pb-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="px-space-md py-space-xs rounded-xl bg-primary-fixed text-primary flex flex-col items-center justify-center shadow-sm">
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-wider">Pickup Counter</span>
+<span class="font-headline-md text-headline-md font-bold tracking-tighter">TOKEN #42</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md font-bold text-on-surface">Order #HNMC-9824</span>
+<span class="px-2 py-0.5 rounded text-label-sm text-label-sm bg-secondary-container text-on-secondary-container font-semibold">Live Kitchen</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Placed Today, 5:21 PM • Payment: Verified UPI (PhonePe)</span>
+</div>
+</div>
+<div class="text-left sm:text-right">
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Total Bill Amount</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">₹550.50</span>
+</div>
+</div>
+<!-- Preparation Pipeline Step Indicator -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span class="text-secondary font-bold flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">skillet</span>
+                  On Master Brass Tawa (Ghee Roast crisping)
+                </span>
+<span class="font-semibold text-primary">Stage 2 of 3</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-2 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-secondary rounded-full w-2/3 transition-all duration-700"></div>
+</div>
+<div class="grid grid-cols-3 text-center font-label-sm text-label-sm pt-space-xs">
+<span class="text-secondary font-bold">1. Order Placed (5:21 PM)</span>
+<span class="text-secondary font-bold">2. Preparing Fresh</span>
+<span class="text-outline">3. Ready for Counter Pick</span>
+</div>
+</div>
+<!-- Items Visual Preview Mosaics -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs">
+<!-- Item 1 -->
+<div class="flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-container-low/70">
+<div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Traditional South Indian golden crispy paper ghee roast dosa folded into a cone served with coconut chutney on fresh green banana leaf with warm earthen lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqSV4j67reu3tfmk2NWBvOnjtJVWKQ81qq99kWeLO715cdg6FaaKETGXx_D8ONdS8yrJwgIB3-jHAvqN6PfJMh06_kCHrcPlOEXyHW2f0AFbYW2bA5E29qiUpN-XINfp9cQ0KN7JruK0RymstDDEdKRKpieaOp9QNIR7LPIQ5fhbezde7S3GoyP0J4owfChrA3y7QoNuUxvfzyRYpXXpEHTphKKfS5S9fqvPfem6S6Iju2bShJcFoFcQ"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="w-3 h-3 rounded-xs border border-secondary flex items-center justify-center shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</span>
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">1x Ghee Roast Dosa</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Crispy Ney Roast</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">₹140.00</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-container-low/70">
+<div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Steaming hot Podi Thatte Idli coated generously in red gunpowder spice and melted pure aromatic cow ghee placed on traditional brass thali dish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqpwbCdpad8QMV0tchL-LyfoL_UcdzFJnXuE7SWfuzU9EFk02MBTU4StvAYZg8nT3bBrGyCtVK1cTUa6o94DbKjyLKXleCd_txy9feajt2yYGUzU0zGvt4FWQRzC4NTSzWfW0h8FpHhlDtr0aZKPADFTTCSpG8NmYSUAcdmSumwU7gjxq3IsaavmV54ymsV5AW7fse-VD_3_OuAILtzSwKUdXSx6XsolzEfyQPhMG7dJ4x5XqEYHyGfw"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="w-3 h-3 rounded-xs border border-secondary flex items-center justify-center shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</span>
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">2x Podi Thatte Idli</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Coated Gunpowder</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">₹230.50</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-container-low/70">
+<div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Authentic South Indian Degree Filter Coffee poured into traditional brass tumbler and dabarah foaming with creamy rich frothy chicory layer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATCnsRAWbjIn8iRS8pbexGdVOVYvQxm8i94YodE4Aqv0urhZF-Ln65j1q0aO3mFMau4Yl9B_zWbyEbu8AXjWwWvbCJLHG_bJMFlGiwEvww5cShFHTuVSOfcQ0VFOL3ilf9d9CgawlSQ-isUCEFe2NX9U8p8vkLiqzJIge1eZqFt_BBQLrvWdRy8JjvKK4KQMZHR1BgvabXydp5K0eLtGj7R9oVbIikdCzqJkE8P1GzYuJKqFCFImIpng"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="w-3 h-3 rounded-xs border border-secondary flex items-center justify-center shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</span>
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">2x Degree Kaapi</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Brass Davarah Tumbler</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">₹180.00</span>
+</div>
+</div>
+</div>
+<!-- CTAs and Real-time Action Row -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-sm pt-space-sm">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">verified_user</span>
+<span>Present this token #42 screen at East Gopuram Counter A</span>
+</div>
+<div class="flex items-center gap-space-sm w-full sm:w-auto">
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-space-sm px-space-lg py-space-sm rounded-lg bg-primary text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary-container transition-all" data-path="order-tracking" href="#">
+<span>Track Live Pickup Status</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. PAST COMPLETED ORDERS LIST SECTION -->
+<div class="order-group-item flex flex-col gap-space-md" id="section-completed-orders">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-space-xs">
+<span>Completed Tiffin Visits</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant font-normal">(4 records)</span>
+</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Displaying verified counter slips</span>
+</div>
+<!-- Completed Item Card 1: South Indian Raja Thali -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-md relative">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high text-on-surface-variant flex flex-col items-center justify-center shrink-0">
+<span class="font-label-sm text-label-sm text-outline font-bold">TOKEN</span>
+<span class="font-title-md text-title-md text-on-surface font-bold">#18</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md font-bold text-on-surface">Order #HNMC-9410</span>
+<span class="px-2 py-0.5 rounded text-label-sm text-label-sm bg-surface-container-high text-on-surface font-medium">Yesterday, Oct 24</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Picked at Counter 2 • 1:45 PM • UPI Ref: 32904812</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md justify-between sm:justify-end">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary font-bold bg-secondary-fixed/20 px-space-sm py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                  Completed &amp; Collected
+                </span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">₹390.00</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Traditional South Indian Raja Thali banquet served on banana leaf with brass katoris filled with vegetable gravies sambar rasam poriyal and appalam" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBny65YLDA1dFQYwMxrS-iuQn7Y_IWAh0joGpEBcNlX7AzzqoWhJqv3hFn1O4IcA6ayV_Z2Gb5-uV63QXwjbilBQ_PIOEFqYqFz_SK1WHIP1CqsabYBIBAOpt1HqXCRBP-BIjFfPD6Kwji6bS-vZoAaPiBCN3hpK--hiJV_D4q5jFiSDGVSA0DvQR9Nzn5D8FHjvV4nMY2w250xyqUS9lFkKb_jzoX03gdKJ5OOsZbiAokp-EPQKEJIdw"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">1x South Indian Raja Thali, 1x Elaneer Payasam</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Includes steamed ponni rice, medu vadai, sambar, rasam, curd &amp; tender coconut dessert</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto shrink-0 justify-end">
+<button class="px-space-md py-space-xs rounded-lg font-label-md text-label-md bg-primary text-on-primary font-bold shadow-sm hover:bg-primary-container transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+<span>Reorder Items</span>
+</button>
+<button class="px-space-sm py-space-xs rounded-lg font-label-md text-label-md bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>E-Receipt</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Completed Item Card 2: Special Onion Rava Dosa -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high text-on-surface-variant flex flex-col items-center justify-center shrink-0">
+<span class="font-label-sm text-label-sm text-outline font-bold">TOKEN</span>
+<span class="font-title-md text-title-md text-on-surface font-bold">#07</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md font-bold text-on-surface">Order #HNMC-8921</span>
+<span class="px-2 py-0.5 rounded text-label-sm text-label-sm bg-surface-container-high text-on-surface font-medium">Oct 20, 2025</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Dining Hall Parcel Window • 6:50 PM • Ghee Roasted</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md justify-between sm:justify-end">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary font-bold bg-secondary-fixed/20 px-space-sm py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                  Completed &amp; Collected
+                </span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">₹430.00</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Crispy golden net patterned Onion Rava Dosa seasoned with crushed cumin and green chilies served with trio of South Indian chutneys" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAqNSEN6nMOWTqH5pAwZDfbE6LoSX5USeQL8V8BHJmf6ztT-MjmuQSxoVHYyBcVcXuTL3CeW8lB8D-YT6AufLlznixu0OD2ybi9FMk-kc0h7ktZezfDn93MVC203J2F8VID5fX2S4nnEysva5zZzP0__Cda2DvC4dgM25cZtSaVDbG8jzY2-lP_dsXYucJsFJcvkeCGCGe69PNXep0hNrvWlrg7m3OB9twL_P1fqGT0UogpohyO4Q5hQ"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">2x Special Onion Rava Dosa, 2x Degree Filter Coffee</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Crispy semolina crepe with shallots + piping hot brass tumbler kaapi</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto shrink-0 justify-end">
+<button class="px-space-md py-space-xs rounded-lg font-label-md text-label-md bg-primary text-on-primary font-bold shadow-sm hover:bg-primary-container transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+<span>Reorder Items</span>
+</button>
+<button class="px-space-sm py-space-xs rounded-lg font-label-md text-label-md bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt</span>
+<span>Invoice</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Completed Item Card 3: Chettinad Mushroom Biryani -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high text-on-surface-variant flex flex-col items-center justify-center shrink-0">
+<span class="font-label-sm text-label-sm text-outline font-bold">TOKEN</span>
+<span class="font-title-md text-title-md text-on-surface font-bold">#29</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md font-bold text-on-surface">Order #HNMC-8512</span>
+<span class="px-2 py-0.5 rounded text-label-sm text-label-sm bg-surface-container-high text-on-surface font-medium">Oct 15, 2025</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Evening Meals Counter • 1:15 PM • Seeraga Samba rice</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md justify-between sm:justify-end">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary font-bold bg-secondary-fixed/20 px-space-sm py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                  Completed &amp; Collected
+                </span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">₹360.00</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Traditional fragrant Chettinad Mushroom Biryani prepared with small grain seeraga samba rice garnished with fresh fried onions and mint leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt7mtGGh0J2odxU0_5q86hQiWO1F_RiDJT9dV3L7TaRf9C5skCWXZYhu7c-bNfpUopIHpf2RVQbvEXYCe7SqoYr5HVgYHkX9Na-Xq5j6z-HvftwvctidlBsm_Dtv09IfekCp5L4LQS0iNJ_6bodwfvW8w6GHd1ZTK14WSD5VtA6ZKGt7zhw5ClJLSOwUDjR3KbCllAoaSFk-VMIXEPENvBOiZvSTaxTERoEX8tDkSXZzLdkWC_HDFLDw"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">1x Chettinad Mushroom Biryani, 1x Bisi Bele Bath</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Served with onion pachadi, vegetable kurma, and spiced crisps</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto shrink-0 justify-end">
+<button class="px-space-md py-space-xs rounded-lg font-label-md text-label-md bg-primary text-on-primary font-bold shadow-sm hover:bg-primary-container transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+<span>Reorder Items</span>
+</button>
+<button class="px-space-sm py-space-xs rounded-lg font-label-md text-label-md bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt</span>
+<span>Invoice</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. CANCELLED ORDER STATE -->
+<div class="order-group-item rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md" id="section-cancelled-orders">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg bg-error-container text-on-error-container flex flex-col items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">cancel</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md font-bold text-on-surface">Order #HNMC-8104</span>
+<span class="px-2 py-0.5 rounded text-label-sm text-label-sm bg-surface-container-high text-on-surface font-medium">Oct 10, 2025</span>
+</div>
+<span class="font-body-sm text-body-sm text-error font-medium">Cancelled &amp; Refund Initiated</span>
+</div>
+</div>
+<div class="text-left sm:text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Refund Status</span>
+<span class="font-title-lg text-title-lg text-on-surface font-bold">₹280.00 <span class="font-label-sm text-label-sm text-secondary font-semibold">(Processed)</span></span>
+</div>
+</div>
+<!-- Refund Details Box -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-0.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold">1x South Indian Raja Thali</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Cancellation reason: Guest requested schedule alteration before counter batch prep. 100% refund credited back to original bank UPI within 24 hours (UTR: 9028127391).
+              </p>
+</div>
+<button class="shrink-0 px-space-md py-space-xs rounded-lg font-label-md text-label-md bg-surface-container-high text-on-surface-variant hover:text-on-surface font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
+<span>View Refund Details</span>
+</button>
+</div>
+</div>
+<!-- 4. ZERO STATE PREVIEW COMPONENT (Hidden by default, triggered when empty tab selected) -->
+<div class="hidden rounded-2xl bg-surface-container-lowest p-space-xl shadow-sm text-center flex flex-col items-center justify-center gap-space-md" id="section-empty-state">
+<div class="w-24 h-24 rounded-full bg-surface-container-high flex items-center justify-center text-primary mb-space-xs">
+<span class="material-symbols-outlined text-[48px]">ramen_dining</span>
+</div>
+<div class="max-w-md flex flex-col gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">No Orders in this category</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Craving steaming soft idlis, fragrant ghee roast, or our Kumbakonam degree filter kaapi? Fresh batches are rolling right now at the counter.
+            </p>
+</div>
+<a class="inline-flex items-center gap-space-xs px-space-xl py-space-sm rounded-lg bg-primary text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary-container transition-all" data-path="full-menu" href="#">
+<span class="material-symbols-outlined text-[20px]">restaurant_menu</span>
+<span>Explore Full Menu</span>
+</a>
+</div>
+</div>
+<!-- Secondary Right Column: Counter Hall Guide & Live Assistance -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Counter Collection Instructions Card -->
+<div class="rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm pb-space-xs">
+<div class="w-10 h-10 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">store</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-bold text-on-surface">Pickup Instructions</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Chidambaram Main Hall</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
+<span class="w-6 h-6 rounded-full bg-primary-fixed text-primary font-bold text-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">1</span>
+<span>Keep your active <strong class="text-on-surface">TOKEN #42</strong> on display as you approach counter A.</span>
+</div>
+<div class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
+<span class="w-6 h-6 rounded-full bg-primary-fixed text-primary font-bold text-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">2</span>
+<span>All sambar, chutneys, and parcel wraps are sealed hot with biodegradable plantain leaves.</span>
+</div>
+<div class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
+<span class="w-6 h-6 rounded-full bg-primary-fixed text-primary font-bold text-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">3</span>
+<span>Filter Kaapi tumblers are poured fresh at the counter moment of pickup for maximum crema froth.</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between text-on-surface">
+<div class="flex items-center gap-space-xs font-label-md text-label-md">
+<span class="material-symbols-outlined text-[20px] text-tertiary">call</span>
+<span>Counter Inquiry Desk</span>
+</div>
+<a class="font-label-sm text-label-sm font-bold text-primary hover:underline" href="tel:+914144222341">+91 4144 222 341</a>
+</div>
+</div>
+<!-- Quick Re-order Favorites Banner -->
+<div class="rounded-2xl bg-surface-container p-space-lg shadow-sm flex flex-col gap-space-md relative overflow-hidden">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-tertiary font-bold uppercase tracking-wider">Most Ordered Together</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">The Authentic Tiffin Trio</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Re-order your favorite combination with 1-click counter dispatch:
+            </p>
+</div>
+<div class="flex flex-col gap-space-xs py-space-xs">
+<div class="flex items-center justify-between font-label-md text-label-md text-on-surface">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                Crispy Ghee Podi Dosa
+              </span>
+<span class="font-semibold text-primary">₹130</span>
+</div>
+<div class="flex items-center justify-between font-label-md text-label-md text-on-surface">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                Medu Vadai (2 Pcs)
+              </span>
+<span class="font-semibold text-primary">₹70</span>
+</div>
+<div class="flex items-center justify-between font-label-md text-label-md text-on-surface">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                Brass Degree Filter Kaapi
+              </span>
+<span class="font-semibold text-primary">₹45</span>
+</div>
+</div>
+<button class="w-full py-space-sm px-space-md rounded-lg bg-surface-container-lowest text-primary font-label-lg text-label-lg font-bold shadow-sm hover:bg-surface-container-lowest/80 transition-colors flex items-center justify-center gap-space-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+<span>Quick Re-Add Trio (₹245)</span>
+</button>
+</div>
+<!-- Heritage Pure Veg Guarantee Tag -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed/30 text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">eco</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-bold text-on-surface">100% Satvik Pure Veg</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Prepared with fresh farm butter, cold pressed sesame oil, and temple-town heritage recipe standards.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Filter Logic -->
+<script>
+    function switchTab(type) {
+      // Button states styling
+      const buttons = document.querySelectorAll('.tab-trigger');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm', 'font-bold');
+        btn.classList.add('text-on-surface-variant');
+      });
+
+      const activeBtn = document.getElementById('tab-btn-' + type);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-primary', 'text-on-primary', 'shadow-sm', 'font-bold');
+        activeBtn.classList.remove('text-on-surface-variant');
+      }
+
+      const activeSection = document.getElementById('section-active-order');
+      const completedSection = document.getElementById('section-completed-orders');
+      const cancelledSection = document.getElementById('section-cancelled-orders');
+      const emptyState = document.getElementById('section-empty-state');
+
+      // Reset visibility
+      activeSection.classList.remove('hidden');
+      completedSection.classList.remove('hidden');
+      cancelledSection.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+
+      if (type === 'active') {
+        completedSection.classList.add('hidden');
+        cancelledSection.classList.add('hidden');
+      } else if (type === 'completed') {
+        activeSection.classList.add('hidden');
+        cancelledSection.classList.add('hidden');
+      } else if (type === 'cancelled') {
+        activeSection.classList.add('hidden');
+        completedSection.classList.add('hidden');
+      } else if (type === 'all') {
+        // All shown
+      }
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container text-on-surface py-space-xl border-t border-outline-variant/30"><div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-xl mb-space-xl"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-display-lg text-label-lg">M</div><span class="font-headline-sm text-headline-sm text-primary">Hotel New Moorthi Cafe</span></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Preserving genuine Chidambaram tiffin heritage since inception. Slow-steamed idlis, crispy ghee dosas, traditional sambar, and aromatic brass-filter kaapi served fresh.</p><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-secondary font-semibold"><span class="w-3 h-3 border border-secondary flex items-center justify-center rounded-xs"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span></span><span>100% Pure Vegetarian Preparation</span></div></div><div class="flex flex-col gap-space-sm"><span class="font-title-md text-title-md text-on-surface">Tiffin Menu Categories</span><div class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Breakfast Tiffin (Idli, Vadai, Pongal)</a><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Afternoon Lunch Meals &amp; Thali</a><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Evening Snacks &amp; Crispy Dosas</a><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Kumbakonam Degree Filter Kaapi</a><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Sweets &amp; Savoury Tiffin Add-ons</a></div></div><div class="flex flex-col gap-space-sm"><span class="font-title-md text-title-md text-on-surface">Kitchen Counter Policy</span><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">All orders are prepared hot for prompt dining hall pick-up and parcel takeaway. Please collect token slips from the central counter upon arrival.</p><div class="p-space-sm rounded-lg bg-surface-container-high"><span class="font-label-md text-label-md text-tertiary block font-semibold">Dining Hall &amp; Parcel Counter</span><span class="font-body-sm text-body-sm text-on-surface-variant">East Car Street, Opp. Natarajar Temple Outer Gopuram, Chidambaram, Tamil Nadu</span></div></div><div class="flex flex-col gap-space-sm"><span class="font-title-md text-title-md text-on-surface">Statutory &amp; Safety Badges</span><div class="p-space-md rounded-xl bg-surface-container-lowest border border-outline-variant/40 flex flex-col gap-space-xs"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-[20px]">verified</span><span class="font-label-md text-label-md text-on-surface font-semibold">FSSAI Central Compliant</span></div><span class="font-label-sm text-label-sm text-on-surface-variant">Lic. No. 12421008000491</span><div class="pt-space-xs border-t border-outline-variant/30 flex justify-between items-center"><span class="font-label-sm text-label-sm text-on-surface-variant">GST State Code: 33 (TN)</span><span class="font-label-sm text-label-sm text-primary font-bold">Pure Veg</span></div></div><div class="font-label-sm text-label-sm text-on-surface-variant"><span class="block">Token Inquiries: +91 4144 222 341</span><span class="block">Direct Counter Pickups Only</span></div></div></div><div class="pt-space-lg border-t border-outline-variant/30 flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-on-surface-variant"><p>© 2025 Hotel New Moorthi Cafe, Chidambaram. All culinary rights reserved.</p><div class="flex items-center gap-space-md font-label-md text-label-md"><a class="hover:text-primary transition-colors" data-path="dashboard" href="#">Counter Timings: 6:00 AM - 10:30 PM</a><span class="text-outline-variant">•</span><a class="hover:text-primary transition-colors" data-path="full-menu" href="#">Ghee Preparations Daily</a></div></div></div></footer></body></html>

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"primary-container":"#c05621","on-primary":"#ffffff","on-primary-fixed":"#360f00","secondary-fixed":"#9ff5c1","surface-container":"#f2ede7","on-tertiary-container":"#fffeff","surface-dim":"#ded9d4","inverse-on-surface":"#f5f0ea","outline-variant":"#dec0b5","on-secondary":"#ffffff","tertiary-fixed-dim":"#f8bc4b","on-tertiary-fixed":"#271900","inverse-primary":"#ffb596","primary-fixed":"#ffdbcd","on-surface-variant":"#57423a","on-error":"#ffffff","on-secondary-fixed-variant":"#005231","error-container":"#ffdad6","on-secondary-container":"#167249","error":"#ba1a1a","secondary-container":"#9ff5c1","on-surface":"#1d1b18","on-primary-container":"#fffeff","on-error-container":"#93000a","tertiary-container":"#9b6d00","surface-tint":"#a14009","inverse-surface":"#32302c","surface":"#fef9f3","tertiary-fixed":"#ffdeaa","tertiary":"#7b5600","on-secondary-fixed":"#002111","outline":"#8a7268","surface-bright":"#fef9f3","on-tertiary-fixed-variant":"#5f4100","primary-fixed-dim":"#ffb596","surface-container-low":"#f8f3ed","on-primary-fixed-variant":"#7d2d00","on-tertiary":"#ffffff","secondary":"#0a6c44","background":"#fef9f3","on-background":"#1d1b18","surface-container-high":"#ece7e2","surface-variant":"#e6e2dc","primary":"#9f3e07","secondary-fixed-dim":"#83d8a6","surface-container-lowest":"#ffffff","surface-container-highest":"#e6e2dc"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"gutter":"1.5rem","space-sm":"0.5rem","gutter-mobile":"1rem","margin-mobile":"1.25rem","space-md":"1rem","space-xl":"2.5rem","space-xs":"0.25rem","margin":"2.5rem","space-lg":"1.5rem"},"fontFamily":{"display-lg-mobile":["Noto Serif"],"headline-md":["Noto Serif"],"display-lg":["Noto Serif"],"label-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-lg":["Noto Serif"],"body-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Noto Serif"],"headline-sm":["Noto Serif"],"label-lg":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"title-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"]},"fontSize":{"display-lg-mobile":["34px",{"lineHeight":"42px","letterSpacing":"-0.01em","fontWeight":"700"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.03em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.02em","fontWeight":"600"}],"title-md":["16px",{"lineHeight":"24px","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"title-lg":["18px",{"lineHeight":"26px","fontWeight":"700"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-secondary z-50 flex flex-col justify-between py-6 px-4 shadow-[0_4px_20px_rgba(10,108,68,0.15)]"><div class="flex flex-col gap-6"><div class="px-3 py-2 flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-secondary">restaurant</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-secondary font-bold leading-tight">Moorthi Cafe</span><span class="font-label-sm text-label-sm text-secondary-fixed opacity-90">Counter &amp; Kitchen Console</span></div></div><div class="px-3"><div class="h-[1px] w-full bg-secondary-fixed/20"></div></div><nav class="flex flex-col gap-1.5" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm"><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="orders" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Orders</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="menu" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span>Menu</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="categories" href="#"><span class="material-symbols-outlined text-[20px]">category</span><span>Categories</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="add-edit-food" href="#"><span class="material-symbols-outlined text-[20px]">edit_note</span><span>Add/Edit Food</span></a><a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 transition-all bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm" data-path="customers" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span>Customers</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="sales-reports" href="#"><span class="material-symbols-outlined text-[20px]">bar_chart</span><span>Sales Reports</span></a></nav></div><div class="flex flex-col gap-3 px-3 pt-4 border-t border-secondary-fixed/20"><div class="flex items-center justify-between text-secondary-fixed font-label-sm text-label-sm"><span>Terminal ID: CHD-CTR-01</span><span class="flex h-2 w-2 rounded-full bg-secondary-fixed animate-pulse"></span></div><div class="flex items-center gap-2 p-2 rounded-lg bg-secondary-fixed/10"><span class="material-symbols-outlined text-secondary-fixed text-[18px]">storefront</span><span class="font-label-md text-label-md text-on-secondary truncate">Chidambaram Heritage Unit</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="flex items-center gap-4"><div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-high"><span class="material-symbols-outlined text-primary text-[18px]">location_on</span><span class="font-label-md text-label-md text-on-surface">Chidambaram Central Counter</span></div><div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary-container"><span class="h-2 w-2 rounded-full bg-secondary"></span><span class="font-label-md text-label-md text-on-secondary-container font-semibold">Kitchen Online / Active</span></div></div><div class="flex items-center gap-6"><div class="hidden md:flex items-center gap-2 text-on-surface-variant font-label-md text-label-md"><span class="material-symbols-outlined text-[18px]">schedule</span><span>Today | Shift A (06:00 - 15:00)</span></div><div class="relative flex items-center justify-center"><button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary"></span></div><div class="flex items-center gap-3 pl-2 border-l border-surface-container-high"><div class="flex flex-col text-right"><span class="font-title-md text-title-md text-on-surface leading-tight">S. Ramanathan</span><span class="font-label-sm text-label-sm text-on-surface-variant">Counter Manager</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-16 w-full px-8 pb-12 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Confidential Prototype & Privacy Protocol Banners -->
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mb-6 p-4 rounded-xl bg-surface-container shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-tertiary/15 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary font-bold">Illustrative Prototype Diner Registry • Strictly Confidential</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-variant font-label-sm text-label-sm text-on-surface-variant">Internal Terminal Only</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+          For privacy and compliance, passwords are never stored in plain text or displayed in the management interface.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-3 self-end md:self-auto shrink-0">
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container-high font-label-sm text-label-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]">verified_user</span>
+<span>256-bit Encrypted Token Log</span>
+</div>
+</div>
+</div>
+<!-- Header & Metatags Strip -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+<div>
+<div class="flex items-center gap-2.5 mb-2">
+<span class="px-2.5 py-1 rounded bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold uppercase tracking-widest">Patron Module</span>
+<span class="font-label-sm text-label-sm text-outline">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ref: CHD-REG-2024</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Customer Registry &amp; Dining History</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-2xl">
+        Registered patrons, token pickup preferences, and visit history. Manage dining habits, recurring temple-hour orders, and bespoke kitchen notes.
+      </p>
+</div>
+<!-- Quick Stats Bento Strip -->
+<div class="grid grid-cols-3 gap-3 shrink-0">
+<div class="px-4 py-3 rounded-xl bg-surface-container-low shadow-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Active Patrons</span>
+<div class="flex items-baseline gap-1.5 mt-1">
+<span class="font-title-lg text-title-lg font-bold text-on-surface">184</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">+12%</span>
+</div>
+</div>
+<div class="px-4 py-3 rounded-xl bg-surface-container-low shadow-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Avg Lifetime Spend</span>
+<div class="flex items-baseline gap-1.5 mt-1">
+<span class="font-title-lg text-title-lg font-bold text-primary">₹3,950</span>
+<span class="font-label-sm text-label-sm text-outline">/patron</span>
+</div>
+</div>
+<div class="px-4 py-3 rounded-xl bg-surface-container-low shadow-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Heritage Regulars</span>
+<div class="flex items-baseline gap-1.5 mt-1">
+<span class="font-title-lg text-title-lg font-bold text-tertiary">42</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">&gt;10 visits</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Search & Segment Filters -->
+<div class="flex flex-col gap-4 mb-6">
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+<!-- Search Bar -->
+<div class="relative flex-1 max-w-xl">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-12 pr-4 py-3 rounded-xl bg-surface-container-lowest font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-sm transition-all" id="patronSearch" placeholder="Search by customer name, phone number, or email..." type="text"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-1 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors">
+          ⌘K
+        </button>
+</div>
+<!-- Quick Action Controls -->
+<div class="flex items-center gap-3 shrink-0">
+<button class="flex items-center gap-2 px-4 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container font-label-lg text-label-lg text-on-surface transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>Attributes</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container font-label-lg text-label-lg text-on-surface transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Export CSV</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>Enroll Patron</span>
+</button>
+</div>
+</div>
+<!-- Segment Filter Pills -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1">
+<button class="filter-pill active px-4 py-2 rounded-full font-label-md text-label-md transition-all shrink-0 bg-primary text-on-primary font-semibold shadow-sm" data-filter="all">
+        All Customers (184)
+      </button>
+<button class="filter-pill px-4 py-2 rounded-full font-label-md text-label-md transition-all shrink-0 bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-filter="heritage">
+        Heritage Regulars (&gt;10 Visits)
+      </button>
+<button class="filter-pill px-4 py-2 rounded-full font-label-md text-label-md transition-all shrink-0 bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-filter="new">
+        New This Week
+      </button>
+<button class="filter-pill px-4 py-2 rounded-full font-label-md text-label-md transition-all shrink-0 bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-filter="satvik">
+        Pure Satvik Diet Preferences
+      </button>
+<div class="h-4 w-[1px] bg-outline-variant/40 mx-2 shrink-0"></div>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-primary hover:bg-primary-fixed/20 font-label-md text-label-md transition-colors shrink-0">
+<span class="material-symbols-outlined text-[16px]">filter_alt</span>
+<span>More Filters</span>
+</button>
+</div>
+</div>
+<!-- Primary Registry Table Container -->
+<div class="w-full rounded-2xl bg-surface-container-lowest shadow-md overflow-hidden relative">
+<div class="overflow-x-auto">
+<table class="w-full text-left" id="customerTable">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Patron Details</th>
+<th class="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Contact Info</th>
+<th class="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Registration</th>
+<th class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-center">Visits</th>
+<th class="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Total Spend (₹)</th>
+<th class="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Kitchen Preferences</th>
+<th class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-center">Status</th>
+<th class="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/60">
+<!-- ROW 1: Sundaram Natarajan -->
+<tr class="hover:bg-surface-container-low/40 transition-colors group" data-category="heritage" data-email="sundaram@domain.com" data-name="Sundaram Natarajan" data-phone="+91 98765 43210">
+<td class="py-4 px-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center font-title-md text-title-md text-on-primary-fixed font-bold shrink-0">
+                  SN
+                </div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold group-hover:text-primary transition-colors">Sundaram Natarajan</span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                      Heritage Tier
+                    </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Patron ID: #CHD-9021</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-5">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">+91 98765 43210</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">sundaram@domain.com</span>
+</div>
+</td>
+<td class="py-4 px-5">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">14 Aug 2024</span>
+<span class="font-label-sm text-label-sm text-outline">Counter In-Person</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-surface-container font-title-md text-title-md font-bold text-on-surface">
+                14
+              </div>
+</td>
+<td class="py-4 px-5 text-right">
+<span class="font-title-md text-title-md font-bold text-primary">₹4,850</span>
+<span class="block font-label-sm text-label-sm text-outline">Avg ₹346/ord</span>
+</td>
+<td class="py-4 px-5">
+<div class="flex items-center gap-1.5">
+<span class="px-2.5 py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+                  Degree Kaapi strong decoction
+                </span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container font-label-sm text-label-sm font-bold text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Active
+              </span>
+</td>
+<td class="py-4 px-5 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-lg hover:bg-surface-container text-primary hover:text-primary-container transition-colors title='View Order History &amp; Token Slips'" onclick="openDrawer('Sundaram Natarajan', '#CHD-9021', '+91 98765 43210', 'sundaram@domain.com', '14 Visits', '₹4,850', 'Degree Kaapi strong decoction', [
+                    {token: 'T-042', date: 'Today, 07:15 AM', status: 'Collected', items: '2x Ghee Podi Idli, 1x Strong Kumbakonam Kaapi', amount: '₹180'},
+                    {token: 'T-118', date: '12 Nov 2024, 08:30 AM', status: 'Delivered', items: '1x Heritage Rava Khichdi, 2x Degree Kaapi', amount: '₹220'},
+                    {token: 'T-091', date: '04 Nov 2024, 05:45 PM', status: 'Delivered', items: '1x Medu Vada Plate, 1x Special Filter Coffee', amount: '₹140'}
+                  ])">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" onclick="showDietModal('Sundaram Natarajan', 'Degree Kaapi strong decoction. Never add chicory excess. Prefers double copper davarah serving if dining in-house.')" title="View Diet Notes">
+<span class="material-symbols-outlined text-[20px]">notes</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" onclick="toggleAccountMenu(event, 'SN-01')" title="Account Status">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 2: Meenakshi Sundaram -->
+<tr class="hover:bg-surface-container-low/40 transition-colors group" data-category="satvik" data-email="meenakshi.s@gmail.com" data-name="Meenakshi Sundaram" data-phone="+91 97890 23456">
+<td class="py-4 px-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center font-title-md text-title-md text-on-secondary-fixed font-bold shrink-0">
+                  MS
+                </div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold group-hover:text-primary transition-colors">Meenakshi Sundaram</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">eco</span>
+                      Satvik Member
+                    </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Patron ID: #CHD-8812</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-5">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">+91 97890 23456</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">meenakshi.s@gmail.com</span>
+</div>
+</td>
+<td class="py-4 px-5">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">02 Sep 2024</span>
+<span class="font-label-sm text-label-sm text-outline">QR Self-Checkout</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-surface-container font-title-md text-title-md font-bold text-on-surface">
+                9
+              </div>
+</td>
+<td class="py-4 px-5 text-right">
+<span class="font-title-md text-title-md font-bold text-primary">₹3,120</span>
+<span class="block font-label-sm text-label-sm text-outline">Avg ₹346/ord</span>
+</td>
+<td class="py-4 px-5">
+<div class="flex items-center gap-1.5">
+<span class="px-2.5 py-1 rounded-lg bg-secondary-container/50 font-label-sm text-label-sm text-secondary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">spa</span>
+                  Satvik / Less Spice
+                </span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container font-label-sm text-label-sm font-bold text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Verified
+              </span>
+</td>
+<td class="py-4 px-5 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-lg hover:bg-surface-container text-primary hover:text-primary-container transition-colors" onclick="openDrawer('Meenakshi Sundaram', '#CHD-8812', '+91 97890 23456', 'meenakshi.s@gmail.com', '9 Visits', '₹3,120', 'Satvik / Less Spice (No Onion, No Garlic)', [
+                    {token: 'T-015', date: 'Yesterday, 01:20 PM', status: 'Delivered', items: '1x Temple Style Sambar Rice, 1x Curd Rice with Pomegranate', amount: '₹260'},
+                    {token: 'T-082', date: '10 Nov 2024, 12:45 PM', status: 'Delivered', items: '2x Satvik Thali Meals, 1x Payasam Cup', amount: '₹480'}
+                  ])" title="View Order History &amp; Token Slips">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" onclick="showDietModal('Meenakshi Sundaram', 'Strictly Satvik diet requirements: Zero onion, zero garlic. All curries must use mild green chili and ginger base only.')" title="View Diet Notes">
+<span class="material-symbols-outlined text-[20px]">notes</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" onclick="toggleAccountMenu(event, 'MS-02')" title="Account Status">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: Venkatesh Iyer -->
+<tr class="hover:bg-surface-container-low/40 transition-colors group" data-category="regular" data-email="venkat.iyer@chd.in" data-name="Venkatesh Iyer" data-phone="+91 98765 43210">
+<td class="py-4 px-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-title-md text-title-md text-on-surface font-bold shrink-0">
+                  VI
+                </div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold group-hover:text-primary transition-colors">Venkatesh Iyer</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">Standard</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Patron ID: #CHD-9411</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-5">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">+91 98765 43210</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">venkat.iyer@chd.in</span>
+</div>
+</td>
+<td class="py-4 px-5">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">28 Oct 2024</span>
+<span class="font-label-sm text-label-sm text-outline">Counter POS</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-surface-container font-title-md text-title-md font-bold text-on-surface">
+                3
+              </div>
+</td>
+<td class="py-4 px-5 text-right">
+<span class="font-title-md text-title-md font-bold text-primary">₹1,240</span>
+<span class="block font-label-sm text-label-sm text-outline">Avg ₹413/ord</span>
+</td>
+<td class="py-4 px-5">
+<div class="flex items-center gap-1.5">
+<span class="px-2.5 py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">flatware</span>
+                  Crisp Ney Roast
+                </span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container font-label-sm text-label-sm font-bold text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Active
+              </span>
+</td>
+<td class="py-4 px-5 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-lg hover:bg-surface-container text-primary hover:text-primary-container transition-colors" onclick="openDrawer('Venkatesh Iyer', '#CHD-9411', '+91 98765 43210', 'venkat.iyer@chd.in', '3 Visits', '₹1,240', 'Crisp Ney Roast', [
+                    {token: 'T-204', date: '08 Nov 2024, 07:45 PM', status: 'Delivered', items: '2x Crisp Ghee Roast Dosa, 1x Onion Uttapam', amount: '₹390'},
+                    {token: 'T-151', date: '01 Nov 2024, 08:15 AM', status: 'Delivered', items: '1x Ney Roast Dosa, 1x Filter Coffee', amount: '₹190'}
+                  ])" title="View Order History &amp; Token Slips">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" onclick="showDietModal('Venkatesh Iyer', 'Loves extra crisp golden-brown edges on all Ney Roast variants. Requesting hot coconut chutney with zero mint.')" title="View Diet Notes">
+<span class="material-symbols-outlined text-[20px]">notes</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" onclick="toggleAccountMenu(event, 'VI-03')" title="Account Status">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 4: Dr. S. Kalyanaraman -->
+<tr class="hover:bg-surface-container-low/40 transition-colors group" data-category="heritage" data-email="dr.kalyan@hospital.org" data-name="Dr. S. Kalyanaraman" data-phone="+91 94440 88712">
+<td class="py-4 px-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center font-title-md text-title-md text-on-tertiary-fixed font-bold shrink-0">
+                  SK
+                </div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold group-hover:text-primary transition-colors">Dr. S. Kalyanaraman</span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                      Patron Elder
+                    </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Patron ID: #CHD-0104</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-5">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">+91 94440 88712</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">dr.kalyan@hospital.org</span>
+</div>
+</td>
+<td class="py-4 px-5">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">10 Jan 2024</span>
+<span class="font-label-sm text-label-sm text-outline">Founding Member</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-tertiary-fixed/30 font-title-md text-title-md font-bold text-tertiary">
+                22
+              </div>
+</td>
+<td class="py-4 px-5 text-right">
+<span class="font-title-md text-title-md font-bold text-primary">₹8,920</span>
+<span class="block font-label-sm text-label-sm text-outline">Avg ₹405/ord</span>
+</td>
+<td class="py-4 px-5">
+<div class="flex items-center gap-1.5">
+<span class="px-2.5 py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">coffee</span>
+                  Sugar-free Kaapi
+                </span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container font-label-sm text-label-sm font-bold text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Verified
+              </span>
+</td>
+<td class="py-4 px-5 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-lg hover:bg-surface-container text-primary hover:text-primary-container transition-colors" onclick="openDrawer('Dr. S. Kalyanaraman', '#CHD-0104', '+91 94440 88712', 'dr.kalyan@hospital.org', '22 Visits', '₹8,920', 'Sugar-free Kaapi, Pure Cow Milk', [
+                    {token: 'T-004', date: 'Today, 06:10 AM', status: 'Collected', items: '1x Sugar-free Special Filter Kaapi, 2x Steamed Idli', amount: '₹120'},
+                    {token: 'T-078', date: '14 Nov 2024, 06:15 AM', status: 'Delivered', items: '1x Sugar-free Kaapi, 1x Poori Masala', amount: '₹165'},
+                    {token: 'T-012', date: '09 Nov 2024, 07:00 AM', status: 'Delivered', items: '1x Medu Vada (Dry, no oil excess), 1x Sugar-free Kaapi', amount: '₹135'}
+                  ])" title="View Order History &amp; Token Slips">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" onclick="showDietModal('Dr. S. Kalyanaraman', 'Strict diabetic profile. Zero sugar or jaggery in beverages. Prefers cow milk and mild steamed items.')" title="View Diet Notes">
+<span class="material-symbols-outlined text-[20px]">notes</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" onclick="toggleAccountMenu(event, 'SK-04')" title="Account Status">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 5: Ananya Shankar -->
+<tr class="hover:bg-surface-container-low/40 transition-colors group" data-category="new" data-email="ananya.s@outlook.com" data-name="Ananya Shankar" data-phone="+91 94432 11098">
+<td class="py-4 px-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed-dim flex items-center justify-center font-title-md text-title-md text-on-primary-fixed font-bold shrink-0">
+                  AS
+                </div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold group-hover:text-primary transition-colors">Ananya Shankar</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-medium">New Diner</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Patron ID: #CHD-9932</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-5">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">+91 94432 11098</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ananya.s@outlook.com</span>
+</div>
+</td>
+<td class="py-4 px-5">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">18 Nov 2024</span>
+<span class="font-label-sm text-label-sm text-primary font-medium">Enrolled This Week</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-surface-container font-title-md text-title-md font-bold text-on-surface">
+                5
+              </div>
+</td>
+<td class="py-4 px-5 text-right">
+<span class="font-title-md text-title-md font-bold text-primary">₹1,650</span>
+<span class="block font-label-sm text-label-sm text-outline">Avg ₹330/ord</span>
+</td>
+<td class="py-4 px-5">
+<div class="flex items-center gap-1.5">
+<span class="px-2.5 py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">local_fire_department</span>
+                  Extra Podi
+                </span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container font-label-sm text-label-sm font-bold text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Active
+              </span>
+</td>
+<td class="py-4 px-5 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-lg hover:bg-surface-container text-primary hover:text-primary-container transition-colors" onclick="openDrawer('Ananya Shankar', '#CHD-9932', '+91 94432 11098', 'ananya.s@outlook.com', '5 Visits', '₹1,650', 'Extra Podi &amp; Sesame Oil Side Dish', [
+                    {token: 'T-102', date: 'Yesterday, 06:40 PM', status: 'Delivered', items: '1x Thatte Idli Podi Tossed, 1x Filter Kaapi', amount: '₹190'},
+                    {token: 'T-033', date: '19 Nov 2024, 08:00 AM', status: 'Delivered', items: '2x Podi Dosa, 1x Masala Tea', amount: '₹280'}
+                  ])" title="View Order History &amp; Token Slips">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" onclick="showDietModal('Ananya Shankar', 'Always requests Gunpowder (Idli Milagai Podi) generously coated with Gingelly oil. Enjoys crisp side accompaniments.')" title="View Diet Notes">
+<span class="material-symbols-outlined text-[20px]">notes</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" onclick="toggleAccountMenu(event, 'AS-05')" title="Account Status">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Bottom Bar & Pagination -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-surface-container-low border-t-0">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>Showing <strong class="text-on-surface">5</strong> of <strong class="text-on-surface">184</strong> registered patrons</span>
+<span class="text-outline">•</span>
+<span class="flex items-center gap-1 text-secondary font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Synchronized with Kitchen KDS
+        </span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface disabled:opacity-40" disabled="">Previous</button>
+<span class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-bold">1</span>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-on-surface">2</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-on-surface">3</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-on-surface">Next</button>
+</div>
+</div>
+</div>
+<!-- Regional Kitchen Heritage Notes Footer Card -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+<div class="p-5 rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-sm">
+<div>
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-primary text-[22px]">auto_stories</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold mb-1">Chidambaram Hospitality Ledger</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Patron dietary requirements are instantly synchronized with Chef's display rail at the Kaapi Counter and Hot Tawa Stations.
+        </p>
+</div>
+<div class="mt-4 pt-3 flex items-center gap-2">
+<span class="text-primary font-label-sm text-label-sm font-bold flex items-center gap-1 hover:underline cursor-pointer">
+          Read Kitchen Standard Operating Procedures
+          <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<div class="p-5 rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-sm">
+<div>
+<div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">diversity_3</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold mb-1">Satvik Protocol Enforcement</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Diners flagged with Satvik preferences automatically trigger independent vessel segregation in the secondary traditional kitchen.
+        </p>
+</div>
+<div class="mt-4 pt-3 flex items-center gap-2">
+<span class="text-secondary font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+          Vessel Line Segregation Active
+        </span>
+</div>
+</div>
+<div class="p-5 rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-sm">
+<div>
+<div class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-tertiary text-[22px]">qr_code_scanner</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold mb-1">Digital Token Redemption</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Token slips are sent via SMS &amp; WhatsApp. Regulars can show their patron ID barcode at the pickup counter for priority dispensing.
+        </p>
+</div>
+<div class="mt-4 pt-3 flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">
+          Avg dispensing wait: <strong class="text-on-surface">3.8 minutes</strong>
+</span>
+</div>
+</div>
+</div>
+<!-- SLIDE-OVER DRAWER: Customer Order History & Token Slips -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-50 transition-opacity duration-300 opacity-0 pointer-events-none" id="drawerOverlay" onclick="closeDrawer()"></div>
+<aside class="fixed top-0 right-0 h-full w-full max-w-lg bg-surface shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col" id="orderDrawer">
+<!-- Drawer Header -->
+<div class="p-6 bg-surface-container-low flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container font-title-lg text-title-lg font-bold flex items-center justify-center" id="drawerAvatar">
+          SN
+        </div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold" id="drawerName">Sundaram Natarajan</h2>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold" id="drawerId">#CHD-9021</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant" id="drawerContact">+91 98765 43210 • sundaram@domain.com</p>
+</div>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" onclick="closeDrawer()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Summary Metrics in Drawer -->
+<div class="grid grid-cols-3 gap-2 px-6 py-4 bg-surface-container">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Total Orders</span>
+<span class="font-title-lg text-title-lg font-bold text-on-surface" id="drawerVisits">14 Visits</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Total Billed</span>
+<span class="font-title-lg text-title-lg font-bold text-primary" id="drawerSpend">₹4,850</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Diet Profile</span>
+<span class="font-label-sm text-label-sm font-bold text-secondary truncate" id="drawerDietPreview">Satvik/Kaapi</span>
+</div>
+</div>
+<!-- Drawer Content: Token Slips & Past Receipts -->
+<div class="flex-1 overflow-y-auto p-6 flex flex-col gap-5">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface font-bold">Past Token Slips &amp; Bills</span>
+<span class="font-label-sm text-label-sm text-outline">Sorted by newest</span>
+</div>
+<!-- Container dynamically populated with itemized orders -->
+<div class="flex flex-col gap-4" id="drawerOrdersList">
+<!-- Receipt cards injected via script -->
+</div>
+</div>
+<!-- Drawer Footer Actions -->
+<div class="p-6 bg-surface-container-low flex items-center gap-3">
+<button class="flex-1 py-3 px-4 rounded-xl bg-surface-container hover:bg-surface-container-high font-label-lg text-label-lg text-on-surface font-semibold flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Reprint Last Token</span>
+</button>
+<button class="flex-1 py-3 px-4 rounded-xl bg-primary text-on-primary hover:bg-primary-container font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span>Update Prefs</span>
+</button>
+</div>
+</aside>
+<!-- MODAL: Diet & Kitchen Special Instructions -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-inverse-surface/40 backdrop-blur-sm hidden" id="dietModal">
+<div class="w-full max-w-md bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden p-6 animate-scaleUp">
+<div class="flex items-center justify-between pb-4">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">restaurant_menu</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-bold" id="modalPatronName">Patron Notes</h3>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface" onclick="closeDietModal()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="p-4 rounded-xl bg-surface-container my-3">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">Kitchen Instructions</span>
+<p class="font-body-md text-body-md text-on-surface mt-2 font-medium" id="modalDietText">
+          No Notes Available
+        </p>
+</div>
+<div class="mt-4 flex items-center justify-between gap-3">
+<button class="w-full py-2.5 px-4 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold" onclick="closeDietModal()">
+          Understood • Close
+        </button>
+</div>
+</div>
+</div>
+<!-- DROPDOWN POPOVER FOR ACCOUNT STATUS -->
+<div class="fixed hidden bg-surface-container-lowest rounded-xl shadow-xl py-1.5 w-48 z-50 border-0" id="accountPopup">
+<button class="w-full text-left px-4 py-2 hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+<span>Verify Account</span>
+</button>
+<button class="w-full text-left px-4 py-2 hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">edit</span>
+<span>Modify Phone/Email</span>
+</button>
+<button class="w-full text-left px-4 py-2 hover:bg-error-container text-error font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">block</span>
+<span>Suspend Patron Card</span>
+</button>
+</div>
+</div>
+<script>
+  // Filter Pill Interaction
+  const filterPills = document.querySelectorAll('.filter-pill');
+  const patronSearch = document.getElementById('patronSearch');
+  const rows = document.querySelectorAll('#customerTable tbody tr');
+
+  filterPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      filterPills.forEach(p => {
+        p.classList.remove('bg-primary', 'text-on-primary', 'font-semibold', 'shadow-sm');
+        p.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+      });
+      pill.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+      pill.classList.add('bg-primary', 'text-on-primary', 'font-semibold', 'shadow-sm');
+
+      const filterVal = pill.getAttribute('data-filter');
+      applyFilters(filterVal, patronSearch.value.trim().toLowerCase());
+    });
+  });
+
+  patronSearch.addEventListener('input', (e) => {
+    const activePill = document.querySelector('.filter-pill.bg-primary') || filterPills[0];
+    const filterVal = activePill.getAttribute('data-filter');
+    applyFilters(filterVal, e.target.value.trim().toLowerCase());
+  });
+
+  function applyFilters(category, query) {
+    rows.forEach(row => {
+      const rowCat = row.getAttribute('data-category');
+      const name = row.getAttribute('data-name').toLowerCase();
+      const phone = row.getAttribute('data-phone').toLowerCase();
+      const email = row.getAttribute('data-email').toLowerCase();
+
+      const matchesCategory = (category === 'all') ||
+        (category === 'heritage' && rowCat === 'heritage') ||
+        (category === 'new' && rowCat === 'new') ||
+        (category === 'satvik' && rowCat === 'satvik');
+
+      const matchesQuery = query === '' ||
+        name.includes(query) ||
+        phone.includes(query) ||
+        email.includes(query);
+
+      if (matchesCategory && matchesQuery) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  // Slide-over Drawer Logic
+  function openDrawer(name, id, phone, email, visits, spend, diet, orders) {
+    const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2);
+    document.getElementById('drawerAvatar').innerText = initials;
+    document.getElementById('drawerName').innerText = name;
+    document.getElementById('drawerId').innerText = id;
+    document.getElementById('drawerContact').innerText = `${phone} • ${email}`;
+    document.getElementById('drawerVisits').innerText = visits;
+    document.getElementById('drawerSpend').innerText = spend;
+    document.getElementById('drawerDietPreview').innerText = diet;
+
+    const list = document.getElementById('drawerOrdersList');
+    list.innerHTML = '';
+
+    orders.forEach(ord => {
+      const card = document.createElement('div');
+      card.className = 'p-4 rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-2 hover:bg-surface-container-high/50 transition-colors';
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold tracking-wider">${ord.token}</span>
+            <span class="font-label-sm text-label-sm text-outline">${ord.date}</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-full bg-secondary-container font-label-sm text-label-sm text-on-secondary-container font-semibold">${ord.status}</span>
+        </div>
+        <div class="font-body-md text-body-md text-on-surface font-medium">${ord.items}</div>
+        <div class="flex items-center justify-between pt-1 border-t-0">
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Token Slip Counter B</span>
+          <span class="font-title-md text-title-md font-bold text-primary">${ord.amount}</span>
+        </div>
+      `;
+      list.appendChild(card);
+    });
+
+    const overlay = document.getElementById('drawerOverlay');
+    const drawer = document.getElementById('orderDrawer');
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    drawer.classList.remove('translate-x-full');
+  }
+
+  function closeDrawer() {
+    const overlay = document.getElementById('drawerOverlay');
+    const drawer = document.getElementById('orderDrawer');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    drawer.classList.add('translate-x-full');
+  }
+
+  // Diet Modal Logic
+  function showDietModal(name, note) {
+    document.getElementById('modalPatronName').innerText = name + ' • Notes';
+    document.getElementById('modalDietText').innerText = note;
+    document.getElementById('dietModal').classList.remove('hidden');
+  }
+
+  function closeDietModal() {
+    document.getElementById('dietModal').classList.add('hidden');
+  }
+
+  // Account Popover
+  const accountPopup = document.getElementById('accountPopup');
+  function toggleAccountMenu(e, id) {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+    accountPopup.style.top = `${rect.bottom + 6}px`;
+    accountPopup.style.left = `${Math.min(rect.left - 120, window.innerWidth - 200)}px`;
+    accountPopup.classList.toggle('hidden');
+  }
+
+  window.addEventListener('click', () => {
+    if (!accountPopup.classList.contains('hidden')) {
+      accountPopup.classList.add('hidden');
+    }
+  });
+
+  // Escape key listener for overlays
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeDrawer();
+      closeDietModal();
+      accountPopup.classList.add('hidden');
+    }
+  });
+</script></main></div></body></html>

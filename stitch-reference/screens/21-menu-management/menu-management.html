@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"primary-container":"#c05621","on-primary":"#ffffff","on-primary-fixed":"#360f00","secondary-fixed":"#9ff5c1","surface-container":"#f2ede7","on-tertiary-container":"#fffeff","surface-dim":"#ded9d4","inverse-on-surface":"#f5f0ea","outline-variant":"#dec0b5","on-secondary":"#ffffff","tertiary-fixed-dim":"#f8bc4b","on-tertiary-fixed":"#271900","inverse-primary":"#ffb596","primary-fixed":"#ffdbcd","on-surface-variant":"#57423a","on-error":"#ffffff","on-secondary-fixed-variant":"#005231","error-container":"#ffdad6","on-secondary-container":"#167249","error":"#ba1a1a","secondary-container":"#9ff5c1","on-surface":"#1d1b18","on-primary-container":"#fffeff","on-error-container":"#93000a","tertiary-container":"#9b6d00","surface-tint":"#a14009","inverse-surface":"#32302c","surface":"#fef9f3","tertiary-fixed":"#ffdeaa","tertiary":"#7b5600","on-secondary-fixed":"#002111","outline":"#8a7268","surface-bright":"#fef9f3","on-tertiary-fixed-variant":"#5f4100","primary-fixed-dim":"#ffb596","surface-container-low":"#f8f3ed","on-primary-fixed-variant":"#7d2d00","on-tertiary":"#ffffff","secondary":"#0a6c44","background":"#fef9f3","on-background":"#1d1b18","surface-container-high":"#ece7e2","surface-variant":"#e6e2dc","primary":"#9f3e07","secondary-fixed-dim":"#83d8a6","surface-container-lowest":"#ffffff","surface-container-highest":"#e6e2dc"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"gutter":"1.5rem","space-sm":"0.5rem","gutter-mobile":"1rem","margin-mobile":"1.25rem","space-md":"1rem","space-xl":"2.5rem","space-xs":"0.25rem","margin":"2.5rem","space-lg":"1.5rem"},"fontFamily":{"display-lg-mobile":["Noto Serif"],"headline-md":["Noto Serif"],"display-lg":["Noto Serif"],"label-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-lg":["Noto Serif"],"body-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Noto Serif"],"headline-sm":["Noto Serif"],"label-lg":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"title-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"]},"fontSize":{"display-lg-mobile":["34px",{"lineHeight":"42px","letterSpacing":"-0.01em","fontWeight":"700"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.03em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.02em","fontWeight":"600"}],"title-md":["16px",{"lineHeight":"24px","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"title-lg":["18px",{"lineHeight":"26px","fontWeight":"700"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-secondary z-50 flex flex-col justify-between py-6 px-4 shadow-[0_4px_20px_rgba(10,108,68,0.15)]"><div class="flex flex-col gap-6"><div class="px-3 py-2 flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-secondary">restaurant</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-secondary font-bold leading-tight">Moorthi Cafe</span><span class="font-label-sm text-label-sm text-secondary-fixed opacity-90">Counter &amp; Kitchen Console</span></div></div><div class="px-3"><div class="h-[1px] w-full bg-secondary-fixed/20"></div></div><nav class="flex flex-col gap-1.5" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm"><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="orders" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Orders</span></a><a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 transition-all bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm" data-path="menu" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span>Menu</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="categories" href="#"><span class="material-symbols-outlined text-[20px]">category</span><span>Categories</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="add-edit-food" href="#"><span class="material-symbols-outlined text-[20px]">edit_note</span><span>Add/Edit Food</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="customers" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span>Customers</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed hover:bg-secondary-fixed/15 hover:text-on-secondary transition-all font-title-md text-title-md" data-path="sales-reports" href="#"><span class="material-symbols-outlined text-[20px]">bar_chart</span><span>Sales Reports</span></a></nav></div><div class="flex flex-col gap-3 px-3 pt-4 border-t border-secondary-fixed/20"><div class="flex items-center justify-between text-secondary-fixed font-label-sm text-label-sm"><span>Terminal ID: CHD-CTR-01</span><span class="flex h-2 w-2 rounded-full bg-secondary-fixed animate-pulse"></span></div><div class="flex items-center gap-2 p-2 rounded-lg bg-secondary-fixed/10"><span class="material-symbols-outlined text-secondary-fixed text-[18px]">storefront</span><span class="font-label-md text-label-md text-on-secondary truncate">Chidambaram Heritage Unit</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="flex items-center gap-4"><div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-high"><span class="material-symbols-outlined text-primary text-[18px]">location_on</span><span class="font-label-md text-label-md text-on-surface">Chidambaram Central Counter</span></div><div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary-container"><span class="h-2 w-2 rounded-full bg-secondary"></span><span class="font-label-md text-label-md text-on-secondary-container font-semibold">Kitchen Online / Active</span></div></div><div class="flex items-center gap-6"><div class="hidden md:flex items-center gap-2 text-on-surface-variant font-label-md text-label-md"><span class="material-symbols-outlined text-[18px]">schedule</span><span>Today | Shift A (06:00 - 15:00)</span></div><div class="relative flex items-center justify-center"><button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary"></span></div><div class="flex items-center gap-3 pl-2 border-l border-surface-container-high"><div class="flex flex-col text-right"><span class="font-title-md text-title-md text-on-surface leading-tight">S. Ramanathan</span><span class="font-label-sm text-label-sm text-on-surface-variant">Counter Manager</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-16 w-full px-8 pb-12 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Visual Accent & Context Strip -->
+<div class="relative w-full pt-6 pb-4 flex flex-col gap-6">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm uppercase tracking-wider font-bold">Kitchen Inventory v3.2</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Terminal: CHD-CTR-01</span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">info</span>
+            Illustrative Prototype Menu Catalog
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mt-1.5 font-bold tracking-tight">Food Menu Management</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Update dishes, pricing, live counter availability, and kitchen inventory for Chidambaram Heritage dining room and takeaway counters.
+        </p>
+</div>
+<!-- Main Action Buttons -->
+<div class="flex items-center gap-3 shrink-0">
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-dim transition-all font-label-lg text-label-lg shadow-sm" id="viewStateToggle" onclick="cyclePrototypeState()">
+<span class="material-symbols-outlined text-[18px]">view_quilt</span>
+<span>Switch Preview State</span>
+<span class="ml-1 text-[11px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-bold" id="stateBadge">Standard</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary transition-all font-label-lg text-label-lg shadow-md hover:shadow-lg active:scale-98" onclick="openDishDrawer()">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>+ Add New Food Dish</span>
+</button>
+</div>
+</div>
+<!-- Quick Stats Bar (Bento Metrics) -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+<div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Total Catalog</span>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">24 Dishes</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">restaurant_menu</span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider block font-bold">Live Counter Ready</span>
+<span class="font-headline-md text-headline-md font-bold text-secondary">21 Active</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">check_circle</span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-error uppercase tracking-wider block font-bold">Sold Out / Paused</span>
+<span class="font-headline-md text-headline-md font-bold text-error">3 Items</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[22px]">block</span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider block font-bold">Avg Prep Time</span>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">9.5 Mins</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[22px]">timer</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Search, Filter & View Controls -->
+<div class="w-full bg-surface-container-low rounded-xl p-4 shadow-sm flex flex-col gap-4 mt-2">
+<div class="flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Search Input with Heritage Brass Icon -->
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface placeholder-on-surface-variant/70 font-body-sm text-body-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-container" id="menuSearchInput" oninput="handleSearch(this.value)" placeholder="Search by dish name, code or ingredients..." type="text"/>
+<button class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" id="searchClearBtn" onclick="clearSearch()">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<!-- Stock Status Filters & Quick Views -->
+<div class="flex items-center gap-3 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
+<div class="flex items-center bg-surface-container-high p-1 rounded-lg shrink-0">
+<button class="px-3 py-1.5 rounded-md font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface shadow-xs transition-all" id="filterAllStock" onclick="setStockFilter('all')">All Stock (24)</button>
+<button class="px-3 py-1.5 rounded-md font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all" id="filterInStock" onclick="setStockFilter('in_stock')">Live In Stock (21)</button>
+<button class="px-3 py-1.5 rounded-md font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all" id="filterSoldOut" onclick="setStockFilter('sold_out')">Sold Out (3)</button>
+</div>
+<div class="h-6 w-[1px] bg-surface-variant hidden md:block"></div>
+<div class="flex items-center gap-1.5 bg-surface-container-high p-1 rounded-lg shrink-0">
+<button class="p-1.5 rounded-md bg-surface-container-lowest text-primary shadow-xs" id="viewGridBtn" onclick="setLayoutView('grid')">
+<span class="material-symbols-outlined text-[18px]">grid_view</span>
+</button>
+<button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface" id="viewTableBtn" onclick="setLayoutView('table')">
+<span class="material-symbols-outlined text-[18px]">view_headline</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Category Chips Strip -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1.5 pt-0.5 no-scrollbar">
+<button class="category-chip active px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold bg-primary text-on-primary whitespace-nowrap shadow-xs transition-all flex items-center gap-1.5" onclick="setCategoryFilter('all', this)">
+<span>All Items</span>
+<span class="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px]">24</span>
+</button>
+<button class="category-chip px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container-high whitespace-nowrap shadow-xs transition-all flex items-center gap-1.5" onclick="setCategoryFilter('tiffin', this)">
+<span class="material-symbols-outlined text-[16px] text-primary">breakfast_dining</span>
+<span>Morning Tiffin</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-[10px] text-on-surface-variant">8</span>
+</button>
+<button class="category-chip px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container-high whitespace-nowrap shadow-xs transition-all flex items-center gap-1.5" onclick="setCategoryFilter('meals', this)">
+<span class="material-symbols-outlined text-[16px] text-tertiary">dinner_dining</span>
+<span>Afternoon Meals &amp; Thali</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-[10px] text-on-surface-variant">5</span>
+</button>
+<button class="category-chip px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container-high whitespace-nowrap shadow-xs transition-all flex items-center gap-1.5" onclick="setCategoryFilter('snacks', this)">
+<span class="material-symbols-outlined text-[16px] text-secondary">bakery_dining</span>
+<span>Evening Snacks</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-[10px] text-on-surface-variant">6</span>
+</button>
+<button class="category-chip px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container-high whitespace-nowrap shadow-xs transition-all flex items-center gap-1.5" onclick="setCategoryFilter('sweets', this)">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">cookie</span>
+<span>Traditional Sweets</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-[10px] text-on-surface-variant">3</span>
+</button>
+<button class="category-chip px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container-high whitespace-nowrap shadow-xs transition-all flex items-center gap-1.5" onclick="setCategoryFilter('beverages', this)">
+<span class="material-symbols-outlined text-[16px] text-primary">coffee</span>
+<span>Filter Kaapi &amp; Beverages</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-[10px] text-on-surface-variant">2</span>
+</button>
+</div>
+</div>
+<!-- MAIN CATALOG VIEW CONTAINER -->
+<div class="mt-6 flex flex-col w-full" id="catalogContainer">
+<!-- State 1: Active Grid View -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="itemsGrid">
+<!-- Dish Item 1: Ghee Roast Dosa -->
+<div class="menu-item-card group bg-surface-container-lowest rounded-xl p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden" data-category="tiffin" data-dish-id="DSH-001" data-stock="in_stock">
+<div class="absolute top-0 left-0 right-0 h-1 bg-tertiary-fixed-dim"></div>
+<div class="flex gap-4">
+<div class="relative w-28 h-28 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Golden crisp Ghee Roast Dosa rolled gracefully on a fresh banana leaf with three traditional South Indian chutneys in brass katoris and rich aromatic sambar, warm overhead restaurant lighting, high culinary definition" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ75LV6Z7jx6IMUo36D9PRMvNHkfREQunYZsWtTqdN0JA71YkbOD5D4Ye9tR7xewR6x_laCoLoRH8sO05UVhB4bmUO9-EnBNMh1ZfJj8V-Um3q9MjA5agNotPYBAfgt_0sv8DYOZx_Q0ldnrc-y6oKgHJVC0DRp1WawDSbo9bxFUYpKZ8SKJKQlf41r1iCOUZLAWAHOdlMiT0DqsZ45-3YgWhM2Gm7VezzdVVNPjmPchB0iQyEf1TELg"/>
+<div class="absolute bottom-1 left-1 bg-surface-container-lowest/90 backdrop-blur-xs rounded px-1.5 py-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary">local_fire_department</span>
+<span class="text-[10px] font-bold text-on-surface">Top Seller</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-start justify-between gap-1">
+<div class="flex items-center gap-1.5">
+<!-- Pure Veg Green Dot Badge -->
+<div class="w-3.5 h-3.5 rounded border border-secondary flex items-center justify-center shrink-0" title="100% Pure Vegetarian">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant truncate">Code: DSH-001</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container text-on-surface-variant shrink-0">Tiffin</span>
+</div>
+<h3 class="font-headline-sm text-[17px] leading-snug font-bold text-on-surface mt-1 group-hover:text-primary transition-colors">Golden Ghee Roast Masala Dosa</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Fermented lentil crepe roasted in A2 Cow Ghee, spiced potato mash filling.</p>
+<div class="mt-2.5 flex items-center gap-3">
+<span class="font-title-lg text-title-lg text-primary font-bold">₹160.00</span>
+<span class="flex items-center gap-1 text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px] text-tertiary">schedule</span>
+<span>8-10 mins</span>
+</span>
+</div>
+</div>
+</div>
+<!-- Card Footer with Live Availability & Quick Actions -->
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-container-low -mx-4 -mb-4 px-4 py-2.5 rounded-b-xl">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<div class="relative">
+<input checked="" class="sr-only peer" onchange="toggleStock('DSH-001', this)" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-secondary" id="stock-label-DSH-001">In Counter Stock</span>
+</label>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="editDishModal('Golden Ghee Roast Masala Dosa', '160.00', 'Morning Tiffin')" title="Edit Details">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="duplicateDish('Golden Ghee Roast Masala Dosa')" title="Duplicate Dish">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-error-container/40 transition-colors" onclick="promptDelete('Golden Ghee Roast Masala Dosa', 'DSH-001')" title="Delete Dish">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Dish Item 2: Podi Thatte Idli -->
+<div class="menu-item-card group bg-surface-container-lowest rounded-xl p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden" data-category="tiffin" data-dish-id="DSH-002" data-stock="in_stock">
+<div class="absolute top-0 left-0 right-0 h-1 bg-tertiary-fixed-dim"></div>
+<div class="flex gap-4">
+<div class="relative w-28 h-28 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Plump and pillowy South Indian steamed Podi Thatte Idli generously bathed in aromatic red gun powder karam podi and molten fragrant ghee on fresh banana leaf backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxmcRiU4T0J5ZcHTUhRFgirHFlw-TOD2w4MkRSUQCXs3PjgYM28CFmbabsRTSadwwDWposXhtKeMU12zZ_a_AiFMlR6IEO1C1PYoUdVwbIgzLtrxCkhorco1knRIoNFPVTLPG_s36nPJr4qOK-3iUrYOW-fu_i7BpV1AWNKfgwFmzwuCg5DoaRVU3vNRDT2fcvSzk2cS1tuvk0ApVyTe0YqU_23eyRTiMIfb9RY6ukmfYWgw0oX7nOcA"/>
+<div class="absolute bottom-1 left-1 bg-surface-container-lowest/90 backdrop-blur-xs rounded px-1.5 py-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-tertiary">star</span>
+<span class="text-[10px] font-bold text-on-surface">Signature</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-start justify-between gap-1">
+<div class="flex items-center gap-1.5">
+<div class="w-3.5 h-3.5 rounded border border-secondary flex items-center justify-center shrink-0">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant truncate">Code: DSH-002</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container text-on-surface-variant shrink-0">Tiffin</span>
+</div>
+<h3 class="font-headline-sm text-[17px] leading-snug font-bold text-on-surface mt-1 group-hover:text-primary transition-colors">Podi Thatte Idli (Plate of 2)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Thick steamed rice cakes topped with heritage Malgudi gun powder podi.</p>
+<div class="mt-2.5 flex items-center gap-3">
+<span class="font-title-lg text-title-lg text-primary font-bold">₹110.00</span>
+<span class="flex items-center gap-1 text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px] text-tertiary">schedule</span>
+<span>6-8 mins</span>
+</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-container-low -mx-4 -mb-4 px-4 py-2.5 rounded-b-xl">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<div class="relative">
+<input checked="" class="sr-only peer" onchange="toggleStock('DSH-002', this)" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-secondary" id="stock-label-DSH-002">In Counter Stock</span>
+</label>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="editDishModal('Podi Thatte Idli (Plate of 2)', '110.00', 'Morning Tiffin')" title="Edit Details">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="duplicateDish('Podi Thatte Idli')" title="Duplicate Dish">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-error-container/40 transition-colors" onclick="promptDelete('Podi Thatte Idli', 'DSH-002')" title="Delete Dish">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Dish Item 3: South Indian Raja Thali -->
+<div class="menu-item-card group bg-surface-container-lowest rounded-xl p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden" data-category="meals" data-dish-id="DSH-003" data-stock="in_stock">
+<div class="absolute top-0 left-0 right-0 h-1 bg-tertiary-fixed-dim"></div>
+<div class="flex gap-4">
+<div class="relative w-28 h-28 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Traditional South Indian grand Raja Thali feast arranged in circular brass katoris featuring sambar, pepper rasam, poriyal, kootu, curd, payasam, appalam, and steamed ponni rice on fresh plantain leaf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBejUWHPlf-nKXk_H1xytqREhV_2BbeWEQs8XMk_NVgRnLFAxTbjAgc--WTUKL9-4S3nCd7I9usuhsnM81sVrzfvViuw2lnU9NZwoZukuVuSFi8Lv9jprlrkk_d_01BNMimLQwFmMdFYlIopQscm9xyVqqc9a7Y1sB-zcIITW_-hstlmzr61h2zyQ7HYBVwLKQCww9A7-8ZsmQ6QCiTmYyrXQLFuxemvF1lLdv6IrFvSEH9KEg9SKeaQw"/>
+<div class="absolute bottom-1 left-1 bg-surface-container-lowest/90 backdrop-blur-xs rounded px-1.5 py-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-tertiary">wb_sunny</span>
+<span class="text-[10px] font-bold text-on-surface">Lunch Special</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-start justify-between gap-1">
+<div class="flex items-center gap-1.5">
+<div class="w-3.5 h-3.5 rounded border border-secondary flex items-center justify-center shrink-0">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant truncate">Code: DSH-003</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container text-on-surface-variant shrink-0">Meals</span>
+</div>
+<h3 class="font-headline-sm text-[17px] leading-snug font-bold text-on-surface mt-1 group-hover:text-primary transition-colors">South Indian Raja Thali</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">14-item royal noon spread with heirloom kootu, rasam, and payasam.</p>
+<div class="mt-2.5 flex items-center gap-3">
+<span class="font-title-lg text-title-lg text-primary font-bold">₹280.00</span>
+<span class="flex items-center gap-1 text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px] text-tertiary">schedule</span>
+<span>12-15 mins</span>
+</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-container-low -mx-4 -mb-4 px-4 py-2.5 rounded-b-xl">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<div class="relative">
+<input checked="" class="sr-only peer" onchange="toggleStock('DSH-003', this)" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-secondary" id="stock-label-DSH-003">In Counter Stock</span>
+</label>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="editDishModal('South Indian Raja Thali', '280.00', 'Afternoon Meals')" title="Edit Details">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="duplicateDish('South Indian Raja Thali')" title="Duplicate Dish">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-error-container/40 transition-colors" onclick="promptDelete('South Indian Raja Thali', 'DSH-003')" title="Delete Dish">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Dish Item 4: Chettinad Mushroom Biryani -->
+<div class="menu-item-card group bg-surface-container-lowest rounded-xl p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden" data-category="meals" data-dish-id="DSH-004" data-stock="in_stock">
+<div class="absolute top-0 left-0 right-0 h-1 bg-tertiary-fixed-dim"></div>
+<div class="flex gap-4">
+<div class="relative w-28 h-28 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Seeraga Samba Chettinad Mushroom Biryani cooked in traditional clay pot dum with caramelised shallots, whole spices, mint, paired with onion raita and brinjal salna" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZN7uEtW4LNBBYFDk79f1BZE2CnlVAdbQs_rFg4Lm_kPKojOgA13_99nTFXLoDYP8aKas3WPDVzpCWteDnIA8F2n6dcMheAm3w33G0D6lTw1GvUmyb8LVn11cu2mpWAbpVMEgFrD1NNFIaf8UxMCNEA8pWhR0k-hRLPjFSMqTABXmG-70mV-GQxwAl2_GGwHj351TxooQhOjpnwG5nh8mmIQweb60T2FBd5uv_AOQ_IFfASjpdVKTqrQ"/>
+<div class="absolute bottom-1 left-1 bg-surface-container-lowest/90 backdrop-blur-xs rounded px-1.5 py-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary">local_fire_department</span>
+<span class="text-[10px] font-bold text-on-surface">Chettinad Spiced</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-start justify-between gap-1">
+<div class="flex items-center gap-1.5">
+<div class="w-3.5 h-3.5 rounded border border-secondary flex items-center justify-center shrink-0">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant truncate">Code: DSH-004</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container text-on-surface-variant shrink-0">Meals</span>
+</div>
+<h3 class="font-headline-sm text-[17px] leading-snug font-bold text-on-surface mt-1 group-hover:text-primary transition-colors">Chettinad Mushroom Biryani</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Seeraga samba rice cooked in stone-ground Chettinad masala spices.</p>
+<div class="mt-2.5 flex items-center gap-3">
+<span class="font-title-lg text-title-lg text-primary font-bold">₹220.00</span>
+<span class="flex items-center gap-1 text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px] text-tertiary">schedule</span>
+<span>10-12 mins</span>
+</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-container-low -mx-4 -mb-4 px-4 py-2.5 rounded-b-xl">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<div class="relative">
+<input checked="" class="sr-only peer" onchange="toggleStock('DSH-004', this)" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-secondary" id="stock-label-DSH-004">In Counter Stock</span>
+</label>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="editDishModal('Chettinad Mushroom Biryani', '220.00', 'Afternoon Meals')" title="Edit Details">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="duplicateDish('Chettinad Mushroom Biryani')" title="Duplicate Dish">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-error-container/40 transition-colors" onclick="promptDelete('Chettinad Mushroom Biryani', 'DSH-004')" title="Delete Dish">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Dish Item 5: Degree Filter Kaapi (Beverages) -->
+<div class="menu-item-card group bg-surface-container-lowest rounded-xl p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden" data-category="beverages" data-dish-id="DSH-005" data-stock="in_stock">
+<div class="absolute top-0 left-0 right-0 h-1 bg-tertiary-fixed-dim"></div>
+<div class="flex gap-4">
+<div class="relative w-28 h-28 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Traditional South Indian Kumbakonam Degree Filter Coffee served in polished traditional brass Davarah and Tumbler with thick frothy foam on top, steam gently rising, heritage wooden cafe table setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyczt-4sQrCRWTQEp1EmZByyHlIKfG2naCDkN4tbWc1XNykpB7Zu7zuXWy3sWjhwmjrBGjsxl9t_rv8_3m0Uqb20L_d13di-2RnlKl9aWumqQ3xgMOYIhUJOmULP31MaJcOQWDmLWYdy6phHiqZS2jZ95iNdhj90Nz73oXFH3Z5RB9zneKWZUS94tDapMFMzIgmU2E0uBcGuENba8LsuZZBaVwkPu1DhcQh9YvVXN-dCB9lPZ3BbB9Hg"/>
+<div class="absolute bottom-1 left-1 bg-surface-container-lowest/90 backdrop-blur-xs rounded px-1.5 py-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-tertiary-container">local_cafe</span>
+<span class="text-[10px] font-bold text-on-surface">Heritage</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-start justify-between gap-1">
+<div class="flex items-center gap-1.5">
+<div class="w-3.5 h-3.5 rounded border border-secondary flex items-center justify-center shrink-0">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant truncate">Code: DSH-005</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container text-on-surface-variant shrink-0">Beverage</span>
+</div>
+<h3 class="font-headline-sm text-[17px] leading-snug font-bold text-on-surface mt-1 group-hover:text-primary transition-colors">Kumbakonam Degree Filter Kaapi</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">80:20 Plantation A chicory decoction with frothy farm buffalo milk.</p>
+<div class="mt-2.5 flex items-center gap-3">
+<span class="font-title-lg text-title-lg text-primary font-bold">₹45.00</span>
+<span class="flex items-center gap-1 text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px] text-tertiary">schedule</span>
+<span>3-5 mins</span>
+</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-container-low -mx-4 -mb-4 px-4 py-2.5 rounded-b-xl">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<div class="relative">
+<input checked="" class="sr-only peer" onchange="toggleStock('DSH-005', this)" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-secondary" id="stock-label-DSH-005">In Counter Stock</span>
+</label>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="editDishModal('Kumbakonam Degree Filter Kaapi', '45.00', 'Filter Kaapi &amp; Beverages')" title="Edit Details">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="duplicateDish('Degree Filter Kaapi')" title="Duplicate Dish">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-error-container/40 transition-colors" onclick="promptDelete('Degree Filter Kaapi', 'DSH-005')" title="Delete Dish">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Dish Item 6: Ghee Mysore Pak (Sweets - Currently SOLD OUT) -->
+<div class="menu-item-card group bg-surface-container-lowest rounded-xl p-4 shadow-sm opacity-90 hover:opacity-100 transition-all flex flex-col justify-between relative overflow-hidden" data-category="sweets" data-dish-id="DSH-006" data-stock="sold_out">
+<div class="absolute top-0 left-0 right-0 h-1 bg-error"></div>
+<div class="flex gap-4">
+<div class="relative w-28 h-28 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover grayscale-[30%] group-hover:scale-105 transition-transform duration-300" data-alt="Traditional soft melt-in-mouth Mysore Pak sweet squares glazed in pure golden desi ghee stacked elegantly on traditional brass plate with cardamom dusting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7GDdH5kUDOB9qX5PGjQ0ld4LfetvPG1B3PZMFjnRiktVNxA_d_Nmvz7Sbwfd9AkGHPUgon_dY_Cec76-xr4jSMgMDHH9-ZUYI01LfCsmLu3zCR9rrAoArOa2dJP_Z72wOHeIQkyE3_mzsVwbx6wMgE7ghSd7gljir_y0bBC9Elkvax0EkhCcldx_4f9h41jq4DvaBrUkrnEGzoBqeH4jPsZH9CvC5QA3M1a8zqn2rpFpkETsVN4RgUw"/>
+<div class="absolute inset-0 bg-black/35 flex items-center justify-center">
+<span class="px-2 py-0.5 rounded bg-error text-on-error font-label-sm text-label-sm font-bold tracking-wider uppercase">Sold Out</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-start justify-between gap-1">
+<div class="flex items-center gap-1.5">
+<div class="w-3.5 h-3.5 rounded border border-secondary flex items-center justify-center shrink-0">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant truncate">Code: DSH-006</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container text-on-surface-variant shrink-0">Sweets</span>
+</div>
+<h3 class="font-headline-sm text-[17px] leading-snug font-bold text-on-surface mt-1 group-hover:text-primary transition-colors">Melt-in-Mouth Ghee Mysore Pak (250g)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Slow cooked besan flour, sugar, cardamom and pure churned cow ghee.</p>
+<div class="mt-2.5 flex items-center gap-3">
+<span class="font-title-lg text-title-lg text-primary font-bold">₹190.00</span>
+<span class="flex items-center gap-1 text-[12px] text-error font-semibold">
+<span class="material-symbols-outlined text-[15px]">error</span>
+<span>Kitchen Batch Exhausted</span>
+</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-error-container/30 -mx-4 -mb-4 px-4 py-2.5 rounded-b-xl">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<div class="relative">
+<input class="sr-only peer" onchange="toggleStock('DSH-006', this)" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-error" id="stock-label-DSH-006">Sold Out / Disabled</span>
+</label>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="editDishModal('Ghee Mysore Pak (250g)', '190.00', 'Traditional Sweets')" title="Edit Details">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors" onclick="duplicateDish('Ghee Mysore Pak')" title="Duplicate Dish">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-error-container/40 transition-colors" onclick="promptDelete('Ghee Mysore Pak', 'DSH-006')" title="Delete Dish">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- State 2: Simulated Loading Skeleton (Hidden by default) -->
+<div class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 animate-pulse" id="loadingCatalogState">
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-4">
+<div class="flex gap-4">
+<div class="w-28 h-28 bg-surface-container-high rounded-lg"></div>
+<div class="flex-1 flex flex-col gap-2">
+<div class="h-4 bg-surface-container-high rounded w-1/3"></div>
+<div class="h-5 bg-surface-container-high rounded w-4/5"></div>
+<div class="h-3 bg-surface-container-high rounded w-full"></div>
+<div class="h-6 bg-surface-container-high rounded w-1/4 mt-2"></div>
+</div>
+</div>
+<div class="h-8 bg-surface-container-low rounded"></div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-4">
+<div class="flex gap-4">
+<div class="w-28 h-28 bg-surface-container-high rounded-lg"></div>
+<div class="flex-1 flex flex-col gap-2">
+<div class="h-4 bg-surface-container-high rounded w-1/3"></div>
+<div class="h-5 bg-surface-container-high rounded w-4/5"></div>
+<div class="h-3 bg-surface-container-high rounded w-full"></div>
+<div class="h-6 bg-surface-container-high rounded w-1/4 mt-2"></div>
+</div>
+</div>
+<div class="h-8 bg-surface-container-low rounded"></div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-4">
+<div class="flex gap-4">
+<div class="w-28 h-28 bg-surface-container-high rounded-lg"></div>
+<div class="flex-1 flex flex-col gap-2">
+<div class="h-4 bg-surface-container-high rounded w-1/3"></div>
+<div class="h-5 bg-surface-container-high rounded w-4/5"></div>
+<div class="h-3 bg-surface-container-high rounded w-full"></div>
+<div class="h-6 bg-surface-container-high rounded w-1/4 mt-2"></div>
+</div>
+</div>
+<div class="h-8 bg-surface-container-low rounded"></div>
+</div>
+</div>
+<!-- State 3: Empty Search / Filter State (Hidden by default) -->
+<div class="hidden flex-col items-center justify-center p-12 bg-surface-container-lowest rounded-xl shadow-sm text-center" id="emptyResultsState">
+<div class="w-20 h-20 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant mb-4">
+<span class="material-symbols-outlined text-[40px] text-outline">search_off</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">No Culinary Items Found</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mt-1">
+        No dishes match your active filter criteria or search keyword. Try clearing filters or add a new recipe to the catalog.
+      </p>
+<div class="flex items-center gap-3 mt-6">
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-on-surface font-label-lg text-label-lg hover:bg-surface-dim transition-all" onclick="resetAllFilters()">
+          Reset Filter Chips
+        </button>
+<button class="px-5 py-2 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all" onclick="openDishDrawer()">
+          + Add New Food Item
+        </button>
+</div>
+</div>
+</div>
+<!-- Bottom Catalog Pagination / Status Bar -->
+<div class="mt-8 flex flex-col md:flex-row items-center justify-between gap-4 py-3 px-4 rounded-xl bg-surface-container-lowest shadow-sm">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="font-bold text-on-surface">Displaying 6 of 24</span>
+<span>dishes in counter operational view</span>
+<span class="inline-block w-1 h-1 rounded-full bg-outline"></span>
+<span class="text-secondary font-medium">Automatic inventory sync active</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface text-label-sm font-bold flex items-center gap-1 disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+<span>Previous</span>
+</button>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold">1</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">2</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">3</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">4</button>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface text-label-sm font-bold flex items-center gap-1">
+<span>Next</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- DRAWER / MODAL: Add / Edit Dish Drawer -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs hidden justify-end transition-opacity" id="dishDrawer">
+<div class="w-full max-w-xl h-full bg-surface-container-lowest shadow-2xl flex flex-col justify-between overflow-y-auto">
+<div>
+<!-- Drawer Header -->
+<div class="p-6 bg-surface-container-low flex items-center justify-between border-b border-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">restaurant</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface" id="drawerTitle">Add New Food Dish</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Update kitchen live POS &amp; dining menu specs</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface" onclick="closeDishDrawer()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Drawer Form Body -->
+<div class="p-6 flex flex-col gap-5">
+<!-- Dish Name -->
+<div>
+<label class="block font-label-md text-label-md font-bold text-on-surface mb-1.5">Dish Name (Heritage &amp; English)</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container" id="inputDishName" placeholder="e.g. Traditional Podi Idli or Mysore Masala Dosa" type="text" value="Ghee Podi Roast Dosa"/>
+</div>
+<!-- Category and Course -->
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md font-bold text-on-surface mb-1.5">Category</label>
+<select class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container" id="inputDishCategory">
+<option value="Morning Tiffin">Morning Tiffin</option>
+<option value="Afternoon Meals">Afternoon Meals &amp; Thali</option>
+<option value="Evening Snacks">Evening Snacks</option>
+<option value="Traditional Sweets">Traditional Sweets</option>
+<option value="Filter Kaapi &amp; Beverages">Filter Kaapi &amp; Beverages</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md font-bold text-on-surface mb-1.5">Dish Code / SKU</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container" placeholder="DSH-025" type="text" value="DSH-025"/>
+</div>
+</div>
+<!-- Pricing & Preparation Time -->
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md font-bold text-on-surface mb-1.5">Selling Price (₹ INR)</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-bold">₹</span>
+<input class="w-full pl-8 pr-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container" id="inputDishPrice" placeholder="140.00" type="number" value="140.00"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md font-bold text-on-surface mb-1.5">Est. Prep Time (Mins)</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container" placeholder="8-12 mins" type="text" value="10 mins"/>
+</div>
+</div>
+<!-- Description -->
+<div>
+<label class="block font-label-md text-label-md font-bold text-on-surface mb-1.5">Culinary Description</label>
+<textarea class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container" placeholder="Brief note on ingredients, spice profiles or preparation secrets..." rows="3">Crispy paper dosa smeared with house special Chidambaram podi and roasted with golden ghee.</textarea>
+</div>
+<!-- Image Upload / Placement Preview -->
+<div>
+<label class="block font-label-md text-label-md font-bold text-on-surface mb-1.5">Dish Imagery</label>
+<div class="p-4 rounded-xl bg-surface-container-low border-2 border-dashed border-outline-variant/60 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container">
+<span class="material-symbols-outlined text-[32px] text-primary mb-1">add_photo_alternate</span>
+<span class="font-title-md text-[14px] text-on-surface font-semibold">Click to upload food photo</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Recommended 800x800 square JPG/PNG format</span>
+</div>
+</div>
+<!-- Dietary & Tax Flags -->
+<div class="p-3.5 rounded-xl bg-surface-container-low flex flex-col gap-2.5">
+<label class="flex items-center justify-between cursor-pointer">
+<span class="flex items-center gap-2 font-label-md text-label-md text-on-surface font-semibold">
+<span class="w-3.5 h-3.5 rounded border border-secondary flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</span>
+                100% Pure Vegetarian Certified
+              </span>
+<input checked="" class="accent-primary w-4 h-4" type="checkbox"/>
+</label>
+<label class="flex items-center justify-between cursor-pointer">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Include 5% Restaurant GST</span>
+<input checked="" class="accent-primary w-4 h-4" type="checkbox"/>
+</label>
+<label class="flex items-center justify-between cursor-pointer">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Mark as Counter Signature Special</span>
+<input class="accent-primary w-4 h-4" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+<!-- Drawer Action Footer -->
+<div class="p-5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-end gap-3">
+<button class="px-5 py-2.5 rounded-lg bg-surface-container-highest text-on-surface font-label-lg text-label-lg hover:bg-surface-dim transition-all" onclick="closeDishDrawer()">Cancel</button>
+<button class="px-6 py-2.5 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container shadow-sm transition-all font-bold" onclick="saveDish()">Save to Kitchen Catalog</button>
+</div>
+</div>
+</div>
+<!-- DESTRUCTIVE CONFIRMATION MODAL -->
+<div class="fixed inset-0 z-50 bg-black/45 backdrop-blur-xs hidden items-center justify-center p-4" id="deleteModal">
+<div class="w-full max-w-md bg-surface-container-lowest rounded-2xl p-6 shadow-2xl flex flex-col gap-4">
+<div class="w-12 h-12 rounded-full bg-error-container text-error flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">warning</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Remove Dish From Menu?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5">
+          Are you sure you want to permanently remove <span class="font-bold text-on-surface" id="deleteDishTargetName">"Dish"</span> from the active counter terminals? This action cannot be undone.
+        </p>
+</div>
+<div class="flex items-center justify-end gap-3 pt-3">
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-on-surface font-label-lg text-label-lg hover:bg-surface-dim transition-all" onclick="closeDeleteModal()">Keep Dish</button>
+<button class="px-5 py-2 rounded-lg bg-error text-on-error font-label-lg text-label-lg hover:bg-on-error-container shadow-sm transition-all font-bold" onclick="confirmDelete()">Yes, Remove Dish</button>
+</div>
+</div>
+</div>
+<!-- TOAST NOTIFICATION CONTAINER -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-4 py-3 rounded-xl bg-inverse-surface text-inverse-on-surface shadow-xl" id="toast">
+<span class="material-symbols-outlined text-[20px] text-secondary-fixed" id="toastIcon">check_circle</span>
+<span class="font-body-sm text-body-sm font-semibold" id="toastMsg">Action completed successfully</span>
+</div>
+</div>
+<script>
+  // Prototype State Cycling Management
+  const prototypeStates = ['Standard', 'Loading Catalog', 'Empty Results'];
+  let currentStateIdx = 0;
+
+  function cyclePrototypeState() {
+    currentStateIdx = (currentStateIdx + 1) % prototypeStates.length;
+    const activeState = prototypeStates[currentStateIdx];
+    document.getElementById('stateBadge').innerText = activeState;
+
+    const itemsGrid = document.getElementById('itemsGrid');
+    const loadingState = document.getElementById('loadingCatalogState');
+    const emptyState = document.getElementById('emptyResultsState');
+
+    if (activeState === 'Standard') {
+      itemsGrid.classList.remove('hidden');
+      loadingState.classList.add('hidden');
+      emptyState.classList.add('hidden');
+      showToast('Switched to Standard Item Listing view', 'view_quilt');
+    } else if (activeState === 'Loading Catalog') {
+      itemsGrid.classList.add('hidden');
+      loadingState.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      showToast('Previewing Kitchen Loading/Sync State', 'sync');
+    } else if (activeState === 'Empty Results') {
+      itemsGrid.classList.add('hidden');
+      loadingState.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+      showToast('Previewing Empty Search State', 'search_off');
+    }
+  }
+
+  // Stock Availability Toggle
+  function toggleStock(dishId, checkbox) {
+    const isChecked = checkbox.checked;
+    const label = document.getElementById(`stock-label-${dishId}`);
+    const card = document.querySelector(`[data-dish-id="${dishId}"]`);
+
+    if (isChecked) {
+      label.innerText = 'In Counter Stock';
+      label.className = 'font-label-sm text-label-sm font-semibold text-secondary';
+      card.setAttribute('data-stock', 'in_stock');
+      showToast('Dish marked LIVE IN STOCK for kitchen counters', 'check_circle');
+    } else {
+      label.innerText = 'Sold Out / Disabled';
+      label.className = 'font-label-sm text-label-sm font-semibold text-error';
+      card.setAttribute('data-stock', 'sold_out');
+      showToast('Dish marked as SOLD OUT on counter POS', 'block');
+    }
+  }
+
+  // Category Filtering
+  function setCategoryFilter(category, btnElement) {
+    // Reset active styles
+    document.querySelectorAll('.category-chip').forEach(chip => {
+      chip.className = 'category-chip px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container-high whitespace-nowrap shadow-xs transition-all flex items-center gap-1.5';
+    });
+    btnElement.className = 'category-chip active px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold bg-primary text-on-primary whitespace-nowrap shadow-xs transition-all flex items-center gap-1.5';
+
+    const cards = document.querySelectorAll('.menu-item-card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const cardCategory = card.getAttribute('data-category');
+      if (category === 'all' || cardCategory === category) {
+        card.style.display = 'flex';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    const emptyState = document.getElementById('emptyResultsState');
+    const itemsGrid = document.getElementById('itemsGrid');
+    if (visibleCount === 0) {
+      itemsGrid.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+    } else {
+      itemsGrid.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+    }
+  }
+
+  // Stock Status Filtering
+  function setStockFilter(stockType) {
+    const allBtn = document.getElementById('filterAllStock');
+    const inStockBtn = document.getElementById('filterInStock');
+    const soldOutBtn = document.getElementById('filterSoldOut');
+
+    [allBtn, inStockBtn, soldOutBtn].forEach(b => {
+      b.className = 'px-3 py-1.5 rounded-md font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all';
+    });
+
+    if (stockType === 'all') {
+      allBtn.className = 'px-3 py-1.5 rounded-md font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface shadow-xs transition-all';
+    } else if (stockType === 'in_stock') {
+      inStockBtn.className = 'px-3 py-1.5 rounded-md font-label-md text-label-md font-semibold bg-surface-container-lowest text-secondary shadow-xs transition-all font-bold';
+    } else {
+      soldOutBtn.className = 'px-3 py-1.5 rounded-md font-label-md text-label-md font-semibold bg-surface-container-lowest text-error shadow-xs transition-all font-bold';
+    }
+
+    const cards = document.querySelectorAll('.menu-item-card');
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const stock = card.getAttribute('data-stock');
+      if (stockType === 'all' || stock === stockType) {
+        card.style.display = 'flex';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    const emptyState = document.getElementById('emptyResultsState');
+    const itemsGrid = document.getElementById('itemsGrid');
+    if (visibleCount === 0) {
+      itemsGrid.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+    } else {
+      itemsGrid.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+    }
+  }
+
+  // Search Filter
+  function handleSearch(query) {
+    const q = query.toLowerCase().trim();
+    const clearBtn = document.getElementById('searchClearBtn');
+    if (q.length > 0) {
+      clearBtn.classList.remove('hidden');
+    } else {
+      clearBtn.classList.add('hidden');
+    }
+
+    const cards = document.querySelectorAll('.menu-item-card');
+    let matches = 0;
+    cards.forEach(card => {
+      const text = card.innerText.toLowerCase();
+      if (text.includes(q)) {
+        card.style.display = 'flex';
+        matches++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    const emptyState = document.getElementById('emptyResultsState');
+    const itemsGrid = document.getElementById('itemsGrid');
+    if (matches === 0) {
+      itemsGrid.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+    } else {
+      itemsGrid.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+    }
+  }
+
+  function clearSearch() {
+    const input = document.getElementById('menuSearchInput');
+    input.value = '';
+    handleSearch('');
+  }
+
+  function resetAllFilters() {
+    clearSearch();
+    setStockFilter('all');
+    const allCatBtn = document.querySelector('.category-chip');
+    if (allCatBtn) setCategoryFilter('all', allCatBtn);
+  }
+
+  // Layout View Toggle (Grid vs Single Column Table List)
+  function setLayoutView(type) {
+    const grid = document.getElementById('itemsGrid');
+    const gridBtn = document.getElementById('viewGridBtn');
+    const tableBtn = document.getElementById('viewTableBtn');
+
+    if (type === 'table') {
+      grid.className = 'flex flex-col gap-3';
+      tableBtn.className = 'p-1.5 rounded-md bg-surface-container-lowest text-primary shadow-xs';
+      gridBtn.className = 'p-1.5 rounded-md text-on-surface-variant hover:text-on-surface';
+    } else {
+      grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5';
+      gridBtn.className = 'p-1.5 rounded-md bg-surface-container-lowest text-primary shadow-xs';
+      tableBtn.className = 'p-1.5 rounded-md text-on-surface-variant hover:text-on-surface';
+    }
+  }
+
+  // Modal / Drawer Actions
+  function openDishDrawer() {
+    document.getElementById('drawerTitle').innerText = 'Add New Food Dish';
+    document.getElementById('inputDishName').value = '';
+    document.getElementById('inputDishPrice').value = '';
+    const drawer = document.getElementById('dishDrawer');
+    drawer.classList.remove('hidden');
+    drawer.classList.add('flex');
+  }
+
+  function editDishModal(name, price, category) {
+    document.getElementById('drawerTitle').innerText = `Edit: ${name}`;
+    document.getElementById('inputDishName').value = name;
+    document.getElementById('inputDishPrice').value = price;
+    const drawer = document.getElementById('dishDrawer');
+    drawer.classList.remove('hidden');
+    drawer.classList.add('flex');
+  }
+
+  function closeDishDrawer() {
+    const drawer = document.getElementById('dishDrawer');
+    drawer.classList.add('hidden');
+    drawer.classList.remove('flex');
+  }
+
+  function saveDish() {
+    closeDishDrawer();
+    showToast('Dish details saved to Hotel New Moorthi POS successfully!', 'restaurant');
+  }
+
+  function duplicateDish(dishName) {
+    showToast(`Created duplicate draft for: ${dishName}`, 'content_copy');
+  }
+
+  // Destructive Delete Actions
+  let targetDeleteId = null;
+
+  function promptDelete(dishName, dishId) {
+    targetDeleteId = dishId;
+    document.getElementById('deleteDishTargetName').innerText = `"${dishName}"`;
+    const modal = document.getElementById('deleteModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeDeleteModal() {
+    const modal = document.getElementById('deleteModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    targetDeleteId = null;
+  }
+
+  function confirmDelete() {
+    if (targetDeleteId) {
+      const el = document.querySelector(`[data-dish-id="${targetDeleteId}"]`);
+      if (el) el.remove();
+      showToast('Dish removed from kitchen counter inventory', 'delete_forever');
+    }
+    closeDeleteModal();
+  }
+
+  // Toast System
+  function showToast(message, icon = 'check_circle') {
+    const toast = document.getElementById('toast');
+    const msg = document.getElementById('toastMsg');
+    const ico = document.getElementById('toastIcon');
+
+    msg.innerText = message;
+    ico.innerText = icon;
+
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-20', 'opacity-0');
+    }, 2800);
+  }
+</script></main></div></body></html>

@@ -1,0 +1,51 @@
+﻿Audit started
+
+Target: D:\project\moorthi_cafe_webapp
+
+=== 1. Git Remotes and Branch Status ===
+Remotes:
+- cafe-production
+- origin
+Current branches:
+- Local: main (active)
+- Local: feature/backend-api, feature/backend-menu-admin, feature/project-foundation-api-contract
+- Remote tracking: remotes/cafe-production/main, remotes/origin/main, remotes/origin/feature/*
+=== 2. Local HEAD and Remote cafe-production/main Commit SHAs ===
+Local HEAD: 3e3109c836d36b7b5f4458052278e1b74aea5353
+Remote cafe-production/main: 3e3109c836d36b7b5f4458052278e1b74aea5353
+Status: Commits are synchronized
+=== 3. Uncommitted Changes and Stash ===
+Uncommitted changes (git status --short):
+ M backend/src/config/db.js
+ M backend/src/services/counterService.js
+ M src/index.css
+ M src/utils/api.js
+ M tests/e2e/auth.spec.js
+?? AGENTS.md, STLC_REQUIREMENT_ANALYSIS.md, STLC_TEST_PLAN.md
+?? docs/ARCHITECTURE.md, docs/DESIGN_SYSTEM.md, docs/PRD.md, docs/STLC_PLAN_REVIEW.md, docs/VERCEL_DEPLOYMENT_MISMATCH_ANALYSIS.md
+?? stitch-reference/ (multiple files)
+Stash: 1 stash entry (preserve-local-work-before-github-sync)
+=== 4. React + Webpack Configuration (webpack.cjs) ===
+Entry: ./src/index.js
+Output: path: dist (absolute: D:\project\moorthi_cafe_webapp\dist)
+  filename: bundle.js
+  publicPath: '/'
+Modules: JS/JSX, CSS
+Plugins: HtmlWebpackPlugin (template: ./public/index.html)
+DevServer: port 9004, static directory: ./public, historyApiFallback: true
+=== 5. Build Command and Output Directory ===
+Package.json scripts:
+  "build": "webpack --config webpack.cjs --mode production"
+  "start": "webpack serve --config webpack.cjs --mode development"
+Build executed: npm run build creates dist/ directory
+Output directory: dist/
+Files generated: bundle.js (587 KiB), index.html (697 bytes), bundle.js.LICENSE.txt
+=== 6. Frontend Deployment Dependencies ===
+Dev dependencies: webpack 5.111.1, babel-loader, html-webpack-plugin, etc.
+=== 7. Vercel Configuration ===
+vercel.json: NOT FOUND in root or .vercel/ directory
+Vercel references: Production URL https://moorthicafewebapp.vercel.app (currently serves NEC Faculty Timetable System due to mismatch)
+=== 8. Static Assets Suitability for Vercel ===
+Build produces static assets in dist/: bundle.js, index.html, license
+publicPath: '/' is correct for Vercel. No Vercel-specific config conflicts.
+=== Summary ===
