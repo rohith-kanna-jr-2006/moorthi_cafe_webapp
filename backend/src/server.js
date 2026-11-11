@@ -1,3 +1,9 @@
+const dns = require('dns');
+
+// Use public DNS resolvers for Node.js DNS lookups.
+// This affects this backend process only.
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
 const app = require('./app');
 const env = require('./config/env');
 const { connectDB, mongoose } = require('./config/db');

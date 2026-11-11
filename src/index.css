@@ -51,6 +51,11 @@ html, body {
   background: var(--cafe-cream);
   font-family: var(--cafe-font-secondary);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 .site-shell {
@@ -64,6 +69,17 @@ html, body {
 .page-container {
   width: min(100% - 2rem, var(--content-max-width));
   margin-inline: auto;
+}
+
+/* Responsive hero grid - single column on mobile */
+.home-page .page-container {
+  grid-template-columns: 1fr !important;
+}
+
+@media (min-width: 768px) {
+  .home-page .page-container {
+    grid-template-columns: 1.1fr 0.9fr !important;
+  }
 }
 
 .section--cream { background: var(--cafe-cream); }

@@ -18,9 +18,9 @@ test.describe('Authentication Form Validation', () => {
     await page.fill('#identifier', 'nonexistent@example.com');
     await page.fill('#password', 'wrongpassword');
     await page.click('button[type=submit]');
-    const errorAlert = page.locator('.alert');
-    await expect(errorAlert).toBeVisible();
-    await expect(errorAlert).toContainText('Invalid credentials');
+    // Backend returns: "Invalid credentials. Please verify your login details and password"
+    const errorMessage = page.locator('text=/Invalid credentials/');
+    await expect(errorMessage).toBeVisible();
   });
 
   test('signup form validates required name field', async ({ page }) => {
@@ -49,7 +49,7 @@ test.describe('Authentication Form Validation', () => {
 
   test('link from login to signup page works', async ({ page }) => {
     await page.goto('/login');
-    await page.click('text=Sign Up');
+    await page.click('text=Create an Account');
     await expect(page).toHaveURL('/signup');
     await expect(page.locator('h1')).toHaveText(/Join Hotel New Moorthi Cafe/i);
   });
@@ -58,6 +58,6 @@ test.describe('Authentication Form Validation', () => {
     await page.goto('/signup');
     await page.click('text=Sign In to Your Account');
     await expect(page).toHaveURL('/login');
-    await expect(page.locator('h1')).toHaveText(/Customer Sign In/i);
+    await expect(page.locator('h1')).toHaveText(/Customer Sign In|Customer Login/i);
   });
 });

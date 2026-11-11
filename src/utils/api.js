@@ -190,7 +190,7 @@ const api = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ items }),
+      body: JSON.stringify({ items: items }),
     });
     return response.json();
   },
@@ -206,7 +206,7 @@ const api = {
     const response = await fetch(`${API_BASE_URL}/orders`, {
       method: 'POST',
       headers,
-      body: JSON.stringify(orderPayload),
+      body: JSON.stringify({ items: orderPayload.itemsInput, pickupType: orderPayload.pickupType, pickupAt: orderPayload.pickupAt, notes: orderPayload.notes, paymentMethod: orderPayload.paymentMethod }),
     });
     return response.json();
   },
