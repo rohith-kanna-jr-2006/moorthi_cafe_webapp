@@ -1,11 +1,14 @@
-const dns = require('dns');
 
-// Use public DNS resolvers for Node.js DNS lookups.
-// This affects this backend process only.
-dns.setServers(['8.8.8.8', '1.1.1.1']);
+const dns = require('dns');
+const env = require('./config/env');
+
+// Public DNS workaround for local development only.
+// Render production uses the hosting environment's DNS resolver.
+if (env.nodeEnv !== 'production') {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+}
 
 const app = require('./app');
-const env = require('./config/env');
 const { connectDB, mongoose } = require('./config/db');
 
 let server;
@@ -15,13 +18,13 @@ async function startServer() {
     // 1. Establish database connection first
     await connectDB();
 
-    // 2. Start HTTP listener
-    server = app.listen(env.port, () => {
+    // 2. Start HTTP listener for Render and local access
+    server = app.listen(env.port, '0.0.0.0', () => {
       console.log('====================================================');
       console.log(`[Server] Hotel New Moorthi Cafe API running on port ${env.port}`);
       console.log(`[Server] Environment: ${env.nodeEnv}`);
       console.log(`[Server] Business Timezone: ${env.businessTimezone}`);
-      console.log(`[Server] Health Endpoint: http://localhost:${env.port}/api/v1/health`);
+      console.log(`[Server] Health Endpoint: /api/v1/health`);
       console.log('====================================================');
     });
   } catch (error) {
@@ -33,9 +36,11 @@ async function startServer() {
 // Graceful shutdown handling
 const shutdown = (signal) => {
   console.log(`\n[Server] Received ${signal}. Commencing graceful shutdown...`);
+
   if (server) {
     server.close(() => {
       console.log('[Server] HTTP server closed.');
+
       mongoose.connection.close(false).then(() => {
         console.log('[Database] MongoDB connection closed.');
         process.exit(0);
