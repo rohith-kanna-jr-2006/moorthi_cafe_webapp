@@ -78,6 +78,40 @@ const Checkout = () => {
     setBill({ subtotal: sub, gst, packagingCharge: pkg, totalAmount: sub + gst + pkg });
   };
 
+  // Frontend validation helper - mirrors backend validation rules
+  const validateOrderItems = (cartItems) => {
+    const errors = [];
+    const objectIdRegex = /^[0-9a-fA-F]{24}$/;
+
+    if (!Array.isArray(cartItems) || cartItems.length === 0) {
+      errors.push({ field: 'items', message: 'Order must contain at least one item' });
+      return { valid: false, errors };
+    }
+
+    cartItems.forEach((item, index) => {
+      const prefix = `items[${index}]`;
+
+      // Validate foodId is a valid MongoDB ObjectId
+      if (!item.foodId || !objectIdRegex.test(item.foodId)) {
+        errors.push({
+          field: `${prefix}.foodId`,
+          message: `Invalid foodId: '${item.foodId}'. Must be a 24-character MongoDB ObjectId.`
+        });
+      }
+
+      // Validate quantity
+      const qty = parseInt(item.quantity, 10);
+      if (isNaN(qty) || qty < 1 || qty > 50) {
+        errors.push({
+          field: `${prefix}.quantity`,
+          message: `Quantity for "${item.name || item.foodId}" must be between 1 and 50 (got ${item.quantity})`
+        });
+      }
+    });
+
+    return { valid: errors.length === 0, errors };
+  };
+
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
     setError(null);
@@ -86,6 +120,15 @@ const Checkout = () => {
     if (!token) {
       setError('Please log in or create an account to place and track your takeaway order.');
       navigate('/login?redirect=/checkout');
+      return;
+    }
+
+    // Frontend validation before submitting
+    const validation = validateOrderItems(items);
+    if (!validation.valid) {
+      // Format errors for display
+      const errorMessages = validation.errors.map(e => `${e.field}: ${e.message}`).join('; ');
+      setError(`Validation failed: ${errorMessages}`);
       return;
     }
 
@@ -112,10 +155,22 @@ const Checkout = () => {
         const orderId = res.data.order.orderId || res.data.order._id;
         navigate(`/order-success?orderId=${orderId}`, { state: { order: res.data.order } });
       } else {
-        setError(res.message || 'Failed to place order. Please review your cart.');
+        // Improved error display: show field-specific errors from backend
+        let errorMessage = res.message || 'Failed to place order. Please review your cart.';
+        if (res.errors && Array.isArray(res.errors) && res.errors.length > 0) {
+          const fieldErrors = res.errors.map(e => `${e.field}: ${e.message}`).join('; ');
+          errorMessage = `Validation failed: ${fieldErrors}`;
+        }
+        setError(errorMessage);
       }
     } catch (err) {
-      setError(err.message || 'Network error while placing order. Please retry.');
+      // Handle network/parse errors
+      let errorMessage = err.message || 'Network error while placing order. Please retry.';
+      if (err.errors && Array.isArray(err.errors) && err.errors.length > 0) {
+        const fieldErrors = err.errors.map(e => `${e.field}: ${e.message}`).join('; ');
+        errorMessage = `Validation failed: ${fieldErrors}`;
+      }
+      setError(errorMessage);
     } finally {
       setSubmitting(false);
     }

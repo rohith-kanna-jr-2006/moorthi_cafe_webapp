@@ -13,6 +13,7 @@
   from = "/images/*"
   to = "/images/:splat"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/*"

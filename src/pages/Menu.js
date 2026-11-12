@@ -32,6 +32,11 @@ const Menu = () => {
     }
   };
 
+  // Helper to check if a food ID is a valid MongoDB ObjectId
+  const isValidObjectId = (id) => {
+    return typeof id === 'string' && /^[0-9a-fA-F]{24}$/.test(id);
+  };
+
   const HERITAGE_FALLBACK_FOODS = [
     {
       _id: 'food-dosa-1',
@@ -204,6 +209,14 @@ const Menu = () => {
   const handleAddToCartClick = (food, e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    // Prevent adding fallback items (without valid MongoDB ObjectId) to cart
+    if (!isValidObjectId(food._id)) {
+      setAddedItemMessage(`"${food.name}" is a heritage showcase item. Real menu data will be available once the database is seeded.`);
+      setTimeout(() => setAddedItemMessage(''), 4000);
+      return;
+    }
+
     addToCart(food, 1);
     setAddedItemMessage(`Added "${food.name}" to tray!`);
     setTimeout(() => setAddedItemMessage(''), 2500);
@@ -547,14 +560,26 @@ const Menu = () => {
                       )}
                     </div>
 
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={(e) => handleAddToCartClick(food, e)}
-                      style={{ padding: '6px 16px', fontSize: '0.9rem', fontWeight: 'bold' }}
-                    >
-                      + Add to Tray
-                    </button>
+                    {isValidObjectId(food._id) ? (
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={(e) => handleAddToCartClick(food, e)}
+                        style={{ padding: '6px 16px', fontSize: '0.9rem', fontWeight: 'bold' }}
+                      >
+                        + Add to Tray
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        disabled
+                        style={{ padding: '6px 16px', fontSize: '0.85rem', fontWeight: 'bold', opacity: 0.7 }}
+                        title="Heritage showcase item — not available for order until database is seeded"
+                      >
+                        View Only
+                      </button>
+                    )}
                   </div>
                 </div>
               </Link>
