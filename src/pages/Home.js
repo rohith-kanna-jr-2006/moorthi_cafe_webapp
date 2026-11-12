@@ -4,63 +4,70 @@ import FoodCard from '../components/FoodCard';
 import api from '../utils/api';
 import { addToCart } from '../utils/cartStorage';
 
+// Helper to check if a food ID is a valid MongoDB ObjectId
+const isValidObjectId = (id) => {
+  return typeof id === 'string' && /^[0-9a-fA-F]{24}$/.test(id);
+};
+
+const FALLBACK_FEATURED_ITEMS = [
+  {
+    _id: 'featured-1',
+    name: 'Golden Ghee Roast Masala Dosa',
+    nameTamil: 'நெய் ரோஸ்ட் மசாலா தோசை',
+    description: 'Paper-thin, golden-crisp fermented rice-lentil crepe anointed with aromatic churned desi ghee and stuffed with spiced potato masala.',
+    imageUrl: '/images/menu/dosa.jpg',
+    price: 160,
+    isVeg: true,
+  },
+  {
+    _id: 'featured-2',
+    name: 'Podi Thatte Idli (2 Pcs)',
+    nameTamil: 'பொடி தட்டே இட்லி',
+    description: 'Plump, pillowy steamed rice cakes drenched in fiery gun powder podi and fragrant wood-pressed sesame oil.',
+    imageUrl: '/images/menu/kal-dosa.svg',
+    price: 110,
+    isVeg: true,
+  },
+  {
+    _id: 'featured-3',
+    name: 'Kumbakonam Degree Filter Kaapi',
+    nameTamil: 'கும்பகோணம் டிகிரி பில்டர் காபி',
+    description: 'First decoction Chicory-blended brew pulled with rich frothy cow milk in traditional brass davarah-tumbler.',
+    imageUrl: '/images/menu/cup-of-onion.svg',
+    price: 45,
+    isVeg: true,
+  },
+  {
+    _id: 'featured-4',
+    name: 'Crispy Medu Vada (2 Pcs)',
+    nameTamil: 'மெது வடை',
+    description: 'Golden-fried spiced lentil fritters with crispy exterior and fluffy interior, served with coconut & tomato chutneys.',
+    imageUrl: '/images/menu/roast.svg',
+    price: 80,
+    isVeg: true,
+  },
+  {
+    _id: 'featured-5',
+    name: 'South Indian Heritage Thali',
+    nameTamil: 'தென் இந்திய பாரம்பரிய சாப்பாடு',
+    description: 'Steaming ponni rice, drumstick sambar, rasam, kootu, poriyal, appalam, curd, and sweet elaneer payasam.',
+    imageUrl: '/images/menu/veg-pulao.svg',
+    price: 220,
+    isVeg: true,
+  },
+  {
+    _id: 'featured-6',
+    name: 'Chettinad Pepper Chicken',
+    nameTamil: 'செட்டிநாடு மிளகு சிக்கன்',
+    description: 'Tender chicken slow-roasted with black tellicherry peppercorns, curry leaves, and stone-ground spices.',
+    imageUrl: '/images/menu/pepper-chicken.jpg',
+    price: 250,
+    isVeg: false,
+  },
+];
+
 const Home = () => {
-  const [featuredItems, setFeaturedItems] = useState([
-    {
-      _id: 'featured-1',
-      name: 'Golden Ghee Roast Masala Dosa',
-      nameTamil: 'நெய் ரோஸ்ட் மசாலா தோசை',
-      description: 'Paper-thin, golden-crisp fermented rice-lentil crepe anointed with aromatic churned desi ghee and stuffed with spiced potato masala.',
-      imageUrl: '/images/menu/dosa.jpg',
-      price: 160,
-      isVeg: true,
-    },
-    {
-      _id: 'featured-2',
-      name: 'Podi Thatte Idli (2 Pcs)',
-      nameTamil: 'பொடி தட்டே இட்லி',
-      description: 'Plump, pillowy steamed rice cakes drenched in fiery gun powder podi and fragrant wood-pressed sesame oil.',
-      imageUrl: '/images/menu/kal-dosa.svg',
-      price: 110,
-      isVeg: true,
-    },
-    {
-      _id: 'featured-3',
-      name: 'Kumbakonam Degree Filter Kaapi',
-      nameTamil: 'கும்பகோணம் டிகிரி பில்டர் காபி',
-      description: 'First decoction Chicory-blended brew pulled with rich frothy cow milk in traditional brass davarah-tumbler.',
-      imageUrl: '/images/menu/cup-of-onion.svg',
-      price: 45,
-      isVeg: true,
-    },
-    {
-      _id: 'featured-4',
-      name: 'Crispy Medu Vada (2 Pcs)',
-      nameTamil: 'மெது வடை',
-      description: 'Golden-fried spiced lentil fritters with crispy exterior and fluffy interior, served with coconut & tomato chutneys.',
-      imageUrl: '/images/menu/roast.svg',
-      price: 80,
-      isVeg: true,
-    },
-    {
-      _id: 'featured-5',
-      name: 'South Indian Heritage Thali',
-      nameTamil: 'தென் இந்திய பாரம்பரிய சாப்பாடு',
-      description: 'Steaming ponni rice, drumstick sambar, rasam, kootu, poriyal, appalam, curd, and sweet elaneer payasam.',
-      imageUrl: '/images/menu/veg-pulao.svg',
-      price: 220,
-      isVeg: true,
-    },
-    {
-      _id: 'featured-6',
-      name: 'Chettinad Pepper Chicken',
-      nameTamil: 'செட்டிநாடு மிளகு சிக்கன்',
-      description: 'Tender chicken slow-roasted with black tellicherry peppercorns, curry leaves, and stone-ground spices.',
-      imageUrl: '/images/menu/pepper-chicken.jpg',
-      price: 250,
-      isVeg: false,
-    },
-  ]);
+  const [featuredItems, setFeaturedItems] = useState(FALLBACK_FEATURED_ITEMS);
 
   const [toastMessage, setToastMessage] = useState('');
 
@@ -78,9 +85,21 @@ const Home = () => {
   }, []);
 
   const handleAddToCart = (food) => {
-    addToCart(food, 1);
-    setToastMessage(`Added "${food.name}" to your tray!`);
-    setTimeout(() => setToastMessage(''), 2500);
+    // Prevent adding fallback items (without valid MongoDB ObjectId) to cart
+    if (!isValidObjectId(food._id || food.id)) {
+      setToastMessage(`"${food.name}" is a heritage showcase item. Real menu data will be available once the database is seeded.`);
+      setTimeout(() => setToastMessage(''), 4000);
+      return;
+    }
+
+    const result = addToCart(food, 1);
+    if (result.success) {
+      setToastMessage(`Added "${food.name}" to your tray!`);
+      setTimeout(() => setToastMessage(''), 2500);
+    } else {
+      setToastMessage(result.error || `Failed to add "${food.name}" to tray.`);
+      setTimeout(() => setToastMessage(''), 4000);
+    }
   };
 
   return (

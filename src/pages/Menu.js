@@ -217,9 +217,14 @@ const Menu = () => {
       return;
     }
 
-    addToCart(food, 1);
-    setAddedItemMessage(`Added "${food.name}" to tray!`);
-    setTimeout(() => setAddedItemMessage(''), 2500);
+    const result = addToCart(food, 1);
+    if (result.success) {
+      setAddedItemMessage(`Added "${food.name}" to tray!`);
+      setTimeout(() => setAddedItemMessage(''), 2500);
+    } else {
+      setAddedItemMessage(result.error || `Failed to add "${food.name}" to tray.`);
+      setTimeout(() => setAddedItemMessage(''), 4000);
+    }
   };
 
   const filteredFoods = foods.filter((f) => {

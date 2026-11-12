@@ -99,13 +99,23 @@ const Checkout = () => {
         });
       }
 
-      // Validate quantity
-      const qty = parseInt(item.quantity, 10);
-      if (isNaN(qty) || qty < 1 || qty > 50) {
+      // Validate quantity - must be integer between 1 and 50
+      // Reject decimal values (2.5), partially numeric strings (3abc), and non-numeric values
+      const qtyStr = String(item.quantity).trim();
+      const qtyMatch = qtyStr.match(/^(\d+)$/);
+      if (!qtyMatch) {
         errors.push({
           field: `${prefix}.quantity`,
-          message: `Quantity for "${item.name || item.foodId}" must be between 1 and 50 (got ${item.quantity})`
+          message: `Quantity for "${item.name || item.foodId}" must be an integer between 1 and 50 (got ${item.quantity})`
         });
+      } else {
+        const qty = parseInt(qtyMatch[1], 10);
+        if (qty < 1 || qty > 50) {
+          errors.push({
+            field: `${prefix}.quantity`,
+            message: `Quantity for "${item.name || item.foodId}" must be between 1 and 50 (got ${qty})`
+          });
+        }
       }
     });
 

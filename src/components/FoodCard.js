@@ -1,10 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Helper to check if a food ID is a valid MongoDB ObjectId
+const isValidObjectId = (id) => {
+  return typeof id === 'string' && /^[0-9a-fA-F]{24}$/.test(id);
+};
+
 const FoodCard = ({ _id, id, name, nameTamil, description, imageUrl, image, price, pricePaise, isVeg = true, onAddToCart }) => {
   const displayId = _id || id;
   const displayImage = imageUrl || image;
   const displayPrice = price !== undefined ? (typeof price === 'number' ? `₹${price.toFixed(2)}` : price.startsWith('₹') ? price : `₹${price.replace(/^\$/, '')}`) : '₹0.00';
+  const hasValidId = isValidObjectId(displayId);
 
   return (
     <div
@@ -90,17 +96,29 @@ const FoodCard = ({ _id, id, name, nameTamil, description, imageUrl, image, pric
               {displayPrice}
             </span>
             {onAddToCart ? (
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onAddToCart({ _id: displayId, name, price: typeof price === 'number' ? price : parseFloat(String(price).replace(/[^0-9.]/g, '')), imageUrl: displayImage });
-                }}
-                style={{ padding: '6px 14px', fontSize: '0.85rem', fontWeight: 'bold' }}
-              >
-                + Add
-              </button>
+              hasValidId ? (
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onAddToCart({ _id: displayId, name, price: typeof price === 'number' ? price : parseFloat(String(price).replace(/[^0-9.]/g, '')), imageUrl: displayImage });
+                  }}
+                  style={{ padding: '6px 14px', fontSize: '0.85rem', fontWeight: 'bold' }}
+                >
+                  + Add
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  disabled
+                  style={{ padding: '6px 14px', fontSize: '0.8rem', fontWeight: 'bold', opacity: 0.7 }}
+                  title="Heritage showcase item — not available for order until database is seeded"
+                >
+                  View Only
+                </button>
+              )
             ) : (
               <span style={{ fontSize: '0.85rem', color: 'var(--cafe-terracotta)', fontWeight: 'bold' }}>
                 View Dish →

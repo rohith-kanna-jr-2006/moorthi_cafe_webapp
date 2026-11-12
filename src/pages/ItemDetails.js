@@ -46,9 +46,15 @@ const ItemDetails = () => {
 
   const handleAddToCart = () => {
     if (!food) return;
-    addToCart(food, quantity, selectedVariant);
-    setAddedMessage(true);
-    setTimeout(() => setAddedMessage(false), 2500);
+    const result = addToCart(food, quantity, selectedVariant);
+    if (result.success) {
+      setAddedMessage(true);
+      setTimeout(() => setAddedMessage(false), 2500);
+    } else {
+      // Show error via a temporary message (could add error state if needed)
+      console.warn('Add to cart failed:', result.error);
+      alert(result.error);
+    }
   };
 
   const currentPrice = () => {
