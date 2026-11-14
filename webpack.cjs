@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const fs = require('fs');
+const webpack = require('webpack');
 
 /**
  * Custom plugin to copy public/images to dist/images during production builds
@@ -81,7 +82,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
-    new CopyImagesPlugin()
+    new CopyImagesPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL || 'https://moorthi-cafe-api.onrender.com/api/v1')
+    })
   ],
   devServer: {
     static: {

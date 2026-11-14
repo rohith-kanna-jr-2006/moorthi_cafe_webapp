@@ -1,10 +1,6 @@
 // Cart storage helper using browser localStorage
+import { validateCartQuantity, isValidObjectId } from './cartValidation.js';
 const CART_STORAGE_KEY = 'moorthi_cafe_cart';
-const OBJECT_ID_REGEX = /^[0-9a-fA-F]{24}$/;
-
-const isValidObjectId = (id) => {
-  return typeof id === 'string' && OBJECT_ID_REGEX.test(id);
-};
 
 export const getCart = () => {
   try {
@@ -76,28 +72,49 @@ export const updateCartItemQty = (foodId, variantName, newQty) => {
     return { success: false, error: `Invalid foodId: '${foodId}'. Must be a 24-character MongoDB ObjectId.` };
   }
 
-  // Validate quantity
-  const qty = parseInt(newQty, 10);
-  if (isNaN(qty) || qty < 1 || qty > 50 || !Number.isInteger(Number(newQty))) {
-    return { success: false, error: `Quantity must be an integer between 1 and 50 (got ${newQty})` };
+  const validation = validateCartQuantity(newQty);
+
+  if (validation.action === 'reject') {
+    return { success: false, error: validation.error };
   }
 
-  let current = getCart();
-  const vKey = variantName ? String(variantName).trim().toLowerCase() : '';
-  if (qty <= 0) {
+  if (validation.action === 'remove') {
+    let current = getCart();
+    const vKey = variantName ? String(variantName).trim().toLowerCase() : '';
     current = current.filter(
       (item) => !(item.foodId === foodId && (item.variantName || '').toLowerCase() === vKey)
     );
-  } else {
-    const item = current.find(
-      (it) => it.foodId === foodId && (it.variantName || '').toLowerCase() === vKey
-    );
-    if (item) item.quantity = qty;
+    saveCart(current);
+    return { success: true };
   }
+
+  // validation.action === 'update'
+  let current = getCart();
+  const vKey = variantName ? String(variantName).trim().toLowerCase() : '';
+  const item = current.find(
+    (it) => it.foodId === foodId && (it.variantName || '').toLowerCase() === vKey
+  );
+  if (item) item.quantity = validation.qty;
   saveCart(current);
   return { success: true };
 };
 
 export const clearCart = () => {
   saveCart([]);
+};
+
+// Remove invalid legacy cart items (non-MongoDB ObjectId foodIds)
+export const removeInvalidCartItems = () => {
+  const current = getCart();
+  const validItems = current.filter(item => isValidObjectId(item.foodId));
+  const removedCount = current.length - validItems.length;
+
+  if (removedCount > 0) {
+    saveCart(validItems);
+  }
+
+  return {
+    removedCount,
+    remainingCount: validItems.length
+  };
 };

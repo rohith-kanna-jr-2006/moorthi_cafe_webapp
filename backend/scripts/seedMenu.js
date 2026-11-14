@@ -5,6 +5,7 @@ const env = require('../src/config/env');
 const Food = require('../src/models/Food');
 const Category = require('../src/models/Category');
 const Order = require('../src/models/Order');
+const { validateStagingSeed, extractDbName } = require('../src/utils/seedGuard');
 
 const SEED_LEGACY_NAMES = [
   'Golden Ghee Roast Masala Dosa',
@@ -26,14 +27,24 @@ async function seedMenu(options = {}) {
   console.log(`Environment: ${env.nodeEnv}`);
   console.log('====================================================\n');
 
+  // Staging seed safety guard - MUST run BEFORE any database connection
+  const guardResult = validateStagingSeed(
+    env.nodeEnv,
+    targetUri,
+    process.env.ALLOW_STAGING_SEED,
+    process.env.ALLOW_PRODUCTION_MIGRATION
+  );
+
+  if (!guardResult.authorized) {
+    const errorMsg = guardResult.errors.join('; ');
+    throw new Error(`[Staging Seed Guard] ${errorMsg}`);
+  }
+
+  console.log('[Staging Seed Guard] ✅ All staging safety checks passed');
+
   await mongoose.connect(targetUri);
   const dbName = mongoose.connection.name;
   console.log(`[Connected] Database: ${dbName}`);
-
-  // Safety Assertion: refuse to run migration against production without explicit flag
-  if (env.nodeEnv === 'production' && !process.env.ALLOW_PRODUCTION_MIGRATION) {
-    throw new Error('[SECURITY GUARD] Production database migration blocked without explicit ALLOW_PRODUCTION_MIGRATION=true');
-  }
 
   // Load audited import data
   const dataPath = path.resolve(__dirname, 'menuImportData.json');

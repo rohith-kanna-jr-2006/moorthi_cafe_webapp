@@ -15,6 +15,30 @@ if (process.env.NODE_ENV === 'production' && process.env.JWT_SECRET.length < 32)
   throw new Error('[Security Error] JWT_SECRET must be at least 32 characters in production');
 }
 
+// Staging database protection
+if (process.env.NODE_ENV === 'staging') {
+  const uri = process.env.MONGODB_URI || '';
+  // Extract database name from MongoDB URI
+  // Format: mongodb+srv://user:pass@cluster.mongodb.net/DATABASE_NAME?options
+  const dbNameMatch = uri.match(/\/([^/?#]+)(\?|$)/);
+  const dbName = dbNameMatch ? dbNameMatch[1] : null;
+
+  if (dbName !== 'moorthi_cafe_staging') {
+    throw new Error(`[Staging Safety] NODE_ENV=staging requires MONGODB_URI database name to be 'moorthi_cafe_staging'. Current: '${dbName}'`);
+  }
+}
+
+// Production isolation: prevent accidental production database use in non-production
+if (process.env.NODE_ENV !== 'production') {
+  const uri = process.env.MONGODB_URI || '';
+  const dbNameMatch = uri.match(/\/([^/?#]+)(\?|$)/);
+  const dbName = dbNameMatch ? dbNameMatch[1] : null;
+
+  if (dbName === 'moorthi_cafe') {
+    throw new Error('[Safety Guard] Non-production NODE_ENV must not use production database "moorthi_cafe". Current: production database detected.');
+  }
+}
+
 const env = {
   port: parseInt(process.env.PORT, 10) || 5000,
   nodeEnv: process.env.NODE_ENV || 'development',

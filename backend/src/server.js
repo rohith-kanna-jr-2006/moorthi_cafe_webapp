@@ -3,8 +3,8 @@ const dns = require('dns');
 const env = require('./config/env');
 
 // Public DNS workaround for local development only.
-// Render production uses the hosting environment's DNS resolver.
-if (env.nodeEnv !== 'production') {
+// Staging and production use the hosting environment's DNS resolver.
+if (env.nodeEnv === 'development') {
   dns.setServers(['8.8.8.8', '1.1.1.1']);
 }
 

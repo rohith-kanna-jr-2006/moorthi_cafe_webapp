@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://moorthi-cafe-api.onrender.com/api/v1';
+const API_BASE_URL = process.env.API_BASE_URL || 'https://moorthi-cafe-api.onrender.com/api/v1';
 
 const api = {
   // Auth endpoints

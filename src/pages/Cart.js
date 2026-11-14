@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getCart, updateCartItemQty, clearCart } from '../utils/cartStorage';
+import { getCart, updateCartItemQty, clearCart, removeInvalidCartItems } from '../utils/cartStorage';
+import { isValidObjectId } from '../utils/cartValidation';
 import api from '../utils/api';
 
 const Cart = () => {
@@ -13,6 +14,7 @@ const Cart = () => {
   });
   const [notes, setNotes] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showLegacyWarning, setShowLegacyWarning] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,6 +27,10 @@ const Cart = () => {
   const loadCart = async () => {
     const currentItems = getCart();
     setItems(currentItems);
+
+    // Check for invalid legacy items
+    const hasInvalidItems = currentItems.some(item => !isValidObjectId(item.foodId));
+    setShowLegacyWarning(hasInvalidItems);
 
     if (currentItems.length > 0) {
       // Calculate or preview bill
@@ -67,7 +73,10 @@ const Cart = () => {
   };
 
   const handleQtyChange = (foodId, variantName, newQty) => {
-    updateCartItemQty(foodId, variantName, newQty);
+    const result = updateCartItemQty(foodId, variantName, newQty);
+    if (!result.success) {
+      alert(result.error);
+    }
   };
 
   const handleClear = () => {
@@ -115,7 +124,50 @@ const Cart = () => {
           </Link>
         </div>
       ) : (
-        <div className="cart-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2rem' }}>
+        <>
+          {showLegacyWarning && (
+            <div
+              style={{
+                background: '#fff3e0',
+                border: '1px solid #ffb74d',
+                borderRadius: 'var(--surface-radius-card)',
+                padding: '1rem 1.5rem',
+                marginBottom: '1.5rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '1rem',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <span className="material-symbols-outlined" style={{ color: '#e65100', fontSize: '24px' }}>
+                  warning
+                </span>
+                <div>
+                  <strong style={{ color: '#e65100' }}>Some items are from an older menu version</strong>
+                  <p style={{ margin: '2px 0 0', fontSize: '0.9rem', color: '#bf360c' }}>
+                    These items cannot be ordered and need to be removed before checkout.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  const result = removeInvalidCartItems();
+                  if (result.removedCount > 0) {
+                    alert(`Removed ${result.removedCount} unavailable item(s). ${result.remainingCount} valid item(s) remain.`);
+                  } else {
+                    alert('No unavailable items found.');
+                  }
+                }}
+                className="btn btn-secondary"
+                style={{ padding: '0.6rem 1.2rem', fontWeight: 'bold' }}
+              >
+                Remove Unavailable Items
+              </button>
+            </div>
+          )}
+          <div className="cart-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2rem' }}>
           {/* Cart Items List */}
           <div className="cart-items-section">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
@@ -397,6 +449,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
+      </>
       )}
     </div>
   );

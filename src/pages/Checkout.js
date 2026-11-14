@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { getCart, clearCart } from '../utils/cartStorage';
+import { isValidObjectId } from '../utils/cartValidation';
 import api from '../utils/api';
 
 const Checkout = () => {
@@ -88,11 +89,14 @@ const Checkout = () => {
       return { valid: false, errors };
     }
 
+    let hasInvalidLegacyItems = false;
+
     cartItems.forEach((item, index) => {
       const prefix = `items[${index}]`;
 
       // Validate foodId is a valid MongoDB ObjectId
       if (!item.foodId || !objectIdRegex.test(item.foodId)) {
+        hasInvalidLegacyItems = true;
         errors.push({
           field: `${prefix}.foodId`,
           message: `Invalid foodId: '${item.foodId}'. Must be a 24-character MongoDB ObjectId.`
@@ -119,7 +123,15 @@ const Checkout = () => {
       }
     });
 
-    return { valid: errors.length === 0, errors };
+    // If there are invalid legacy items, add a user-friendly message
+    if (hasInvalidLegacyItems) {
+      errors.push({
+        field: 'items',
+        message: 'Some items in your tray belong to an older menu and cannot be ordered. Return to your tray and remove unavailable items.'
+      });
+    }
+
+    return { valid: errors.length === 0, errors, hasInvalidLegacyItems };
   };
 
   const handleSubmitOrder = async (e) => {
@@ -138,7 +150,21 @@ const Checkout = () => {
     if (!validation.valid) {
       // Format errors for display
       const errorMessages = validation.errors.map(e => `${e.field}: ${e.message}`).join('; ');
-      setError(`Validation failed: ${errorMessages}`);
+
+      // If there are invalid legacy items, provide a more helpful message with link to cart
+      if (validation.hasInvalidLegacyItems) {
+        setError(
+          <div>
+            <span>Some items in your tray belong to an older menu and cannot be ordered.</span>
+            <br />
+            <Link to="/cart" style={{ color: 'var(--cafe-terracotta)', textDecoration: 'underline', marginTop: '8px', display: 'inline-block' }}>
+              Return to your tray and remove unavailable items
+            </Link>
+          </div>
+        );
+      } else {
+        setError(`Validation failed: ${errorMessages}`);
+      }
       return;
     }
 
