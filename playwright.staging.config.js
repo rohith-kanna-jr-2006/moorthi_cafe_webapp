@@ -3,12 +3,15 @@ const { defineConfig, devices } = require('@playwright/test');
 const PRODUCTION_FRONTEND = 'https://moorthicafe.netlify.app';
 const PRODUCTION_API = 'https://moorthi-cafe-api.onrender.com/api/v1';
 
+const STAGING_FRONTEND = 'https://moorthi-cafe-staging.netlify.app';
+const STAGING_API = 'https://moorthi-cafe-webapp.onrender.com/api/v1';
+
 function getStagingBaseURL() {
-  return process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:9004';
+  return process.env.PLAYWRIGHT_BASE_URL || STAGING_FRONTEND;
 }
 
 function getStagingAPIURL() {
-  return process.env.API_BASE_URL || PRODUCTION_API;
+  return process.env.API_BASE_URL || STAGING_API;
 }
 
 // Safety: refuse to run against production
@@ -50,8 +53,5 @@ module.exports = defineConfig({
     }
   ],
 
-  globalSetup: async () => {
-    // Validate staging URLs before tests run
-    validateStagingURLs();
-  }
+  globalSetup: './tests/global-setup.js'
 });

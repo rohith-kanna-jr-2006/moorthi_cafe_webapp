@@ -120,3 +120,5 @@ backend/VERIFICATION_SUMMARY.md
 scripts/downloadAllStitchReferences.js
 verification-artifacts/stitch-references/html/
 verification-artifacts/stitch-references/manifest.json
+
+artifacts/

@@ -60,37 +60,39 @@ test.describe('Staging E2E Tests - Hotel New Moorthi Cafe', () => {
   });
 
   test('Staging CORS allows staging frontend origin', async ({ page }) => {
-    const apiBase = process.env.API_BASE_URL || 'https://moorthi-cafe-api.onrender.com/api/v1';
-    const stagingFrontend = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:9004';
+    const apiBase = process.env.API_BASE_URL || 'https://moorthi-cafe-webapp.onrender.com/api/v1';
+    const stagingFrontend = process.env.PLAYWRIGHT_BASE_URL || 'https://moorthi-cafe-staging.netlify.app';
 
-    const result = await page.evaluate(async (url, origin) => {
-      try {
-        const res = await fetch(`${url}/health`, {
-          method: 'OPTIONS',
-          headers: {
-            'Origin': origin,
-            'Access-Control-Request-Method': 'GET',
-            'Access-Control-Request-Headers': 'Content-Type'
-          }
-        });
-        return {
-          status: res.status,
-          allowOrigin: res.headers.get('access-control-allow-origin'),
-          allowCredentials: res.headers.get('access-control-allow-credentials')
-        };
-      } catch (e) {
-        return { error: e.message };
+    // Use page.request to make the OPTIONS call from Playwright's API context
+    // This correctly sends the Origin header
+    const res = await page.request.fetch(`${apiBase}/health`, {
+      method: 'OPTIONS',
+      headers: {
+        'Origin': stagingFrontend,
+        'Access-Control-Request-Method': 'GET',
+        'Access-Control-Request-Headers': 'Content-Type'
       }
-    }, apiBase, stagingFrontend);
+    });
 
-    expect(result.error).toBeUndefined();
+    const result = {
+      status: res.status(),
+      allowOrigin: res.headers()['access-control-allow-origin'],
+      allowCredentials: res.headers()['access-control-allow-credentials']
+    };
+
+    // Debug: log all headers
+    console.log('[CORS Test] All response headers:', res.headers());
+
     expect(result.status).toBe(204);
-    expect(result.allowOrigin).toBe(stagingFrontend);
+    // API returns exact origin for staging
+    const allowOrigin = result.allowOrigin;
+    expect(allowOrigin, 'CORS should have an allow-origin header').toBeTruthy();
+    expect(allowOrigin).toBe(stagingFrontend);
     expect(result.allowCredentials).toBe('true');
   });
 
   test('Staging foods endpoint returns data (after seed)', async ({ page }) => {
-    const apiBase = process.env.API_BASE_URL || 'https://moorthi-cafe-api.onrender.com/api/v1';
+    const apiBase = process.env.API_BASE_URL || 'https://moorthi-cafe-webapp.onrender.com/api/v1';
 
     const result = await page.evaluate(async (url) => {
       try {
@@ -260,7 +262,8 @@ test.describe('Staging E2E Tests - Hotel New Moorthi Cafe', () => {
     // Should redirect to cart if empty, or show login if not authenticated
     await page.waitForTimeout(1000);
     const url = page.url();
-    expect(url).toContain('/checkout');
+    // Accept valid redirect targets: /checkout (authenticated with items), /cart (empty), /login (unauthenticated)
+    expect(url).toMatch(/\/(checkout|cart|login)/);
   });
 
   test('Staging network audit - no unexpected 404/500', async ({ page }) => {
