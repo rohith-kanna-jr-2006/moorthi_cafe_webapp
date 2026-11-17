@@ -50,6 +50,9 @@ async function seedTestFixtures() {
       displayOrder: 1,
       isActive: true,
     });
+  } else if (!testCat.isActive) {
+    testCat.isActive = true;
+    await testCat.save();
   }
 
   // Ensure test foods required by order calculation tests exist in test DB
@@ -66,6 +69,11 @@ async function seedTestFixtures() {
       portion: '1 Plate',
       prepTimeMinutes: 12,
     });
+  } else if (!dosa.isAvailable || !dosa.isPublished || dosa.isArchived) {
+    dosa.isAvailable = true;
+    dosa.isPublished = true;
+    dosa.isArchived = false;
+    await dosa.save();
   }
 
   let vada = await Food.findOne({ name: 'Medu Vada (2 Pcs)' });
@@ -81,6 +89,11 @@ async function seedTestFixtures() {
       portion: '2 Pieces',
       prepTimeMinutes: 5,
     });
+  } else if (!vada.isAvailable || !vada.isPublished || vada.isArchived) {
+    vada.isAvailable = true;
+    vada.isPublished = true;
+    vada.isArchived = false;
+    await vada.save();
   }
 }
 

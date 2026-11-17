@@ -34,7 +34,11 @@ const {
   setFoodAvailability,
   deleteAdminFood,
   uploadOrUpdateFoodImage,
+  seedMenuDatabase,
 } = require('../controllers/adminFoodController');
+
+// Admin Menu Seeding Endpoint
+router.post('/seed-menu', seedMenuDatabase);
 
 // Admin Food Management
 router.get('/foods', getAdminFoods);

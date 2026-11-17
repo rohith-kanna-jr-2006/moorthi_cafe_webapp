@@ -19,6 +19,7 @@ const {
   validateQueryParams,
 } = require('../utils/queryHelpers');
 const { computeEffectivePrice, isDiscountCurrentlyActive } = require('../utils/discountCalculator');
+const { upsertMenuData } = require('../services/menuSeedService');
 
 const UPLOADS_DIR = path.resolve(__dirname, '../../public/images/uploads');
 
@@ -699,6 +700,24 @@ const uploadOrUpdateFoodImage = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc    Seed menu and categories from audited dataset (Admin only)
+// @route   POST /api/v1/admin/seed-menu
+// @access  Private (Admin only)
+const seedMenuDatabase = asyncHandler(async (req, res, next) => {
+  const isDryRun = req.query.dryRun === 'true' || req.body?.dryRun === true;
+  const result = await upsertMenuData({ isDryRun });
+
+  res.status(200).json({
+    success: true,
+    categoriesCount: result.categoriesCount,
+    foodsCount: result.foodsCount,
+    message: isDryRun
+      ? 'Menu seeding dry-run completed successfully (no database modifications)'
+      : 'Menu and categories seeded successfully from audited dataset',
+    data: result.report,
+  });
+});
+
 module.exports = {
   getAdminFoods,
   getAdminFoodById,
@@ -708,4 +727,5 @@ module.exports = {
   setFoodAvailability,
   deleteAdminFood,
   uploadOrUpdateFoodImage,
+  seedMenuDatabase,
 };

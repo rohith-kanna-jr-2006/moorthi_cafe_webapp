@@ -44,6 +44,27 @@ before(async () => {
 });
 
 after(async () => {
+  // Clean up seeded items from test DB so subsequent test suites remain isolated
+  await Food.deleteMany({ sourceMenuRowKey: { $exists: true } });
+  await Category.deleteMany({
+    slug: {
+      $in: [
+        'chicken-dishes',
+        'biryani-rice',
+        'parotta-items',
+        'nmc-specials',
+        'grill-items',
+        'tandoori-seafood',
+        'gravies-curries',
+        'mutton-egg',
+        'dosa-items',
+        'salna-sides',
+        'rice-noodles-mains',
+      ],
+    },
+  });
+  await Category.updateMany({}, { $set: { isActive: true } });
+  await Food.updateMany({}, { $set: { isAvailable: true, isPublished: true, isArchived: false } });
   await teardownTestServer();
 });
 
@@ -174,4 +195,50 @@ test('8. Admin can update paymentStatus of an order to PAID', async () => {
   assert.equal(res.body.success, true);
   assert.equal(res.body.data.order.paymentStatus, 'PAID');
 });
+
+test('9. Unauthenticated request to POST /api/v1/admin/seed-menu returns 401 Unauthorized', async () => {
+  const res = await apiRequest('/api/v1/admin/seed-menu', {
+    method: 'POST',
+  });
+
+  assert.equal(res.status, 401);
+  assert.equal(res.body.success, false);
+});
+
+test('10. Customer role request to POST /api/v1/admin/seed-menu returns 403 Forbidden', async () => {
+  const res = await apiRequest('/api/v1/admin/seed-menu', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${customerToken}` },
+  });
+
+  assert.equal(res.status, 403);
+  assert.equal(res.body.success, false);
+});
+
+test('11. Admin can seed menu via POST /api/v1/admin/seed-menu (200 OK, 11 categories, 96 foods, idempotent)', async () => {
+  // First seed execution
+  const res = await apiRequest('/api/v1/admin/seed-menu', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${adminToken}` },
+  });
+
+  assert.equal(res.status, 200);
+  assert.equal(res.body.success, true);
+  assert.equal(res.body.categoriesCount, 11);
+  assert.equal(res.body.foodsCount, 96);
+  assert.ok(res.body.message.includes('seeded successfully'));
+  assert.ok(res.body.data);
+
+  // Idempotency check: second execution should update without duplicate key errors
+  const res2 = await apiRequest('/api/v1/admin/seed-menu', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${adminToken}` },
+  });
+
+  assert.equal(res2.status, 200);
+  assert.equal(res2.body.success, true);
+  assert.equal(res2.body.categoriesCount, 11);
+  assert.equal(res2.body.foodsCount, 96);
+});
+
 
