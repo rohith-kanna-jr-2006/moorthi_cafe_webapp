@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
-import { getTodayBusinessDate, getBusinessDateRange } from '../utils/businessDate';
+import { getTodayBusinessDate, getYesterdayBusinessDate, getBusinessDateRange } from '../utils/businessDate';
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -28,6 +28,15 @@ const AdminDashboard = () => {
     const todayDate = getTodayBusinessDate();
     const sevenDayRange = getBusinessDateRange(7);
 
+    // Core dashboard loading — controlled ONLY by dashboard API
+    let dashboardSettled = false;
+    const settleLoading = () => {
+      if (dashboardSettled && salesSettled && isMounted) {
+        setLoading(false);
+      }
+    };
+    let salesSettled = false;
+
     // Fetch dashboard first - this is critical
     api.getAdminDashboard(token)
       .then((dashboardResult) => {
@@ -42,7 +51,11 @@ const AdminDashboard = () => {
         if (!isMounted) return;
         console.error('Dashboard API error:', err);
         setError(err.message || 'Failed to connect to dashboard API');
-        setLoading(false);
+      })
+      .finally(() => {
+        if (!isMounted) return;
+        dashboardSettled = true;
+        settleLoading();
       });
 
     // Fetch sales reports independently - dashboard doesn't depend on these
@@ -76,10 +89,12 @@ const AdminDashboard = () => {
       }
     };
 
-    // Run both sales requests in parallel
+    // Run both sales requests in parallel, track their completion independently
     Promise.all([fetchTodaySales(), fetchSevenDayReport()])
       .finally(() => {
-        if (isMounted) setLoading(false);
+        if (!isMounted) return;
+        salesSettled = true;
+        settleLoading();
       });
 
     return () => {
@@ -365,22 +380,38 @@ const AdminDashboard = () => {
   const todayBestSellersForDisplay = todayBestSellers || [];
   const latestDailyReport = sevenDayDailyReport.length > 0 ? sevenDayDailyReport : todayDailyReport;
 
-  // Calculate revenue trend with proper date handling
+  // Calculate revenue trend by exact date matching (not array adjacency)
   // dailyReport is sorted by date ASCENDING in backend (sort by _id: 1)
-  // So the last element is the most recent day (today), second-to-last is yesterday
+  // Backend only returns dates that have orders — zero-sales days are omitted
   const calculateRevenueTrend = () => {
-    if (latestDailyReport.length < 2) return null;
-    const todayRevenue = Number(latestDailyReport[latestDailyReport.length - 1]?.sales || 0);
-    const yesterdayRevenue = Number(latestDailyReport[latestDailyReport.length - 2]?.sales || 0);
+    const todayDate = getTodayBusinessDate();
+    const yesterdayDate = getYesterdayBusinessDate();
 
-    if (yesterdayRevenue === 0 && todayRevenue === 0) return { change: 0, direction: 'stable' };
-    if (yesterdayRevenue === 0) return { change: Infinity, direction: 'up', limited: true };
-    if (todayRevenue === 0) return { change: -Infinity, direction: 'down', limited: true };
+    // Find today's and yesterday's entries by exact date match
+    const todayEntry = latestDailyReport.find(d => d.date === todayDate);
+    const yesterdayEntry = latestDailyReport.find(d => d.date === yesterdayDate);
 
+    const todayRevenue = todayEntry ? Number(todayEntry.sales || 0) : 0;
+    const yesterdayRevenue = yesterdayEntry ? Number(yesterdayEntry.sales || 0) : 0;
+
+    // Both days have zero or no data — no valid comparison
+    if (todayRevenue === 0 && yesterdayRevenue === 0) {
+      return { change: 0, direction: 'stable', available: false, reason: 'no_sales_both_days' };
+    }
+    // Today has no sales — cannot show meaningful trend
+    if (todayRevenue === 0) {
+      return { change: 0, direction: 'down', available: false, reason: 'no_sales_today' };
+    }
+    // Yesterday had no sales — avoid Infinity, show unavailable
+    if (yesterdayRevenue === 0) {
+      return { change: 0, direction: 'up', available: false, reason: 'no_sales_yesterday' };
+    }
+
+    // Valid comparison
     const pctChange = ((todayRevenue - yesterdayRevenue) / yesterdayRevenue) * 100;
-    if (pctChange > 0) return { change: pctChange, direction: 'up' };
-    if (pctChange < 0) return { change: Math.abs(pctChange), direction: 'down' };
-    return { change: 0, direction: 'stable' };
+    if (pctChange > 0) return { change: pctChange, direction: 'up', available: true };
+    if (pctChange < 0) return { change: Math.abs(pctChange), direction: 'down', available: true };
+    return { change: 0, direction: 'stable', available: true };
   };
 
   const revenueTrend = calculateRevenueTrend();
@@ -438,22 +469,29 @@ const AdminDashboard = () => {
                 </div>
               </div>
               <div className="stitch-kpi-meta">
-                {latestDailyReport.length >= 2 ? (
+                {revenueTrend?.available ? (
                   <>
                     <span className="material-symbols-outlined text-secondary text-[16px] font-bold" style={{ color: 'var(--stitch-secondary)' }}>trending_up</span>
                     <span style={{ fontWeight: 700, color: 'var(--stitch-secondary)' }}>
-                      {revenueTrend?.direction === 'up' ? '▲' : revenueTrend?.direction === 'down' ? '▼' : '●'}
+                      {revenueTrend.direction === 'up' ? '▲' : revenueTrend.direction === 'down' ? '▼' : '●'}
                     </span>
-                    {revenueTrend?.change !== undefined && revenueTrend?.change !== Infinity && revenueTrend?.change !== -Infinity && (
-                      <span>{Math.round(revenueTrend.change)}% vs prev day</span>
-                    )}
-                    {revenueTrend?.limited && <span>Insufficient comparison data</span>}
+                    <span>{Math.round(revenueTrend.change)}% vs prev day</span>
                   </>
                 ) : (
                   <>
                     <span className="material-symbols-outlined text-secondary text-[16px] font-bold" style={{ color: 'var(--stitch-secondary)' }}>trending_up</span>
-                    <span style={{ fontWeight: 700, color: 'var(--stitch-secondary)' }}>Live Audit</span>
-                    <span>• Total settled today</span>
+                    {revenueTrend?.reason === 'no_sales_yesterday' && (
+                      <span style={{ fontWeight: 700, color: 'var(--stitch-on-surface-variant)' }}>No comparison — no sales yesterday</span>
+                    )}
+                    {revenueTrend?.reason === 'no_sales_today' && (
+                      <span style={{ fontWeight: 700, color: 'var(--stitch-on-surface-variant)' }}>No sales today</span>
+                    )}
+                    {revenueTrend?.reason === 'no_sales_both_days' && (
+                      <span style={{ fontWeight: 700, color: 'var(--stitch-on-surface-variant)' }}>No sales data for comparison</span>
+                    )}
+                    {revenueTrend?.reason === 'no_data' && (
+                      <span style={{ fontWeight: 700, color: 'var(--stitch-on-surface-variant)' }}>Insufficient comparison data</span>
+                    )}
                   </>
                 )}
               </div>
