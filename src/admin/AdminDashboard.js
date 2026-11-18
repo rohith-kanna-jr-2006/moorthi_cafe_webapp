@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
+import { getTodayBusinessDate, getBusinessDateRange } from '../utils/businessDate';
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
-  const [salesReport, setSalesReport] = useState(null);
+  const [todayBestSellers, setTodayBestSellers] = useState([]);
+  const [todayDailyReport, setTodayDailyReport] = useState([]);
+  const [sevenDayDailyReport, setSevenDayDailyReport] = useState([]);
+  const [salesError, setSalesError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,32 +24,60 @@ const AdminDashboard = () => {
       return;
     }
 
-    Promise.all([
-      api.getAdminDashboard(token),
-      api.getSalesReport(
-        // 7-day range in Asia/Kolkata business dates
-        new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-        new Date().toISOString().split('T')[0],
-        token
-      ),
-    ])
-      .then(([dashboardResult, salesResult]) => {
+    // Get Asia/Kolkata business dates
+    const todayDate = getTodayBusinessDate();
+    const sevenDayRange = getBusinessDateRange(7);
+
+    // Fetch dashboard first - this is critical
+    api.getAdminDashboard(token)
+      .then((dashboardResult) => {
         if (!isMounted) return;
         if (dashboardResult.success && dashboardResult.data) {
           setData(dashboardResult.data);
         } else {
           setError(dashboardResult.message || 'Failed to load operational dashboard data');
         }
-        if (salesResult.success && salesResult.data) {
-          setSalesReport(salesResult.data);
-        }
-        setLoading(false);
       })
       .catch((err) => {
         if (!isMounted) return;
         console.error('Dashboard API error:', err);
         setError(err.message || 'Failed to connect to dashboard API');
         setLoading(false);
+      });
+
+    // Fetch sales reports independently - dashboard doesn't depend on these
+    // Request 1: Today's sales report for Top Selling items
+    const fetchTodaySales = async () => {
+      try {
+        const result = await api.getSalesReport(todayDate, todayDate, token);
+        if (!isMounted) return;
+        if (result.success && result.data) {
+          // Store today's top sellers separately
+          setTodayBestSellers(result.data.bestSellers || []);
+          setTodayDailyReport(result.data.dailyReport || []);
+        }
+      } catch (err) {
+        console.warn('Today sales report fetch failed:', err);
+      }
+    };
+
+    // Request 2: Seven-day sales report for Revenue Trend
+    const fetchSevenDayReport = async () => {
+      try {
+        const result = await api.getSalesReport(sevenDayRange.from, sevenDayRange.to, token);
+        if (!isMounted) return;
+        if (result.success && result.data) {
+          setSevenDayDailyReport(result.data.dailyReport || []);
+        }
+      } catch (err) {
+        console.warn('Seven-day sales report fetch failed:', err);
+      }
+    };
+
+    // Run both sales requests in parallel
+    Promise.all([fetchTodaySales(), fetchSevenDayReport()])
+      .finally(() => {
+        if (isMounted) setLoading(false);
       });
 
     return () => {
@@ -327,9 +359,29 @@ const AdminDashboard = () => {
   const activeTokensQueue = metrics.activeTokensQueue || {};
   const recentOrders = data?.recentOrders || {};
 
-  // Sales report data for Top Selling and Revenue Trend
-  const dailyReport = salesReport?.dailyReport || [];
-  const bestSellers = salesReport?.bestSellers || [];
+  // Sales report data - separated for today vs seven-day reports
+  const todayBestSellersForDisplay = todayBestSellers || [];
+  const latestDailyReport = sevenDayDailyReport.length > 0 ? sevenDayDailyReport : todayDailyReport;
+
+  // Calculate revenue trend with proper date handling
+  // dailyReport is sorted by date ASCENDING in backend (sort by _id: 1)
+  // So the last element is the most recent day (today), second-to-last is yesterday
+  const calculateRevenueTrend = () => {
+    if (latestDailyReport.length < 2) return null;
+    const todayRevenue = Number(latestDailyReport[latestDailyReport.length - 1]?.sales || 0);
+    const yesterdayRevenue = Number(latestDailyReport[latestDailyReport.length - 2]?.sales || 0);
+
+    if (yesterdayRevenue === 0 && todayRevenue === 0) return { change: 0, direction: 'stable' };
+    if (yesterdayRevenue === 0) return { change: Infinity, direction: 'up', limited: true };
+    if (todayRevenue === 0) return { change: -Infinity, direction: 'down', limited: true };
+
+    const pctChange = ((todayRevenue - yesterdayRevenue) / yesterdayRevenue) * 100;
+    if (pctChange > 0) return { change: pctChange, direction: 'up' };
+    if (pctChange < 0) return { change: Math.abs(pctChange), direction: 'down' };
+    return { change: 0, direction: 'stable' };
+  };
+
+  const revenueTrend = calculateRevenueTrend();
 
   // Orders breakdown ratios for progress bar
   const totalOrders = orders.total || 0;
@@ -384,13 +436,16 @@ const AdminDashboard = () => {
                 </div>
               </div>
               <div className="stitch-kpi-meta">
-                {dailyReport.length >= 2 ? (
+                {latestDailyReport.length >= 2 ? (
                   <>
                     <span className="material-symbols-outlined text-secondary text-[16px] font-bold" style={{ color: 'var(--stitch-secondary)' }}>trending_up</span>
                     <span style={{ fontWeight: 700, color: 'var(--stitch-secondary)' }}>
-                      {(revenue.total / dailyReport[0]?.sales) > 1 ? '▲' : '▼'}
+                      {revenueTrend?.direction === 'up' ? '▲' : revenueTrend?.direction === 'down' ? '▼' : '●'}
                     </span>
-                    <span>• 7-day trend available</span>
+                    {revenueTrend?.change !== undefined && revenueTrend?.change !== Infinity && revenueTrend?.change !== -Infinity && (
+                      <span>{Math.round(revenueTrend.change)}% vs prev day</span>
+                    )}
+                    {revenueTrend?.limited && <span>Insufficient comparison data</span>}
                   </>
                 ) : (
                   <>
@@ -644,8 +699,8 @@ const AdminDashboard = () => {
                 </div>
 
                 <div>
-                  {bestSellers.length > 0 ? (
-                    bestSellers.slice(0, 4).map((item, idx) => (
+                  {todayBestSellersForDisplay.length > 0 ? (
+                    todayBestSellersForDisplay.slice(0, 4).map((item, idx) => (
                       <div key={item.name} className="stitch-top-item">
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                           <div className="stitch-item-thumb" style={{ backgroundColor: 'var(--stitch-surface-container-high)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -667,7 +722,7 @@ const AdminDashboard = () => {
                   ) : (
                     <div style={{ textAlign: 'center', padding: '1.5rem', color: 'var(--stitch-on-surface-variant)' }}>
                       <span className="material-symbols-outlined" style={{ fontSize: '2rem', display: 'block', marginBottom: '0.5rem', opacity: 0.5 }}>bar_chart</span>
-                      No sales data available for the selected period.
+                      {salesError ? 'Sales data unavailable' : 'No sales data available for today.'}
                     </div>
                   )}
                 </div>

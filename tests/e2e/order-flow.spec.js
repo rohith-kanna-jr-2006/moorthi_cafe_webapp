@@ -173,6 +173,7 @@ test.describe('Staging Order Flow - Customer Registration, Login, Cart, Checkout
     const url = page.url();
     expect(url).toMatch(/\/(checkout|cart|login)/);
   });
+});
 
   test('COD payment method is the only selectable option', async ({ page }) => {
     const baseURL = getStagingFrontend();
