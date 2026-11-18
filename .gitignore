@@ -70,61 +70,12 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 
-# Playwright Generated Artifacts
-.playwright-mcp/
-playwright-report/
-test-results/
-blob-report/
-screenshots/
-screenshot*/
-home_desktop*
-
-# Local Tool Configuration and Generated Output
-opencode*/
-/opencode.json
-
-# Specific Unwanted Reports & Logs
-IMPLEMENTATION_SUMMARY.md
-PHASE3_COMPLETION_REPORT.md
-SUMMARY.md
-TASK_COMPLETION.md
-FIX_SUMMARY.md
-TEST_RESULTS.md
-VERIFICATION_SUMMARY.md
-backend/VERIFICATION_SUMMARY.md
-
-# Temporary Test Scripts & Artifacts
-/playwright-final.js
-/playwright-script*.js
-/playwright_script*.js
-/playwright_test.js
-/screenshot_and_collect.js
-/screenshot_task.js
-/test-api*.js
-/test-script.js
-/test-title.js
-/test.js
-/test[0-9]*.js
-/test_simple.js
-/test_small.js
-/test_spec.js
-/screenshot*.txt
-/screenshot*.b64
-/screenshot.png
-/test*.txt
-/write_test.txt
-/write_test*.txt
-/testbt.txt
-
-# Scratch scripts and downloaded references
-scripts/downloadAllStitchReferences.js
-verification-artifacts/stitch-references/html/
-verification-artifacts/stitch-references/manifest.json
-
-artifacts/
-
-# Playwright
+# Playwright generated artifacts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+.playwright-mcp/
+home_desktop*
+screenshots/
+screenshot*/
