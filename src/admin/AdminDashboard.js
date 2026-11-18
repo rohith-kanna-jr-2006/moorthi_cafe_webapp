@@ -57,6 +57,7 @@ const AdminDashboard = () => {
           setTodayDailyReport(result.data.dailyReport || []);
         }
       } catch (err) {
+        if (isMounted) setSalesError('Today sales report unavailable');
         console.warn('Today sales report fetch failed:', err);
       }
     };
@@ -70,6 +71,7 @@ const AdminDashboard = () => {
           setSevenDayDailyReport(result.data.dailyReport || []);
         }
       } catch (err) {
+        if (isMounted) setSalesError('Sales report unavailable');
         console.warn('Seven-day sales report fetch failed:', err);
       }
     };

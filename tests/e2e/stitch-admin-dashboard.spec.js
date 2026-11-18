@@ -321,4 +321,51 @@ test.describe('Google Stitch Admin Dashboard E2E Verification', () => {
       fullPage: true
     });
   });
+
+  test('5. Sales API failure shows honest unavailable state without hiding dashboard', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+
+    await page.goto('/admin/dashboard');
+    await page.evaluate(() => localStorage.setItem('moorthi_token', 'valid-test-admin-jwt'));
+
+    // Dashboard succeeds
+    await page.route('**/api/v1/admin/dashboard', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          success: true,
+          data: {
+            metrics: {
+              revenue: { total: 12000, upi: 9000, cash: 3000, card: 0 },
+              orders: { total: 60, READY: 50, PREPARING: 8, PLACED: 2 },
+              activeTokensQueue: { count: 5, lowestToken: 10, highestToken: 14 }
+            },
+            recentOrders: []
+          }
+        })
+      });
+    });
+
+    // Sales report fails — must not hide the dashboard
+    await page.route(/.*\/api\/v1\/admin\/reports\/sales\?from=.*&to=.*/, async (route) => {
+      await route.abort('failed');
+    });
+
+    await page.reload();
+
+    // Dashboard metrics must still be visible
+    const kpiCards = page.locator('.stitch-kpi-card');
+    await expect(kpiCards).toHaveCount(4);
+    await expect(kpiCards.nth(0)).toContainText('₹12,000');
+    await expect(kpiCards.nth(1)).toContainText('60 Orders');
+
+    // Top Selling panel must show honest unavailable state
+    const topSellingPanel = page.locator('.stitch-card-panel', { hasText: 'Top Selling Today' });
+    await expect(topSellingPanel).toContainText('Sales data unavailable');
+
+    // No error banner for the dashboard itself
+    const errorBanner = page.locator('.stitch-card-panel', { hasText: 'Authentication Required or API Error' });
+    await expect(errorBanner).not.toBeAttached();
+  });
 });
