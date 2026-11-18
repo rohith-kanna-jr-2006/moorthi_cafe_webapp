@@ -154,6 +154,21 @@ const api = {
     return response.json();
   },
 
+  getSalesReport: async (from, to, token) => {
+    const params = new URLSearchParams();
+    if (from) params.append('from', from);
+    if (to) params.append('to', to);
+    const query = params.toString() ? `?${params.toString()}` : '';
+    const response = await fetch(`${API_BASE_URL}/admin/reports/sales${query}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.json();
+  },
+
   getAdminOrders: async (params = {}, token) => {
     const queryParams = new URLSearchParams(params).toString();
     const url = queryParams

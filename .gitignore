@@ -122,3 +122,9 @@ verification-artifacts/stitch-references/html/
 verification-artifacts/stitch-references/manifest.json
 
 artifacts/
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

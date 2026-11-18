@@ -1316,3 +1316,838 @@ h1, h2, h3, h4, h5, h6 {
     flex-wrap: wrap;
   }
 }
+
+
+/* ========================================================================= */
+/* Google Stitch Admin Dashboard Specification (Screen 3c35b1470df44029a6007025731266dd) */
+/* ========================================================================= */
+
+:root {
+  --stitch-primary: #9f3e07;
+  --stitch-primary-container: #c05621;
+  --stitch-on-primary-container: #ffffff;
+  --stitch-primary-fixed: #ffdbcd;
+  --stitch-primary-fixed-dim: #ffb596;
+  --stitch-secondary: #0a6c44;
+  --stitch-secondary-container: #9ff5c1;
+  --stitch-on-secondary-container: #167249;
+  --stitch-secondary-fixed: #9ff5c1;
+  --stitch-surface: #fef9f3;
+  --stitch-surface-container-lowest: #ffffff;
+  --stitch-surface-container-low: #f8f3ed;
+  --stitch-surface-container: #f2ede7;
+  --stitch-surface-container-high: #ece7e2;
+  --stitch-surface-variant: #e6e2dc;
+  --stitch-on-surface: #1d1b18;
+  --stitch-on-surface-variant: #57423a;
+  --stitch-error: #ba1a1a;
+  --stitch-error-container: #ffdad6;
+  --stitch-on-error-container: #93000a;
+  --stitch-tertiary: #7b5600;
+  --stitch-tertiary-container: #9b6d00;
+  --stitch-tertiary-fixed: #ffdeaa;
+  --stitch-tertiary-fixed-dim: #f8bc4b;
+  --stitch-outline-variant: #dec0b5;
+  --stitch-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --stitch-shadow-card-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --stitch-shadow-sidebar: 0 4px 20px rgba(10, 108, 68, 0.15);
+  --stitch-shadow-header: 0 1px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Shell and Layout */
+.stitch-dashboard-shell {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  background-color: var(--stitch-surface);
+  color: var(--stitch-on-surface);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+/* Sidebar Drawer Backdrop for Mobile/Tablet */
+.stitch-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1050;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* Sidebar */
+.stitch-sidebar {
+  width: 18rem; /* 288px */
+  height: 100vh;
+  flex-shrink: 0;
+  background-color: var(--stitch-secondary);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  box-shadow: var(--stitch-shadow-sidebar);
+  overflow-y: auto;
+  z-index: 50;
+  transition: transform 0.3s ease;
+}
+
+.stitch-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.stitch-brand-icon-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--stitch-secondary-fixed);
+  color: var(--stitch-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stitch-brand-title {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+.stitch-brand-subtitle {
+  font-size: 0.6875rem;
+  color: var(--stitch-secondary-fixed);
+  opacity: 0.9;
+}
+
+.stitch-sidebar-divider {
+  height: 1px;
+  width: 100%;
+  background-color: rgba(159, 245, 193, 0.2);
+  margin: 1rem 0;
+}
+
+.stitch-nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.stitch-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--stitch-secondary-fixed);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.stitch-nav-item:hover {
+  background-color: rgba(159, 245, 193, 0.15);
+  color: #ffffff;
+}
+
+.stitch-nav-item.active {
+  background-color: var(--stitch-primary-container);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stitch-sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 0.75rem 0;
+  border-top: 1px solid rgba(159, 245, 193, 0.2);
+}
+
+.stitch-terminal-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  color: var(--stitch-secondary-fixed);
+}
+
+.stitch-pulse-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--stitch-secondary-fixed);
+  animation: stitchPulse 2s infinite ease-in-out;
+}
+
+@keyframes stitchPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+@keyframes stitchSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.stitch-unit-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(159, 245, 193, 0.1);
+  color: #ffffff;
+  font-size: 0.75rem;
+}
+
+/* Main Container */
+.stitch-main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: var(--stitch-surface);
+  min-width: 0;
+}
+
+/* Top Header */
+.stitch-header {
+  position: sticky;
+  top: 0;
+  height: 4rem; /* 64px */
+  background-color: rgba(254, 249, 243, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--stitch-shadow-header);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  border-bottom: 1px solid var(--stitch-surface-container-high);
+  flex-shrink: 0;
+}
+
+.stitch-header-left, .stitch-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stitch-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.stitch-pill-badge.high {
+  background-color: var(--stitch-surface-container-high);
+  color: var(--stitch-on-surface);
+}
+
+.stitch-pill-badge.green {
+  background-color: var(--stitch-secondary-container);
+  color: var(--stitch-on-secondary-container);
+}
+
+.stitch-status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--stitch-secondary);
+}
+
+.stitch-shift-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--stitch-on-surface-variant);
+  font-size: 0.75rem;
+}
+
+.stitch-icon-btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  background-color: var(--stitch-surface-container);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--stitch-on-surface-variant);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.stitch-icon-btn:hover {
+  color: var(--stitch-on-surface);
+  background-color: var(--stitch-surface-container-high);
+}
+
+.stitch-alert-indicator {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--stitch-primary);
+}
+
+.stitch-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--stitch-surface-container-high);
+}
+
+.stitch-user-meta {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.stitch-user-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--stitch-on-surface);
+  line-height: 1.2;
+}
+
+.stitch-user-role {
+  font-size: 0.6875rem;
+  color: var(--stitch-on-surface-variant);
+}
+
+.stitch-user-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background-color: var(--stitch-primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main View Body */
+.stitch-main-content {
+  position: relative;
+  padding: 1.5rem 2rem 3rem 2rem;
+  width: 100%;
+  flex: 1;
+}
+
+/* Dashboard Banner */
+.stitch-dashboard-banner {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .stitch-dashboard-banner {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.stitch-banner-overline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--stitch-primary);
+}
+
+.stitch-banner-title {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--stitch-on-surface);
+  line-height: 1.2;
+  margin: 0.25rem 0;
+}
+
+.stitch-banner-desc {
+  font-size: 0.9375rem;
+  color: var(--stitch-on-surface-variant);
+  margin: 0;
+}
+
+.stitch-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stitch-badge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.5rem;
+  background-color: var(--stitch-surface-container-lowest);
+  border: 1px solid var(--stitch-surface-container-high);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--stitch-on-surface);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* 4 KPI Cards Grid */
+.stitch-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .stitch-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .stitch-kpi-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.stitch-kpi-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background-color: var(--stitch-surface-container-lowest);
+  padding: 1.25rem;
+  box-shadow: var(--stitch-shadow-card);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.stitch-kpi-card:hover {
+  box-shadow: var(--stitch-shadow-card-hover);
+  transform: translateY(-1px);
+}
+
+.stitch-kpi-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.stitch-kpi-bar.primary { background-color: var(--stitch-primary); }
+.stitch-kpi-bar.secondary { background-color: var(--stitch-secondary); }
+.stitch-kpi-bar.tertiary { background-color: var(--stitch-tertiary-container); }
+.stitch-kpi-bar.error { background-color: var(--stitch-error); }
+
+.stitch-kpi-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.stitch-kpi-label {
+  font-size: 0.75rem;
+  color: var(--stitch-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.stitch-kpi-value {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--stitch-on-surface);
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.stitch-kpi-icon-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stitch-kpi-icon-box.primary {
+  background-color: var(--stitch-primary-fixed);
+  color: var(--stitch-primary);
+}
+
+.stitch-kpi-icon-box.secondary {
+  background-color: var(--stitch-secondary-fixed);
+  color: var(--stitch-secondary);
+}
+
+.stitch-kpi-icon-box.tertiary {
+  background-color: var(--stitch-tertiary-fixed);
+  color: var(--stitch-tertiary);
+}
+
+.stitch-kpi-icon-box.error {
+  background-color: var(--stitch-error-container);
+  color: var(--stitch-error);
+}
+
+.stitch-kpi-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--stitch-on-surface-variant);
+}
+
+.stitch-kpi-progress-track {
+  width: 100%;
+  background-color: var(--stitch-surface-container-high);
+  height: 0.5rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+
+.stitch-kpi-footer-bar {
+  margin: 0.75rem -1.25rem -1.25rem -1.25rem;
+  padding: 0.625rem 1.25rem;
+  background-color: var(--stitch-surface-container-low);
+  border-top: 1px solid var(--stitch-surface-container-high);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  color: var(--stitch-on-surface-variant);
+}
+
+/* Quick Actions */
+.stitch-actions-row {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stitch-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.stitch-action-btn.primary {
+  background-color: var(--stitch-primary-container);
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(192, 86, 33, 0.2);
+}
+
+.stitch-action-btn.primary:hover {
+  background-color: var(--stitch-primary);
+  color: #ffffff;
+}
+
+.stitch-action-btn.secondary {
+  background-color: var(--stitch-surface-container-lowest);
+  color: var(--stitch-on-surface);
+  border-color: var(--stitch-surface-container-high);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.stitch-action-btn.secondary:hover {
+  background-color: var(--stitch-surface-container);
+}
+
+/* 12-Column Grid Layout */
+.stitch-content-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .stitch-content-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+.stitch-grid-col-8 {
+  grid-column: span 1 / span 1;
+}
+
+@media (min-width: 1024px) {
+  .stitch-grid-col-8 {
+    grid-column: span 8 / span 12;
+  }
+}
+
+.stitch-grid-col-4 {
+  grid-column: span 1 / span 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .stitch-grid-col-4 {
+    grid-column: span 4 / span 12;
+  }
+}
+
+/* Orders Table Panel */
+.stitch-card-panel {
+  border-radius: 0.75rem;
+  background-color: var(--stitch-surface-container-lowest);
+  padding: 1.5rem;
+  box-shadow: var(--stitch-shadow-card);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.stitch-panel-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .stitch-panel-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.stitch-panel-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stitch-panel-icon-box {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  background-color: var(--stitch-surface-container-high);
+  color: var(--stitch-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stitch-panel-title {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--stitch-on-surface);
+  line-height: 1.2;
+}
+
+.stitch-panel-subtitle {
+  font-size: 0.75rem;
+  color: var(--stitch-on-surface-variant);
+  margin-top: 0.125rem;
+}
+
+/* Table */
+.stitch-table-wrapper {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+}
+
+.stitch-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.8125rem;
+}
+
+.stitch-orders-table thead tr {
+  background-color: var(--stitch-surface-container-low);
+  color: var(--stitch-on-surface-variant);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.stitch-orders-table th {
+  padding: 0.75rem 1rem;
+}
+
+.stitch-orders-table tbody tr {
+  border-bottom: 1px solid var(--stitch-surface-container-high);
+  transition: background-color 0.2s ease;
+}
+
+.stitch-orders-table tbody tr:hover {
+  background-color: rgba(248, 243, 237, 0.6);
+}
+
+.stitch-orders-table td {
+  padding: 1rem 1rem;
+  vertical-align: middle;
+}
+
+.stitch-token-primary {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--stitch-primary);
+}
+
+.stitch-token-sub {
+  display: block;
+  font-size: 0.6875rem;
+  color: var(--stitch-on-surface-variant);
+  font-weight: 400;
+}
+
+.stitch-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.stitch-status-badge.pending {
+  background-color: var(--stitch-error-container);
+  color: var(--stitch-on-error-container);
+}
+
+.stitch-status-badge.preparing {
+  background-color: var(--stitch-tertiary-fixed);
+  color: var(--stitch-tertiary);
+}
+
+.stitch-status-badge.ready {
+  background-color: var(--stitch-secondary-container);
+  color: var(--stitch-on-secondary-container);
+}
+
+.stitch-status-badge.completed {
+  background-color: var(--stitch-surface-container-high);
+  color: var(--stitch-on-surface-variant);
+}
+
+/* Side Panels */
+.stitch-top-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+  background-color: var(--stitch-surface-container-low);
+  margin-bottom: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.stitch-top-item:hover {
+  background-color: var(--stitch-surface-container);
+}
+
+.stitch-item-thumb {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.stitch-station-meter {
+  margin-bottom: 1.25rem;
+}
+
+.stitch-meter-track {
+  width: 100%;
+  background-color: var(--stitch-surface-container-high);
+  height: 0.625rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 0.375rem;
+}
+
+.stitch-meter-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1023px) {
+  .stitch-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 18rem;
+    height: 100vh;
+    z-index: 1100;
+    transform: translateX(-100%);
+  }
+  .stitch-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.35);
+  }
+  .stitch-main-container {
+    width: 100%;
+  }
+  .stitch-header {
+    padding: 0 1rem;
+  }
+  .stitch-main-content {
+    padding: 1rem 1rem 2rem 1rem;
+  }
+  .stitch-mobile-toggle {
+    display: flex !important;
+  }
+}
+
+.stitch-mobile-toggle {
+  display: none;
+}

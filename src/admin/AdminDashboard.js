@@ -1,289 +1,706 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../utils/api';
 
 const AdminDashboard = () => {
-  // Demo data for the dashboard
-  const dashboardData = {
-    revenue: '₹24,850',
-    revenueChange: '+14.2% vs yesterday evening',
-    paymentSplit: {
-      upi: '₹18,400',
-      cash: '₹6,450'
-    },
-    orders: {
-      total: '142 Orders',
-      breakdown: '118 Ready 18 Prep 6 Pend'
-    },
-    tokenRange: 'Token #42 - #48',
-    avgPrepTime: '11 mins',
-    stationNotes: 'Tawa Queue: 4 Dosas Steamers: Clear',
-    alerts: [
-      {
-        id: 1,
-        icon: 'hourglass_bottom',
-        message: 'Elaneer Payasam evening low (4 left)',
-        severity: 'warning'
-      },
-      {
-        id: 2,
-        message: 'Rava Upma Batter: 15% Restock',
-        severity: 'warning'
-      }
-    ],
-    quickActions: [
-      { label: 'Add New Food Item', icon: 'add_circle', to: '/admin/add-edit-food' },
-      { label: 'View Live Counter Queue', icon: 'kitchen', to: '#' },
-      { label: 'Download Day-End Report', icon: 'file_download', to: '#' },
-      { label: 'Emergency Kitchen Pause', icon: 'pause_circle', to: '#' }
-    ],
-    topItems: [
-      { name: 'Ghee Roast Dosa', plates: '78 plates sold', revenue: '₹8,580', badge: 'High Demand' },
-      { name: 'Kumbakonam Kaapi', plates: '146 cups served', revenue: '₹5,110', badge: 'Speedy Flow' },
-      { name: 'Podi Thatte Idli', plates: '54 plates sold', revenue: '₹4,320', badge: 'Steady' },
-      { name: 'Chidambaram Thali', plates: '32 thalis served', revenue: '₹4,800', badge: 'Lunch Shift' }
-    ],
-    kitchenLoad: [
-      { equipment: 'Dosa Griddle / Cast Iron Tawa', usage: '85%', status: '4 active pans in blast • Wait time ~8m' },
-      { equipment: 'Idli Steamers & Vada Kadai', usage: '60%', status: 'Steamer chamber 2 ready • Medu Vada frying' },
-      { equipment: 'Coffee Decoction Urn', usage: '90%', status: 'Brew cycle 4 dripping • High footfall at front counter' },
-      { equipment: 'Oil Kadai Temp', usage: '178°C', status: 'In Target Range' }
-    ],
-    recentOrders: [
-      {
-        id: '#48 #MC-9048',
-        diner: 'Karthik Sundaram table_restaurant Table 04 (Dine-in)',
-        items: '2x Special Ghee Roast Masala Dosa 1x Degree Filter Coffee • Less Sweet',
-        amount: '₹290',
-        status: 'Pending',
-        time: '18:42',
-        action: ''
-      },
-      {
-        id: '#47 #MC-9047',
-        diner: 'Meenakshi V. takeout_dining Parcel / Takeaway',
-        items: '3x Podi Thatte Idli (Hot Ghee) 2x Medu Vada (Extra Sambhar pouch)',
-        amount: '₹340',
-        status: 'Preparing',
-        time: '18:38',
-        action: ''
-      },
-      {
-        id: '#46 #MC-9046',
-        diner: 'Dr. A. Natarajan table_restaurant Table 08 (Family)',
-        items: '2x Chidambaram Special Mini Thali 1x Onion Rava Dosa • Crisp',
-        amount: '₹520',
-        status: 'Ready for Pickup',
-        time: '18:31',
-        action: ''
-      },
-      {
-        id: '#45 #MC-9045',
-        diner: 'S. Vignesh takeout_dining Parcel / Takeaway',
-        items: '4x Classic Kumbakonam Filter Coffee 2x South Indian Mysore Pak (250g)',
-        amount: '₹380',
-        status: 'Completed',
-        time: '18:24',
-        action: 'check_circle'
-      },
-      {
-        id: '#44 #MC-9044',
-        diner: 'Revathi Balan table_restaurant Table 02 (Dine-in)',
-        items: '1x Heritage Filter Kaapi 1x Crispy Medu Vada (With Mint Chutney)',
-        amount: '₹95',
-        status: 'Completed',
-        time: '18:19',
-        action: 'check_circle'
-      }
-    ]
+  const [data, setData] = useState(null);
+  const [salesReport, setSalesReport] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let isMounted = true;
+    const token = typeof window !== 'undefined' ? localStorage.getItem('moorthi_token') : null;
+
+    if (!token) {
+      setError('Admin authentication required. Please log in.');
+      setLoading(false);
+      return;
+    }
+
+    Promise.all([
+      api.getAdminDashboard(token),
+      api.getSalesReport(
+        // 7-day range in Asia/Kolkata business dates
+        new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        new Date().toISOString().split('T')[0],
+        token
+      ),
+    ])
+      .then(([dashboardResult, salesResult]) => {
+        if (!isMounted) return;
+        if (dashboardResult.success && dashboardResult.data) {
+          setData(dashboardResult.data);
+        } else {
+          setError(dashboardResult.message || 'Failed to load operational dashboard data');
+        }
+        if (salesResult.success && salesResult.data) {
+          setSalesReport(salesResult.data);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (!isMounted) return;
+        console.error('Dashboard API error:', err);
+        setError(err.message || 'Failed to connect to dashboard API');
+        setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const formatCurrency = (val) => {
+    const num = Number(val || 0);
+    return '₹' + num.toLocaleString('en-IN');
   };
 
+  const formatTime = (dateStr) => {
+    if (!dateStr) return 'N/A';
+    try {
+      return new Date(dateStr).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } catch (e) {
+      return 'N/A';
+    }
+  };
+
+  const getStatusBadge = (status) => {
+    const s = String(status || '').toUpperCase();
+    if (s === 'READY') {
+      return (
+        <span className="stitch-status-badge ready">
+          <span className="stitch-status-dot"></span> Ready for Pickup
+        </span>
+      );
+    }
+    if (s === 'PREPARING') {
+      return (
+        <span className="stitch-status-badge preparing">
+          <span className="stitch-status-dot animate-pulse"></span> Preparing
+        </span>
+      );
+    }
+    if (s === 'COMPLETED') {
+      return (
+        <span className="stitch-status-badge completed">
+          <span className="material-symbols-outlined text-[14px]">check_circle</span> Completed
+        </span>
+      );
+    }
+    if (s === 'CANCELLED') {
+      return (
+        <span className="stitch-status-badge" style={{ backgroundColor: '#f2ede7', color: '#57423a' }}>
+          <span className="material-symbols-outlined text-[14px]">cancel</span> Cancelled
+        </span>
+      );
+    }
+    return (
+      <span className="stitch-status-badge pending">
+        <span className="stitch-status-dot" style={{ backgroundColor: 'var(--stitch-error)' }}></span> Pending
+      </span>
+    );
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('moorthi_token');
+    localStorage.removeItem('moorthi_user');
+    navigate('/admin/login');
+  };
+
+  const closeMobile = () => setMobileMenuOpen(false);
+
+  const renderSidebar = () => (
+    <>
+      {mobileMenuOpen && (
+        <div
+          className="stitch-sidebar-backdrop"
+          onClick={closeMobile}
+          aria-hidden="true"
+        />
+      )}
+      <aside className={`stitch-sidebar ${mobileMenuOpen ? 'open' : ''}`}>
+        <div>
+          {/* Brand */}
+          <div className="stitch-sidebar-brand">
+            <div className="stitch-brand-icon-box">
+              <span className="material-symbols-outlined">restaurant</span>
+            </div>
+            <div>
+              <div className="stitch-brand-title">Moorthi Cafe</div>
+              <div className="stitch-brand-subtitle">Counter &amp; Kitchen Console</div>
+            </div>
+          </div>
+
+          <div className="stitch-sidebar-divider"></div>
+
+          {/* Navigation */}
+          <nav className="stitch-nav-menu">
+            <Link to="/admin/dashboard" className="stitch-nav-item active" onClick={closeMobile}>
+              <span className="material-symbols-outlined">dashboard</span>
+              <span>Dashboard</span>
+            </Link>
+            <Link to="/admin/order-management" className="stitch-nav-item" onClick={closeMobile}>
+              <span className="material-symbols-outlined">receipt_long</span>
+              <span>Orders</span>
+            </Link>
+            <Link to="/admin/menu-management" className="stitch-nav-item" onClick={closeMobile}>
+              <span className="material-symbols-outlined">menu_book</span>
+              <span>Menu</span>
+            </Link>
+            <Link to="/admin/category-management" className="stitch-nav-item" onClick={closeMobile}>
+              <span className="material-symbols-outlined">category</span>
+              <span>Categories</span>
+            </Link>
+            <Link to="/admin/add-edit-food" className="stitch-nav-item" onClick={closeMobile}>
+              <span className="material-symbols-outlined">edit_note</span>
+              <span>Add/Edit Food</span>
+            </Link>
+            <Link to="/admin/customer-management" className="stitch-nav-item" onClick={closeMobile}>
+              <span className="material-symbols-outlined">group</span>
+              <span>Customers</span>
+            </Link>
+            <Link to="/admin/sales-reports" className="stitch-nav-item" onClick={closeMobile}>
+              <span className="material-symbols-outlined">bar_chart</span>
+              <span>Sales Reports</span>
+            </Link>
+          </nav>
+        </div>
+
+        {/* Sidebar Footer */}
+        <div className="stitch-sidebar-footer">
+          <div className="stitch-terminal-status">
+            <span>Terminal ID: CHD-CTR-01</span>
+            <span className="stitch-pulse-dot"></span>
+          </div>
+          <div className="stitch-unit-badge">
+            <span className="material-symbols-outlined text-[18px]">storefront</span>
+            <span style={{ fontWeight: 600 }}>Chidambaram Heritage Unit</span>
+          </div>
+          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.25rem' }}>
+            <Link
+              to="/"
+              onClick={closeMobile}
+              style={{
+                flex: 1,
+                textAlign: 'center',
+                padding: '0.375rem',
+                borderRadius: '0.375rem',
+                fontSize: '0.6875rem',
+                color: 'var(--stitch-secondary-fixed)',
+                textDecoration: 'none',
+                backgroundColor: 'rgba(159, 245, 193, 0.08)'
+              }}
+            >
+              Customer Portal
+            </Link>
+            <button
+              onClick={handleLogout}
+              style={{
+                padding: '0.375rem 0.5rem',
+                borderRadius: '0.375rem',
+                fontSize: '0.6875rem',
+                color: '#ffffff',
+                backgroundColor: 'rgba(186, 26, 26, 0.6)',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+            >
+              Log Out
+            </button>
+          </div>
+        </div>
+      </aside>
+    </>
+  );
+
+  const renderHeader = () => (
+    <header className="stitch-header">
+      <div className="stitch-header-left">
+        <button
+          className="stitch-icon-btn stitch-mobile-toggle"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          title="Toggle Menu"
+        >
+          <span className="material-symbols-outlined">{mobileMenuOpen ? 'close' : 'menu'}</span>
+        </button>
+        <div className="stitch-pill-badge high">
+          <span className="material-symbols-outlined text-[18px]" style={{ color: 'var(--stitch-primary)' }}>location_on</span>
+          <span>Chidambaram Central Counter</span>
+        </div>
+        <div className="stitch-pill-badge green">
+          <span className="stitch-status-dot"></span>
+          <span>Kitchen Online / Active</span>
+        </div>
+      </div>
+
+      <div className="stitch-header-right">
+        <div className="stitch-shift-badge">
+          <span className="material-symbols-outlined text-[18px]">schedule</span>
+          <span>Today | Shift A (06:00 - 15:00)</span>
+        </div>
+
+        <button className="stitch-icon-btn" title="Notifications">
+          <span className="material-symbols-outlined text-[20px]">notifications</span>
+          <span className="stitch-alert-indicator"></span>
+        </button>
+
+        <div className="stitch-user-profile">
+          <div className="stitch-user-meta">
+            <span className="stitch-user-name">S. Ramanathan</span>
+            <span className="stitch-user-role">Counter Manager</span>
+          </div>
+          <div className="stitch-user-avatar">
+            <span className="material-symbols-outlined text-[18px]">person</span>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+
+  if (loading) {
+    return (
+      <div className="stitch-dashboard-shell">
+        {renderSidebar()}
+        <div className="stitch-main-container">
+          {renderHeader()}
+          <main className="stitch-main-content">
+            <div className="stitch-dashboard-banner">
+              <div>
+                <span className="stitch-banner-overline">Heritage Hospitality Ops • Counter #01</span>
+                <h1 className="stitch-banner-title">Operations &amp; Kitchen Dashboard</h1>
+                <p className="stitch-banner-desc">Loading real-time kitchen orchestration and counter queue...</p>
+              </div>
+            </div>
+            <div className="stitch-card-panel" style={{ textAlign: 'center', padding: '3rem' }}>
+              <div style={{ display: 'inline-block', width: '2.5rem', height: '2.5rem', border: '3px solid var(--stitch-surface-container-high)', borderTopColor: 'var(--stitch-primary)', borderRadius: '50%', animation: 'stitchSpin 1s infinite linear' }}></div>
+              <p style={{ marginTop: '1rem', color: 'var(--stitch-on-surface-variant)', fontWeight: 600 }}>Connecting to Moorthi Cafe API...</p>
+            </div>
+          </main>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="stitch-dashboard-shell">
+        {renderSidebar()}
+        <div className="stitch-main-container">
+          {renderHeader()}
+          <main className="stitch-main-content">
+            <div className="stitch-dashboard-banner">
+              <div>
+                <span className="stitch-banner-overline">Heritage Hospitality Ops • Counter #01</span>
+                <h1 className="stitch-banner-title">Operations &amp; Kitchen Dashboard</h1>
+              </div>
+            </div>
+            <div className="stitch-card-panel" style={{ borderLeft: '4px solid var(--stitch-error)', padding: '2rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                <span className="material-symbols-outlined" style={{ color: 'var(--stitch-error)', fontSize: '2rem' }}>error</span>
+                <div>
+                  <h3 style={{ margin: 0, color: 'var(--stitch-on-surface)', fontSize: '1.25rem' }}>Authentication Required or API Error</h3>
+                  <p style={{ margin: '0.25rem 0 0', color: 'var(--stitch-on-surface-variant)' }}>{error}</p>
+                </div>
+              </div>
+              <div style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem' }}>
+                <Link to="/admin/login" className="stitch-action-btn primary">
+                  <span className="material-symbols-outlined text-[18px]">login</span>
+                  <span>Sign In as Admin</span>
+                </Link>
+                <Link to="/" className="stitch-action-btn secondary">
+                  <span>Back to Customer Portal</span>
+                </Link>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    );
+  }
+
+  const metrics = data?.metrics || {};
+  const revenue = metrics.revenue || {};
+  const orders = metrics.orders || {};
+  const activeTokensQueue = metrics.activeTokensQueue || {};
+  const recentOrders = data?.recentOrders || {};
+
+  // Sales report data for Top Selling and Revenue Trend
+  const dailyReport = salesReport?.dailyReport || [];
+  const bestSellers = salesReport?.bestSellers || [];
+
+  // Orders breakdown ratios for progress bar
+  const totalOrders = orders.total || 0;
+  const readyPct = totalOrders > 0 ? Math.round(((orders.READY || 0) / totalOrders) * 100) : 0;
+  const prepPct = totalOrders > 0 ? Math.round(((orders.PREPARING || 0) / totalOrders) * 100) : 0;
+  const pendPct = totalOrders > 0 ? Math.max(0, 100 - readyPct - prepPct) : 0;
+
   return (
-    <div className="site-shell">
-      <div className="page-container">
-        <section className="section--cream">
-          <div className="admin-dashboard">
-            {/* Header with identity and navigation */}
-            <div className="admin-dashboard-header">
-              <div className="admin-identity">
-                <div className="identity-item">
-                  <span className="identity-label">Console:</span>
-                  <span className="identity-value">Moorthi Cafe Counter & Kitchen Console</span>
+    <div className="stitch-dashboard-shell">
+      {renderSidebar()}
+
+      <div className="stitch-main-container">
+        {renderHeader()}
+
+        <main className="stitch-main-content">
+          {/* Banner */}
+          <div className="stitch-dashboard-banner">
+            <div>
+              <div className="stitch-banner-overline">
+                <span>Heritage Hospitality Ops</span>
+                <span>•</span>
+                <span>Counter #01</span>
+              </div>
+              <h1 className="stitch-banner-title">Operations &amp; Kitchen Dashboard</h1>
+              <p className="stitch-banner-desc">Live order orchestration, kitchen load metrics, and settlement audit for Chidambaram Heritage Counter.</p>
+            </div>
+
+            <div className="stitch-banner-actions">
+              <div className="stitch-badge-btn">
+                <span className="material-symbols-outlined text-[16px]">calendar_today</span>
+                <span>{metrics.businessDate ? `Business Date: ${metrics.businessDate}` : 'Today (Shift A)'}</span>
+              </div>
+              <Link to="/admin/order-management" className="stitch-badge-btn" style={{ textDecoration: 'none' }}>
+                <span className="material-symbols-outlined text-[16px]">tune</span>
+                <span>Counter Orders</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* KPI Cards Grid */}
+          <section className="stitch-kpi-grid">
+            {/* Card 1: Revenue */}
+            <div className="stitch-kpi-card">
+              <div className="stitch-kpi-bar primary"></div>
+              <div className="stitch-kpi-header">
+                <div>
+                  <span className="stitch-kpi-label">Today's Revenue</span>
+                  <span className="stitch-kpi-value">{formatCurrency(revenue.total)}</span>
                 </div>
-                <div className="identity-item">
-                  <span className="identity-label">Terminal:</span>
-                  <span className="identity-value">CHD-CTR-01</span>
-                </div>
-                <div className="identity-item">
-                  <span className="identity-label">Unit:</span>
-                  <span className="identity-value">Chidambaram Heritage Unit</span>
-                </div>
-                <div className="identity-item">
-                  <span className="identity-label">Location:</span>
-                  <span className="identity-value">Chidambaram Central Counter</span>
-                </div>
-                <div className="identity-item">
-                  <span className="identity-label">Kitchen state:</span>
-                  <span className="identity-value">Kitchen Online / Active</span>
-                </div>
-                <div className="identity-item">
-                  <span className="identity-label">Shift:</span>
-                  <span className="identity-value">Today | Shift A (06:00 - 15:00)</span>
-                </div>
-                <div className="identity-item">
-                  <span className="identity-label">Manager:</span>
-                  <span className="identity-value">S. Ramanathan Counter Manager</span>
-                </div>
-                <div className="identity-item mode-note">
-                  <span className="identity-label">Mode:</span>
-                  <span className="identity-value">verified_user Terminal Sandbox Mode Illustrative Prototype Figures & Orders • Not Live Transactions</span>
-                </div>
-                <div className="identity-item">
-                  <span className="identity-label">Sync:</span>
-                  <span className="identity-value">KDS Sync: 0.8s</span>
+                <div className="stitch-kpi-icon-box primary">
+                  <span className="material-symbols-outlined text-[22px]">currency_rupee</span>
                 </div>
               </div>
-
-              <div className="admin-navigation">
-                {/* Navigation items would go here - using text representation for now */}
-                <div className="nav-item">dashboard</div>
-                <div className="nav-item">Orders</div>
-                <div className="nav-item">Menu</div>
-                <div className="nav-item">Categories</div>
-                <div className="nav-item">Add/Edit Food</div>
-                <div className="nav-item">Customers</div>
-                <div className="nav-item">Sales Reports</div>
+              <div className="stitch-kpi-meta">
+                {dailyReport.length >= 2 ? (
+                  <>
+                    <span className="material-symbols-outlined text-secondary text-[16px] font-bold" style={{ color: 'var(--stitch-secondary)' }}>trending_up</span>
+                    <span style={{ fontWeight: 700, color: 'var(--stitch-secondary)' }}>
+                      {(revenue.total / dailyReport[0]?.sales) > 1 ? '▲' : '▼'}
+                    </span>
+                    <span>• 7-day trend available</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="material-symbols-outlined text-secondary text-[16px] font-bold" style={{ color: 'var(--stitch-secondary)' }}>trending_up</span>
+                    <span style={{ fontWeight: 700, color: 'var(--stitch-secondary)' }}>Live Audit</span>
+                    <span>• Total settled today</span>
+                  </>
+                )}
+              </div>
+              <div className="stitch-kpi-footer-bar">
+                <span>UPI: <strong style={{ color: 'var(--stitch-on-surface)' }}>{formatCurrency(revenue.upi)}</strong></span>
+                <span style={{ height: '12px', width: '1px', backgroundColor: 'var(--stitch-surface-container-high)' }}></span>
+                <span>Cash: <strong style={{ color: 'var(--stitch-on-surface)' }}>{formatCurrency(revenue.cash)}</strong></span>
+                {revenue.card > 0 && (
+                  <>
+                    <span style={{ height: '12px', width: '1px', backgroundColor: 'var(--stitch-surface-container-high)' }}></span>
+                    <span>Card: <strong style={{ color: 'var(--stitch-on-surface)' }}>{formatCurrency(revenue.card)}</strong></span>
+                  </>
+                )}
               </div>
             </div>
 
-            {/* Summary Cards */}
-            <div className="admin-summary-cards">
-              <div className="summary-card">
-                <h3>Revenue</h3>
-                <p className="summary-value">{dashboardData.revenue}</p>
-                <p className="summary-change trending-up">{dashboardData.revenueChange}</p>
+            {/* Card 2: Today's Orders */}
+            <div className="stitch-kpi-card">
+              <div className="stitch-kpi-bar secondary"></div>
+              <div className="stitch-kpi-header">
+                <div>
+                  <span className="stitch-kpi-label">Today's Orders</span>
+                  <span className="stitch-kpi-value">{totalOrders} Orders</span>
+                </div>
+                <div className="stitch-kpi-icon-box secondary">
+                  <span className="material-symbols-outlined text-[22px]">receipt</span>
+                </div>
               </div>
-
-              <div className="summary-card payment-split">
-                <h3>Payment Split</h3>
-                <p className="summary-value">UPI: <strong>{dashboardData.paymentSplit.upi}</strong> Cash: <strong>{dashboardData.paymentSplit.cash}</strong></p>
+              <div className="stitch-kpi-progress-track">
+                <div style={{ width: `${readyPct}%`, backgroundColor: 'var(--stitch-secondary)', height: '100%' }}></div>
+                <div style={{ width: `${prepPct}%`, backgroundColor: 'var(--stitch-tertiary-fixed-dim)', height: '100%' }}></div>
+                <div style={{ width: `${pendPct}%`, backgroundColor: 'var(--stitch-primary)', height: '100%' }}></div>
               </div>
-
-              <div className="summary-card">
-                <h3>Orders</h3>
-                <p className="summary-value">{dashboardData.orders.total}</p>
-                <p className="summary-breakdown">{dashboardData.orders.breakdown}</p>
+              <div className="stitch-kpi-footer-bar">
+                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--stitch-secondary)' }}></span>
+                  {orders.READY || 0} Ready
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--stitch-tertiary-fixed-dim)' }}></span>
+                  {orders.PREPARING || 0} Prep
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--stitch-primary)' }}></span>
+                  {(orders.PLACED || 0) + (orders.CONFIRMED || 0)} Pend
+                </span>
               </div>
+            </div>
 
-              <div className="summary-card">
-                <h3>Token Range</h3>
-                <p className="summary-value">{dashboardData.tokenRange}</p>
+            {/* Card 3: Active Tokens */}
+            <div className="stitch-kpi-card">
+              <div className="stitch-kpi-bar tertiary"></div>
+              <div className="stitch-kpi-header">
+                <div>
+                  <span className="stitch-kpi-label">Active Tokens Queue</span>
+                  <span className="stitch-kpi-value">
+                    {activeTokensQueue.count > 0
+                      ? `Token #${activeTokensQueue.lowestToken} - #${activeTokensQueue.highestToken}`
+                      : 'No Active Tokens'}
+                  </span>
+                </div>
+                <div className="stitch-kpi-icon-box tertiary">
+                  <span className="material-symbols-outlined text-[22px]">confirmation_number</span>
+                </div>
               </div>
-
-              <div className="summary-card">
-                <h3>Avg Preparation</h3>
-                <p className="summary-value"><strong>{dashboardData.avgPrepTime}</strong></p>
+              <div className="stitch-kpi-meta">
+                <span className="material-symbols-outlined text-[16px]" style={{ color: 'var(--stitch-tertiary)' }}>schedule</span>
+                <span>Active queue count: <strong>{activeTokensQueue.count || 0} orders</strong></span>
               </div>
-
-              <div className="summary-card station-notes">
-                <h3>Station Notes</h3>
-                <p className="summary-value">{dashboardData.stationNotes}</p>
+              <div className="stitch-kpi-footer-bar">
+                <span style={{ color: 'var(--stitch-on-surface-variant)' }}>Station telemetry unavailable</span>
+                <span style={{ color: 'var(--stitch-on-surface-variant)' }}>No live station sync</span>
               </div>
+            </div>
 
-              <div className="summary-card alerts">
-                <h3>Alerts</h3>
-                {dashboardData.alerts.map(alert => (
-                  <div key={alert.id} className={`alert-item alert-${alert.severity}`}>
-                    {alert.icon && <span className="alert-icon">{alert.icon}</span>}
-                    <span className="alert-message">{alert.message}</span>
+            {/* Card 4: Inventory & Alerts */}
+            <div className="stitch-kpi-card">
+              <div className="stitch-kpi-bar error"></div>
+              <div className="stitch-kpi-header">
+                <div>
+                  <span className="stitch-kpi-label">Stock &amp; Batters</span>
+                  <span className="stitch-kpi-value" style={{ fontSize: '1.25rem', color: 'var(--stitch-on-surface-variant)' }}>No Telemetry</span>
+                </div>
+                <div className="stitch-kpi-icon-box" style={{ backgroundColor: 'var(--stitch-surface-container-high)', color: 'var(--stitch-on-surface-variant)' }}>
+                  <span className="material-symbols-outlined text-[22px]">sensors_off</span>
+                </div>
+              </div>
+              <div className="stitch-kpi-meta">
+                <span className="material-symbols-outlined text-[16px]" style={{ color: 'var(--stitch-on-surface-variant)' }}>info</span>
+                <span>Live inventory monitoring requires backend IoT integration</span>
+              </div>
+              <div className="stitch-kpi-footer-bar">
+                <span style={{ color: 'var(--stitch-on-surface-variant)' }}>Stock levels unavailable</span>
+                <span style={{ color: 'var(--stitch-on-surface-variant)' }}>Batter status unavailable</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Quick Actions */}
+          <section className="stitch-actions-row">
+            <Link to="/admin/add-edit-food" className="stitch-action-btn primary">
+              <span className="material-symbols-outlined text-[20px]">add_circle</span>
+              <span>Add New Food Item</span>
+            </Link>
+            <Link to="/admin/order-management" className="stitch-action-btn secondary">
+              <span className="material-symbols-outlined text-[20px]">kitchen</span>
+              <span>View Live Counter Queue</span>
+            </Link>
+            <Link to="/admin/sales-reports" className="stitch-action-btn secondary">
+              <span className="material-symbols-outlined text-[20px]">file_download</span>
+              <span>Download Day-End Report</span>
+            </Link>
+          </section>
+
+          {/* Main Content 12-Column Grid */}
+          <div className="stitch-content-grid">
+            {/* Left Column (8 cols): Recent Orders Table */}
+            <div className="stitch-grid-col-8 stitch-card-panel">
+              <div className="stitch-panel-header">
+                <div className="stitch-panel-title-group">
+                  <div className="stitch-panel-icon-box">
+                    <span className="material-symbols-outlined text-[20px]">room_service</span>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="admin-quick-actions">
-              <h3>Quick Actions</h3>
-              <div className="quick-actions-grid">
-                {dashboardData.quickActions.map(action => (
-                  <div key={action.label} className="quick-action-card">
-                    <span className="quick-action-icon">{action.icon}</span>
-                    <Link to={action.to} className="quick-action-label">{action.label}</Link>
+                  <div>
+                    <h2 className="stitch-panel-title">Recent Kitchen &amp; Counter Orders</h2>
+                    <p className="stitch-panel-subtitle">Live counter &amp; online orders awaiting kitchen preparation or pickup</p>
                   </div>
-                ))}
+                </div>
+                <Link
+                  to="/admin/order-management"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.25rem',
+                    color: 'var(--stitch-primary)',
+                    fontSize: '0.8125rem',
+                    fontWeight: 700,
+                    textDecoration: 'none'
+                  }}
+                >
+                  <span>View All Orders</span>
+                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </Link>
               </div>
-            </div>
 
-            {/* Top Items */}
-            <div className="admin-top-items">
-              <h3>Top Items</h3>
-              <div className="top-items-grid">
-                {dashboardData.topItems.map(item => (
-                  <div key={item.name} className="top-item-card">
-                    <div className="top-item-info">
-                      <h4>{item.name}</h4>
-                      <p>{item.plates}</p>
-                      <p>{item.revenue}</p>
-                      <span className="item-badge">{item.badge}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Kitchen Load */}
-            <div className="admin-kitchen-load">
-              <h3>Kitchen Load</h3>
-              <div className="kitchen-load-grid">
-                {dashboardData.kitchenLoad.map(item => (
-                  <div key={item.equipment} className="kitchen-load-item">
-                    <div className="kitchen-equipment">
-                      <h4>{item.equipment}</h4>
-                    </div>
-                    <div className="kitchen-usage">
-                      <span className="usage-percentage">{item.usage}</span>
-                    </div>
-                    <div className="kitchen-status">
-                      <p>{item.status}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Recent Orders */}
-            <div className="admin-recent-orders">
-              <h3>Recent Orders</h3>
-              <div className="orders-table">
-                <table>
+              <div className="stitch-table-wrapper">
+                <table className="stitch-orders-table">
                   <thead>
                     <tr>
                       <th>Token / ID</th>
-                      <th>Diner & Details</th>
+                      <th>Diner &amp; Details</th>
                       <th>Items Ordered</th>
                       <th>Amount</th>
                       <th>Status</th>
                       <th>Time</th>
-                      <th>Action</th>
+                      <th style={{ textAlign: 'right' }}>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {dashboardData.recentOrders.map(order => (
-                      <tr key={order.id}>
-                        <td>{order.id}</td>
-                        <td>{order.diner}</td>
-                        <td>{order.items}</td>
-                        <td>{order.amount}</td>
-                        <td>{order.status}</td>
-                        <td>{order.time}</td>
-                        <td>{order.action}</td>
+                    {recentOrders.length > 0 ? (
+                      recentOrders.map((order) => {
+                        const tokenNum = order.dailyTokenNumber || (order.orderId ? order.orderId.slice(-4) : 'N/A');
+                        const orderCode = order.orderId ? `#MC-${order.orderId.slice(-4)}` : `#${(order._id || '').slice(-6)}`;
+                        const dinerName = order.customer?.name || 'Counter Walk-in';
+                        const isDineIn = order.pickupType === 'DINE_IN';
+                        const itemsSummary = order.items && order.items.length > 0
+                          ? order.items.map((it) => `${it.quantity || 1}x ${it.name}`).join(', ')
+                          : 'Counter Selection';
+
+                        return (
+                          <tr key={order._id || order.id}>
+                            <td>
+                              <span className="stitch-token-primary">#{tokenNum}</span>
+                              <span className="stitch-token-sub">{orderCode}</span>
+                            </td>
+                            <td>
+                              <span style={{ fontWeight: 600, color: 'var(--stitch-on-surface)', display: 'block' }}>
+                                {dinerName}
+                              </span>
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.6875rem', color: 'var(--stitch-secondary)', fontWeight: 500 }}>
+                                <span className="material-symbols-outlined text-[14px]">
+                                  {isDineIn ? 'table_restaurant' : 'takeout_dining'}
+                                </span>
+                                {isDineIn ? 'Dine-in Order' : 'Parcel / Takeaway'}
+                              </span>
+                            </td>
+                            <td>
+                              <div style={{ maxWidth: '240px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={itemsSummary}>
+                                {itemsSummary}
+                              </div>
+                            </td>
+                            <td>
+                              <strong style={{ color: 'var(--stitch-on-surface)', fontSize: '0.9375rem' }}>
+                                {formatCurrency(order.totalAmount)}
+                              </strong>
+                            </td>
+                            <td>{getStatusBadge(order.status)}</td>
+                            <td>
+                              <span style={{ color: 'var(--stitch-on-surface-variant)', fontSize: '0.75rem' }}>
+                                {formatTime(order.createdAt)}
+                              </span>
+                            </td>
+                            <td style={{ textAlign: 'right' }}>
+                              <Link
+                                to="/admin/order-management"
+                                className="stitch-icon-btn"
+                                style={{ display: 'inline-flex', width: '2rem', height: '2rem' }}
+                                title="Manage Order Status"
+                              >
+                                <span className="material-symbols-outlined text-[18px]">visibility</span>
+                              </Link>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td colSpan="7" style={{ textAlign: 'center', padding: '2.5rem', color: 'var(--stitch-on-surface-variant)' }}>
+                          <span className="material-symbols-outlined" style={{ fontSize: '2rem', display: 'block', marginBottom: '0.5rem', opacity: 0.5 }}>receipt_long</span>
+                          No active kitchen orders currently placed. New orders will appear here in real time.
+                        </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
+
+            {/* Right Column (4 cols): Side Panels */}
+            <div className="stitch-grid-col-4">
+              {/* Panel 1: Top Selling Items */}
+              <div className="stitch-card-panel">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span className="material-symbols-outlined text-[20px]" style={{ color: 'var(--stitch-primary)' }}>local_fire_department</span>
+                    <h3 style={{ margin: 0, fontFamily: 'Noto Serif, Georgia, serif', fontSize: '1.125rem', fontWeight: 700 }}>
+                      Top Selling Today
+                    </h3>
+                  </div>
+                  <Link to="/admin/sales-reports" style={{ textDecoration: 'none' }}>
+                    <span style={{ fontSize: '0.6875rem', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', backgroundColor: 'var(--stitch-primary-fixed)', color: 'var(--stitch-primary)', fontWeight: 700 }}>
+                      View Report
+                    </span>
+                  </Link>
+                </div>
+
+                <div>
+                  {bestSellers.length > 0 ? (
+                    bestSellers.slice(0, 4).map((item, idx) => (
+                      <div key={item.name} className="stitch-top-item">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <div className="stitch-item-thumb" style={{ backgroundColor: 'var(--stitch-surface-container-high)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <span className="material-symbols-outlined" style={{ color: 'var(--stitch-on-surface-variant)' }}>restaurant</span>
+                          </div>
+                          <div>
+                            <strong style={{ fontSize: '0.875rem', color: 'var(--stitch-on-surface)', display: 'block' }}>{item.name}</strong>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--stitch-on-surface-variant)' }}>{item.quantitySold} sold</span>
+                          </div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <strong style={{ color: 'var(--stitch-primary)', display: 'block' }}>{formatCurrency(item.revenueGenerated)}</strong>
+                          <span style={{ fontSize: '0.6875rem', color: 'var(--stitch-on-surface-variant)' }}>
+                            {idx === 0 ? 'Top Seller' : idx === 1 ? 'Strong' : idx === 2 ? 'Steady' : 'Popular'}
+                          </span>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div style={{ textAlign: 'center', padding: '1.5rem', color: 'var(--stitch-on-surface-variant)' }}>
+                      <span className="material-symbols-outlined" style={{ fontSize: '2rem', display: 'block', marginBottom: '0.5rem', opacity: 0.5 }}>bar_chart</span>
+                      No sales data available for the selected period.
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Panel 2: Kitchen Station Load */}
+              <div className="stitch-card-panel">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span className="material-symbols-outlined text-[20px]" style={{ color: 'var(--stitch-secondary)' }}>precision_manufacturing</span>
+                    <h3 style={{ margin: 0, fontFamily: 'Noto Serif, Georgia, serif', fontSize: '1.125rem', fontWeight: 700 }}>
+                      Kitchen Station Load
+                    </h3>
+                  </div>
+                  <span style={{ fontSize: '0.6875rem', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', backgroundColor: 'var(--stitch-surface-container-high)', color: 'var(--stitch-on-surface-variant)', fontWeight: 500 }}>
+                    No Telemetry
+                  </span>
+                </div>
+
+                <div style={{ textAlign: 'center', padding: '1.5rem', color: 'var(--stitch-on-surface-variant)' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '2.5rem', display: 'block', marginBottom: '0.75rem', opacity: 0.4 }}>sensors_off</span>
+                  <p style={{ margin: 0, fontSize: '0.875rem', fontWeight: 500 }}>Station telemetry unavailable</p>
+                  <p style={{ margin: '0.5rem 0 0', fontSize: '0.75rem' }}>
+                    Kitchen equipment load monitoring requires backend IoT integration.
+                  </p>
+                  <p style={{ margin: '0.5rem 0 0', fontSize: '0.75rem' }}>
+                    Current active orders: <strong>{activeTokensQueue.count || 0}</strong> in queue
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-        </section>
+        </main>
       </div>
     </div>
   );
