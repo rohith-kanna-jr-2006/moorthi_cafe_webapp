@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../utils/api';
 import { addToCart } from '../utils/cartStorage';
+import { getResolvedImageUrl } from '../utils/imageResolver';
 
 const Menu = () => {
   const [foods, setFoods] = useState([]);
@@ -449,13 +450,13 @@ const Menu = () => {
             >
               <Link to={`/item-details?id=${food._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={{ position: 'relative', height: '190px', background: '#f8f3ed', overflow: 'hidden' }}>
-                  {food.imageUrl ? (
-                    <img
-                      src={food.imageUrl}
-                      alt={food.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      loading="lazy"
-                    />
+{food.imageUrl ? (
+                      <img
+                        src={getResolvedImageUrl(food)}
+                        alt={food.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        loading="lazy"
+                      />
                   ) : (
                     <div
                       style={{

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="terracotta" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#c05621;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b3d1a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4b821;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b8860b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cream" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8edf3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0e0e8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="16" fill="url(#cream)"/>
+  
+  <!-- Outer ring -->
+  <circle cx="16" cy="16" r="14" fill="none" stroke="url(#terracotta)" stroke-width="2"/>
+  
+  <!-- Dosa shape -->
+  <ellipse cx="16" cy="16" rx="10" ry="6" fill="url(#terracotta)"/>
+  
+  <!-- Ghee highlight -->
+  <ellipse cx="16" cy="14" rx="6" ry="3" fill="url(#gold)" opacity="0.8"/>
+  
+  <!-- Center dot -->
+  <circle cx="16" cy="16" r="2" fill="#8b3d1a"/>
+</svg>

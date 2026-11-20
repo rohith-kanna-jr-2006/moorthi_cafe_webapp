@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import FoodCard from '../components/FoodCard';
 import api from '../utils/api';
 import { addToCart } from '../utils/cartStorage';
+import { getResolvedImageUrl } from '../utils/imageResolver';
 
 // Helper to check if a food ID is a valid MongoDB ObjectId
 const isValidObjectId = (id) => {
@@ -284,7 +285,7 @@ const Home = () => {
             }}
           >
             {featuredItems.map((item) => (
-              <FoodCard key={item._id || item.id} {...item} onAddToCart={handleAddToCart} />
+              <FoodCard key={item._id || item.id} {...item} imageUrl={getResolvedImageUrl(item)} onAddToCart={handleAddToCart} />
             ))}
           </div>
         </div>

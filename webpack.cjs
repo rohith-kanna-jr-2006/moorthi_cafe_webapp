@@ -11,6 +11,8 @@ class CopyImagesPlugin {
     const isProduction = compiler.options.mode === 'production';
     const publicImagesPath = path.resolve(__dirname, 'public/images');
     const outputImagesPath = path.resolve(__dirname, 'dist/images');
+    const publicRootPath = path.resolve(__dirname, 'public');
+    const outputRootPath = path.resolve(__dirname, 'dist');
 
     if (!isProduction) {
       return;
@@ -25,9 +27,17 @@ class CopyImagesPlugin {
       try {
         // Ensure output directory exists
         fs.mkdirSync(outputImagesPath, { recursive: true });
+        fs.mkdirSync(outputRootPath, { recursive: true });
 
         // Copy entire public/images directory recursively
         fs.cpSync(publicImagesPath, outputImagesPath, { recursive: true });
+
+        // Copy favicon.svg to dist root
+        const faviconSrc = path.join(publicRootPath, 'favicon.svg');
+        const faviconDst = path.join(outputRootPath, 'favicon.svg');
+        if (fs.existsSync(faviconSrc)) {
+          fs.cpSync(faviconSrc, faviconDst);
+        }
 
         // Count copied files
         const copiedFiles = [];
@@ -46,6 +56,9 @@ class CopyImagesPlugin {
         console.log(`[CopyImagesPlugin] ✅ Copied ${copiedFiles.length} image asset(s) to dist/images/`);
         if (copiedFiles.length > 0) {
           console.log(`[CopyImagesPlugin]   Examples: ${copiedFiles.slice(0, 5).join(', ')}${copiedFiles.length > 5 ? '...' : ''}`);
+        }
+        if (fs.existsSync(faviconSrc)) {
+          console.log(`[CopyImagesPlugin] ✅ Copied favicon.svg to dist/`);
         }
         callback();
       } catch (err) {
