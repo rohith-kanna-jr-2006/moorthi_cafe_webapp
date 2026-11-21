@@ -61,7 +61,7 @@ test.describe('Staging E2E Tests - Hotel New Moorthi Cafe', () => {
 
   test('Staging CORS allows staging frontend origin', async ({ page }) => {
     const apiBase = process.env.API_BASE_URL || 'https://moorthi-cafe-webapp.onrender.com/api/v1';
-    const stagingFrontend = process.env.PLAYWRIGHT_BASE_URL || 'https://moorthi-cafe-staging.netlify.app';
+    const stagingFrontend = process.env.PLAYWRIGHT_BASE_URL || 'https://newmoorthicafe.netlify.app';
 
     // Use page.request to make the OPTIONS call from Playwright's API context
     // This correctly sends the Origin header

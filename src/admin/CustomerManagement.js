@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AdminLayout from './AdminLayout';
 
 const CustomerManagement = () => {
   const [customers, setCustomers] = useState([
@@ -49,202 +50,189 @@ const CustomerManagement = () => {
     setDeleteCustomerId(null);
   };
 
+  const stats = {
+    totalCustomers: customers.length,
+    activeCustomers: customers.filter(c => c.status === 'active').length,
+    totalOrdersAllTime: customers.reduce((sum, c) => sum + c.totalOrders, 0)
+  };
+
   return (
-    <div className="site-shell">
-      <div className="page-container">
-        <section className="section--cream">
-          <div className="customer-management">
-            <div className="customer-management-header">
-              <h1>Customer Management</h1>
-              <div className="customer-management-meta">
-                <div className="meta-item">
-                  <span className="meta-label">Terminal:</span>
-                  <span className="meta-value">CHD-CTR-01</span>
-                </div>
-                <div className="meta-item">
-                  <span className="meta-label">Storefront:</span>
-                  <span className="meta-value">Chidambaram Heritage Unit</span>
-                </div>
-              </div>
-            </div>
+    <AdminLayout pageTitle="Customer Registry & Dining History" pageDescription="Registered patrons, token pickup preferences, and visit history. Manage dining habits, recurring temple-hour orders, and bespoke kitchen notes.">
+      <div className="stitch-card-panel" style={{ marginBottom: '1.5rem', backgroundColor: 'var(--stitch-tertiary-fixed)', color: 'var(--stitch-on-tertiary-fixed)', padding: '1rem', borderRadius: '0.5rem' }}>
+        <div className="flex items-center gap-2">
+          <span className="material-symbols-outlined text-[18px]">info</span>
+          <span className="font-label-md text-label-md font-semibold">Illustrative Prototype Diner Registry • Strictly Confidential</span>
+        </div>
+      </div>
 
-            {/* Stats Overview */}
-            <div className="customer-stats">
-              <div className="stats-grid">
-                <div className="stat-card">
-                  <h3>Total Customers</h3>
-                  <p className="stat-value">{customers.length}</p>
-                </div>
-                <div className="stat-card">
-                  <h3>Active Customers</h3>
-                  <p className="stat-value">{customers.filter(c => c.status === 'active').length}</p>
-                </div>
-                <div className="stat-card">
-                  <h3>Total Orders (All Time)</h3>
-                  <p className="stat-value">{customers.reduce((sum, c) => sum + c.totalOrders, 0)}</p>
-                </div>
-              </div>
-            </div>
+      <div className="stitch-dashboard-banner" style={{ marginBottom: '1.5rem' }}>
+        <div>
+          <div className="stitch-banner-overline">
+            <span>Patron Module</span>
+            <span>•</span>
+            <span>Ref: CHD-REG-2024</span>
+          </div>
+          <h1 className="stitch-banner-title">Customer Registry & Dining History</h1>
+          <p className="stitch-banner-desc">Registered patrons, token pickup preferences, and visit history. Manage dining habits, recurring temple-hour orders, and bespoke kitchen notes.</p>
+        </div>
+      </div>
 
-            {/* Add Customer Button */}
-            <div className="add-customer-btn">
-              <button onClick={() => setShowAddForm(true)} className="btn btn-primary">
-                Add New Customer
-              </button>
+      <div className="stitch-kpi-grid" style={{ marginBottom: '1.5rem' }}>
+        <div className="stitch-kpi-card">
+          <div className="stitch-kpi-bar primary"></div>
+          <div className="stitch-kpi-header">
+            <div>
+              <span className="stitch-kpi-label">Total Customers</span>
+              <span className="stitch-kpi-value">{customers.length}</span>
             </div>
+            <div className="stitch-kpi-icon-box primary">
+              <span className="material-symbols-outlined text-[22px]">group</span>
+            </div>
+          </div>
+        </div>
+        <div className="stitch-kpi-card">
+          <div className="stitch-kpi-bar secondary"></div>
+          <div className="stitch-kpi-header">
+            <div>
+              <span className="stitch-kpi-label">Active Customers</span>
+              <span className="stitch-kpi-value">{customers.filter(c => c.status === 'active').length}</span>
+            </div>
+            <div className="stitch-kpi-icon-box secondary">
+              <span className="material-symbols-outlined text-[22px]">person</span>
+            </div>
+          </div>
+        </div>
+        <div className="stitch-kpi-card">
+          <div className="stitch-kpi-bar tertiary"></div>
+          <div className="stitch-kpi-header">
+            <div>
+              <span className="stitch-kpi-label">Total Orders (All Time)</span>
+              <span className="stitch-kpi-value">{customers.reduce((sum, c) => sum + c.totalOrders, 0)}</span>
+            </div>
+            <div className="stitch-kpi-icon-box tertiary">
+              <span className="material-symbols-outlined text-[22px]">receipt</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            {/* Customers List */}
-            <div className="customers-list">
-              <h2>Customer List</h2>
-              <div className="customers-grid">
-                {customers.map(customer => (
-                  <div key={customer.id} className={`customer-card ${customer.status === 'active' ? 'customer-active' : 'customer-inactive'}`}>
-                    <div className="customer-header">
-                      <h3 className="customer-name">{customer.name}</h3>
-                      <span className="customer-status-badge {customer.status}">
-                        {customer.status === 'active' ? 'Active' : 'Inactive'}
+      <div className="stitch-card-panel" style={{ marginBottom: '1.5rem', padding: '1rem' }}>
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+          <div className="relative flex-1 max-w-xl">
+            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+            <input className="w-full pl-12 pr-4 py-3 rounded-xl bg-surface-container-lowest font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-sm transition-all" id="patronSearch" placeholder="Search by customer name, phone number, or email..." type="text" />
+            <button className="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-1 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors">
+              ⌘K
+            </button>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
+            <button className="flex items-center gap-2 px-4 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container font-label-lg text-label-lg text-on-surface transition-all shadow-sm">
+              <span className="material-symbols-outlined text-[18px]">tune</span>
+              <span>Attributes</span>
+            </button>
+            <button className="flex items-center gap-2 px-4 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container font-label-lg text-label-lg text-on-surface transition-all shadow-sm">
+              <span className="material-symbols-outlined text-[18px]">file_download</span>
+              <span>Export CSV</span>
+            </button>
+            <button className="flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-primary-container transition-all">
+              <span className="material-symbols-outlined text-[18px]">person_add</span>
+              <span>Enroll Patron</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="stitch-card-panel" style={{ overflow: 'hidden' }}>
+        <div className="overflow-x-auto">
+          <table className="stitch-orders-table" style={{ width: '100%' }}>
+            <thead className="bg-surface-container-low">
+              <tr>
+                <th className="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Patron Details</th>
+                <th className="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Contact Info</th>
+                <th className="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Registration</th>
+                <th className="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-center">Visits</th>
+                <th className="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Total Spend (₹)</th>
+                <th className="py-3.5 px-5 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Kitchen Preferences</th>
+                <th className="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-center">Status</th>
+                <th className="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-surface-container-high/60">
+              {customers.map(customer => (
+                <tr key={customer.id} className="hover:bg-surface-container-low/40 transition-colors group">
+                  <td className="py-4 px-5">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center font-title-md text-title-md text-on-primary-fixed font-bold shrink-0">
+                        {customer.name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-title-md text-title-md text-on-surface font-semibold group-hover:text-primary transition-colors">{customer.name}</span>
+                          <span className="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold flex items-center gap-0.5">
+                            <span className="material-symbols-outlined text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>workspace_premium</span>
+                            Heritage Tier
+                          </span>
+                        </div>
+                        <span className="font-label-sm text-label-sm text-on-surface-variant">Patron ID: #CHD-{customer.id.toString().padStart(4, '0')}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-4 px-5">
+                    <div className="flex flex-col">
+                      <span className="font-body-md text-body-md text-on-surface font-medium">{customer.phone}</span>
+                      <span className="font-label-sm text-label-sm text-on-surface-variant">{customer.email}</span>
+                    </div>
+                  </td>
+                  <td className="py-4 px-5">
+                    <div className="flex flex-col">
+                      <span className="font-body-sm text-body-sm text-on-surface font-medium">{customer.lastVisit}</span>
+                      <span className="font-label-sm text-label-sm text-outline">Counter In-Person</span>
+                    </div>
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-surface-container font-title-md text-title-md font-bold text-on-surface">
+                      {customer.totalOrders}
+                    </div>
+                  </td>
+                  <td className="py-4 px-5 text-right">
+                    <span className="font-title-md text-title-md font-bold text-primary">₹{customer.totalOrders * 346}</span>
+                    <span className="block font-label-sm text-label-sm text-outline">Avg ₹346/ord</span>
+                  </td>
+                  <td className="py-4 px-5">
+                    <div className="flex items-center gap-1.5">
+                      <span className="px-2.5 py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface font-medium flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px] text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>local_cafe</span>
+                        Degree Kaapi strong decoction
                       </span>
                     </div>
-                    <div className="customer-content">
-                      <div className="customer-contact">
-                        <p><strong>Phone:</strong> {customer.phone}</p>
-                        <p><strong>Email:</strong> {customer.email}</p>
-                      </div>
-                      <div className="customer-meta">
-                        <span className="meta-item">
-                          <span className="meta-label">Last Visit:</span>
-                          <span className="meta-value">{customer.lastVisit}</span>
-                        </span>
-                        <span className="meta-item">
-                          <span className="meta-label">Total Orders:</span>
-                          <span className="meta-value">{customer.totalOrders}</span>
-                        </span>
-                      </div>
-                    </div>
-                    <div className="customer-actions">
-                      <button onClick={() => {
-                        setEditCustomerId(customer.id);
-                        setShowEditForm(true);
-                      }} className="btn btn-secondary btn-sm">
-                        Edit
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container font-label-sm text-label-sm font-bold text-on-secondary-container">
+                      <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                      Active
+                    </span>
+                  </td>
+                  <td className="py-4 px-5 text-right">
+                    <div className="flex items-center justify-end gap-1.5">
+                      <button className="p-2 rounded-lg hover:bg-surface-container text-primary hover:text-primary-container transition-colors" title="View Order History & Token Slips">
+                        <span className="material-symbols-outlined text-[20px]">receipt_long</span>
                       </button>
-                      <button onClick={() => handleDeleteCustomer(customer.id)} className="btn btn-danger btn-sm">
-                        Remove
+                      <button className="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="View Diet Notes">
+                        <span className="material-symbols-outlined text-[20px]">notes</span>
+                      </button>
+                      <button className="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Account Status">
+                        <span className="material-symbols-outlined text-[20px]">more_vert</span>
                       </button>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Add Customer Form */}
-            {showAddForm && (
-              <div className="customer-form">
-                <h2>Add New Customer</h2>
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  // Simulate form submission
-                  alert('Customer added successfully!');
-                  setShowAddForm(false);
-                }}>
-                  <div className="form-group">
-                    <label>Customer Name:</label>
-                    <input type="text" required placeholder="Full name" />
-                  </div>
-                  <div className="form-group">
-                    <label>Phone Number:</label>
-                    <input type="tel" required placeholder="+91 98765 43210" />
-                  </div>
-                  <div className="form-group">
-                    <label>Email Address:</label>
-                    <input type="email" required placeholder="customer@example.com" />
-                  </div>
-                  <div className="form-actions">
-                    <button type="button" onClick={() => setShowAddForm(false)} className="btn btn-secondary">
-                      Cancel
-                    </button>
-                    <button type="submit" className="btn btn-primary">
-                      Save Customer
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )}
-
-            {/* Edit Customer Form */}
-            {showEditForm && editCustomerId !== null && (
-              <div className="customer-form">
-                <h2>Edit Customer</h2>
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  // Simulate form submission
-                  alert('Customer updated successfully!');
-                  setShowEditForm(false);
-                  setEditCustomerId(null);
-                }}>
-                  <div className="form-group">
-                    <label>Customer Name:</label>
-                    <input
-                      type="text"
-                      defaultValue={customers.find(c => c.id === editCustomerId)?.name || ''}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Phone Number:</label>
-                    <input
-                      type="tel"
-                      defaultValue={customers.find(c => c.id === editCustomerId)?.phone || ''}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Email Address:</label>
-                    <input
-                      type="email"
-                      defaultValue={customers.find(c => c.id === editCustomerId)?.email || ''}
-                      required
-                    />
-                  </div>
-                  <div className="form-actions">
-                    <button type="button" onClick={() => {
-                      setShowEditForm(false);
-                      setEditCustomerId(null);
-                    }} className="btn btn-secondary">
-                      Cancel
-                    </button>
-                    <button type="submit" className="btn btn-primary">
-                      Update Customer
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )}
-
-            {/* Delete Confirmation */}
-            {showDeleteConfirm && (
-              <div className="delete-confirm-modal">
-                <div className="modal-content">
-                  <h2>Remove Customer Confirmation</h2>
-                  <p>
-                    "Are you sure you want to permanently remove "{customers.find(c => c.id === deleteCustomerId)?.name || 'Customer'}"? This action cannot be undone."
-                  </p>
-                  <div className="modal-actions">
-                    <button onClick={handleDeleteCancel} className="btn btn-secondary">
-                      Keep Customer
-                    </button>
-                    <button onClick={handleDeleteConfirm} className="btn btn-danger">
-                      Remove Customer
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      </div>
-    </div>
-  );
-};
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+</AdminLayout>
+    );
+  };
+}
 
 export default CustomerManagement;

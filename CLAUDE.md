@@ -253,7 +253,7 @@ Production API:
 `https://moorthi-cafe-api.onrender.com/api/v1`
 
 Staging frontend:
-`https://moorthi-cafe-staging.netlify.app/`
+`https://newmoorthicafe.netlify.app/`
 
 Staging API:
 `https://moorthi-cafe-webapp.onrender.com/api/v1`

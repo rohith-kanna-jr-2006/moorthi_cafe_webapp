@@ -66,6 +66,7 @@ const Navbar = () => {
           <Link
             to="/cart"
             className="nav-link cart-nav-link"
+            aria-label={`Cart (${cartCount})`}
             style={{
               textDecoration: 'none',
               display: 'flex',
@@ -82,7 +83,7 @@ const Navbar = () => {
             <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
               shopping_bag
             </span>
-            <span>Tray ({cartCount})</span>
+            <span className="visually-hidden">Cart, count:</span><span>{cartCount}</span>
           </Link>
 
           {isLoggedIn ? (

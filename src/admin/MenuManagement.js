@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import AdminLayout from './AdminLayout';
 import api from '../utils/api';
 
 const MenuManagement = () => {
@@ -116,209 +117,251 @@ const MenuManagement = () => {
     ).length;
   });
 
+  const formatCurrency = (val) => {
+    const num = Number(val || 0);
+    return '₹' + num.toLocaleString('en-IN');
+  };
+
   return (
-    <div className="site-shell">
-      <div className="page-container">
-        <section className="section--cream">
-          <div className="menu-management">
-            <div className="menu-management-header">
-              <h1>Menu Management</h1>
-              <div className="menu-management-meta">
-                <div className="meta-item">
-                  <span className="meta-label">Terminal ID:</span>
-                  <span className="meta-value">CHD-CTR-01</span>
-                </div>
-                <div className="meta-item">
-                  <span className="meta-label">Storefront:</span>
-                  <span className="meta-value">Chidambaram Heritage Unit</span>
-                </div>
-                <div className="meta-item">
-                  <span className="meta-label">Schedule:</span>
-                  <span className="meta-value">Shift A (06:00 - 15:00)</span>
-                </div>
-                <div className="meta-item">
-                  <span className="meta-label">Manager:</span>
-                  <span className="meta-value">S. Ramanathan Counter Manager</span>
+    <AdminLayout pageTitle="Food Menu Management" pageDescription="Update dishes, pricing, live counter availability, and kitchen inventory for Chidambaram Heritage dining room and takeaway counters.">
+      {/* Prototype Banner */}
+      <div className="stitch-card-panel" style={{ marginBottom: '1.5rem', backgroundColor: 'var(--stitch-tertiary-fixed)', color: 'var(--stitch-on-tertiary-fixed)', padding: '1rem', borderRadius: '0.5rem' }}>
+        <div className="flex items-center gap-2">
+          <span className="material-symbols-outlined text-[18px]">info</span>
+          <span className="font-label-md text-label-md font-semibold">Illustrative Prototype Menu Catalog</span>
+        </div>
+      </div>
+
+      {/* Header */}
+      <div className="stitch-dashboard-banner" style={{ marginBottom: '1.5rem' }}>
+        <div>
+          <div className="stitch-banner-overline">
+            <span>Kitchen Inventory v3.2</span>
+            <span>•</span>
+            <span>Terminal: CHD-CTR-01</span>
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">
+              <span className="material-symbols-outlined text-[14px]">info</span>
+              Illustrative Prototype Menu Catalog
+            </span>
+          </div>
+          <h1 className="stitch-banner-title">Food Menu Management</h1>
+          <p className="stitch-banner-desc">Update dishes, pricing, live counter availability, and kitchen inventory for Chidambaram Heritage dining room and takeaway counters.
+        </p>
+        </div>
+      </div>
+
+      {/* Quick Stats Bar (Bento Metrics) */}
+      <div className="stitch-kpi-grid" style={{ marginBottom: '1.5rem' }}>
+        <div className="stitch-kpi-card">
+          <div className="stitch-kpi-bar primary"></div>
+          <div className="stitch-kpi-header">
+            <div>
+              <span className="stitch-kpi-label">Total Catalog</span>
+              <span className="stitch-kpi-value">{dishes.length} Dishes</span>
+            </div>
+            <div className="stitch-kpi-icon-box primary">
+              <span className="material-symbols-outlined text-[22px]">restaurant_menu</span>
+            </div>
+          </div>
+        </div>
+        <div className="stitch-kpi-card">
+          <div className="stitch-kpi-bar secondary"></div>
+          <div className="stitch-kpi-header">
+            <div>
+              <span className="stitch-kpi-label">Live Counter Ready</span>
+              <span className="stitch-kpi-value">{dishes.filter(d => d.isAvailable).length} Active</span>
+            </div>
+            <div className="stitch-kpi-icon-box secondary">
+              <span className="material-symbols-outlined text-[22px]">check_circle</span>
+            </div>
+          </div>
+        </div>
+        <div className="stitch-kpi-card">
+          <div className="stitch-kpi-bar error"></div>
+          <div className="stitch-kpi-header">
+            <div>
+              <span className="stitch-kpi-label">Sold Out / Paused</span>
+              <span className="stitch-kpi-value">{dishes.filter(d => !d.isAvailable).length} Items</span>
+            </div>
+            <div className="stitch-kpi-icon-box error">
+              <span className="material-symbols-outlined text-[22px]">block</span>
+            </div>
+          </div>
+        </div>
+        <div className="stitch-kpi-card">
+          <div className="stitch-kpi-bar tertiary"></div>
+          <div className="stitch-kpi-header">
+            <div>
+              <span className="stitch-kpi-label">Avg Prep Time</span>
+              <span className="stitch-kpi-value">
+                {dishes.length > 0 ? Math.round(dishes.reduce((sum, d) => sum + (d.prepTimeMinutes || 0), 0) / dishes.length) + ' mins' : '0 mins'}
+              </span>
+            </div>
+            <div className="stitch-kpi-icon-box tertiary">
+              <span className="material-symbols-outlined text-[22px]">timer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Search, Filter & View Controls */}
+      <div className="stitch-card-panel" style={{ marginBottom: '1.5rem', padding: '1rem' }}>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="relative w-full md:w-96">
+            <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+            <input
+              className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface placeholder-on-surface-variant/70 font-body-sm text-body-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              id="menuSearchInput"
+              onChange={handleSearchChange}
+              placeholder="Search by dish name, code or ingredients..."
+              value={searchTerm}
+              type="text"
+            />
+            <button className="hidden absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" id="searchClearBtn" onClick={() => setSearchTerm('')}>
+              <span className="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+          <div className="flex items-center gap-3 w-full md:w-auto overflow-x-auto">
+            <div className="flex items-center bg-surface-container-high p-1 rounded-lg shrink-0">
+              <button className={`px-3 py-1.5 rounded-md font-label-md text-label-md font-semibold ${!selectedCategory ? 'bg-surface-container-lowest text-on-surface shadow-xs transition-all' : 'text-on-surface-variant hover:text-on-surface transition-all'}`} onClick={() => setSelectedCategory('')}>
+                All Categories
+              </button>
+              {categories.map(category => (
+                <button
+                  key={category._id}
+                  className={`px-3 py-1.5 rounded-md font-label-md text-label-md font-semibold ${selectedCategory === category.slug ? 'bg-primary text-on-primary font-bold shadow-xs transition-all' : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all'} whitespace-nowrap`}
+                  onClick={() => setSelectedCategory(category.slug)}
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+        {/* Category Chips Strip */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1.5 pt-0.5 no-scrollbar">
+          <button className={`category-chip ${!selectedCategory ? 'active' : ''} px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold ${!selectedCategory ? 'bg-primary text-on-primary shadow-xs' : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container-high'} transition-all flex items-center gap-1.5 whitespace-nowrap`} onClick={() => setSelectedCategory('')}>
+            <span>All Items</span>
+            <span className="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px]">{dishes.length}</span>
+          </button>
+          {categories.map(category => (
+            <button key={category._id} className={`category-chip ${selectedCategory === category.slug ? 'active' : ''} px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold ${selectedCategory === category.slug ? 'bg-primary text-on-primary' : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container-high'} transition-all flex items-center gap-1.5 whitespace-nowrap shadow-xs`} onClick={() => setSelectedCategory(category.slug)}>
+              <span className="material-symbols-outlined text-[16px]" style={{ color: category.slug === 'tiffin' ? 'var(--stitch-primary)' : category.slug === 'meals' ? 'var(--stitch-tertiary)' : category.slug === 'snacks' ? 'var(--stitch-secondary)' : category.slug === 'sweets' ? 'var(--stitch-tertiary-container)' : 'var(--stitch-primary)' }}>{category.slug === 'tiffin' ? 'breakfast_dining' : category.slug === 'meals' ? 'dinner_dining' : category.slug === 'snacks' ? 'bakery_dining' : category.slug === 'sweets' ? 'cookie' : 'coffee'}</span>
+              <span>{category.name}</span>
+              <span className="px-1.5 py-0.2 rounded-full bg-surface-container-high text-[10px] text-on-surface-variant">{dishes.filter(d => d.category?._id === category._id).length}</span>
+            </button>
+          ))}
+        </div>
+        </div>
+        {/* MAIN CATALOG VIEW */}
+        <div className="stitch-card-panel" style={{ overflow: 'hidden' }}>
+          {loading && !error && (
+            <div className="stitch-card-panel" style={{ textAlign: 'center', padding: '3rem' }}>
+              <div style={{ display: 'inline-block', width: '2.5rem', height: '2.5rem', border: '3px solid var(--stitch-surface-container-high)', borderTopColor: 'var(--stitch-primary)', borderRadius: '50%', animation: 'stitchSpin 1s infinite linear' }}></div>
+              <p style={{ marginTop: '1rem', color: 'var(--stitch-on-surface-variant)', fontWeight: 600 }}>Loading menu data from database...</p>
+            </div>
+          )}
+
+          {!loading && error && (
+            <div className="stitch-card-panel" style={{ borderLeft: '4px solid var(--stitch-error)', padding: '2rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                <span className="material-symbols-outlined" style={{ color: 'var(--stitch-error)', fontSize: '2rem' }}>error</span>
+                <div>
+                  <h3 style={{ margin: 0, color: 'var(--stitch-on-surface)', fontSize: '1.25rem' }}>Failed to Load Menu</h3>
+                  <p style={{ margin: '0.25rem 0 0', color: 'var(--stitch-on-surface-variant)' }}>{error}</p>
                 </div>
               </div>
-            </div>
-
-            {error && (
-              <div className="alert alert-error">
-                {error}
-                <button onClick={loadMenuData} className="btn btn-sm btn-link">
-                  Retry
+              <div style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem' }}>
+                <button className="stitch-action-btn primary" onClick={loadMenuData}>
+                  <span className="material-symbols-outlined text-[18px]">refresh</span>
+                  <span>Retry</span>
                 </button>
               </div>
-            )}
-
-            {/* Menu Overview */}
-            <div className="menu-overview">
-              <div className="overview-grid">
-                <div className="overview-card">
-                  <h3>Total Dishes</h3>
-                  <p className="overview-value">{stats.totalDishes}</p>
-                </div>
-                <div className="overview-card">
-                  <h3>Live Counter Ready</h3>
-                  <p className="overview-value">{stats.liveCounterReady}</p>
-                </div>
-                <div className="overview-card">
-                  <h3>Sold Out / Paused</h3>
-                  <p className="overview-value">{stats.soldOutPaused}</p>
-                </div>
-                <div className="overview-card">
-                  <h3>Average Prep Time</h3>
-                  <p className="overview-value">{stats.avgPrepTime}</p>
-                </div>
-              </div>
-
-              <div className="categories-overview">
-                <h3>Categories</h3>
-                <div className="categories-grid">
-                  {Object.entries(categoryCounts).map(([category, count]) => (
-                    <div key={category} className="category-card">
-                      <h4>{category}</h4>
-                      <p className="category-count">{count} items</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
+          )}
 
-            {/* Search and Filter */}
-            <div className="menu-filter">
-              <div className="form-group">
-                <label htmlFor="search">Search dishes <span className="required-mark">*</span></label>
-                <input
-                  type="text"
-                  id="search"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                  placeholder="Search by name or description..."
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="category-filter">Filter by category</label>
-                <select id="category-filter" value={selectedCategory} onChange={handleCategoryChange}>
-                  <option value="">All Categories</option>
-                  {categories.map(category => (
-                    <option key={category._id} value={category.slug}>{category.name}</option>
-                  ))}
-                </select>
-              </div>
+          {!loading && !error && filteredDishes.length === 0 && (
+            <div className="stitch-card-panel" style={{ textAlign: 'center', padding: '3rem' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '48px', color: 'var(--stitch-on-surface-variant)' }}>
+                restaurant_menu
+              </span>
+              <h3 style={{ marginTop: '1rem', color: 'var(--stitch-on-surface)' }}>No dishes match the current filters.</h3>
             </div>
+          )}
 
-            {/* Dish List */}
-            <div className="dish-list-section">
-              <h2>Dish List ({filteredDishes.length} shown)</h2>
-              {loading && !error && (
-                <div className="loading-state">
-                  Loading menu data...
-                </div>
-              )}
-
-              {!loading && filteredDishes.length === 0 && !error && (
-                <div className="empty-state">
-                  No dishes match the current filters.
-                </div>
-              )}
-
-              {!loading && filteredDishes.length > 0 && (
-                <div className="dish-list-grid">
+          {!loading && !error && filteredDishes.length > 0 && (
+            <div className="stitch-table-wrapper">
+              <table className="stitch-orders-table" style={{ width: '100%' }}>
+                <thead>
+                  <tr>
+                    <th>Dish</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Prep Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
                   {filteredDishes.map(dish => (
-                    <div key={dish._id} className={`dish-card ${dish.isAvailable ? 'dish-active' : 'dish-inactive'}`}>
-                      <div className="dish-header">
-                        <div className="dish-code">{dish._id.substring(0, 8)}</div>
-                        <div className="dish-status-badge {dish.isAvailable ? 'active' : 'inactive'}">
-                          {dish.isAvailable ? 'Available' : 'Unavailable'}
-                        </div>
-                      </div>
-                      <div className="dish-content">
-                        <h3 className="dish-name">{dish.name}</h3>
-                        <p className="dish-category">{dish.category?.name || 'Uncategorized'}</p>
-                        <p className="dish-price">₹{dish.price.toFixed(2)}</p>
-                        <p className="dish-preptime">{dish.prepTimeMinutes} mins</p>
-                        <p className="dish-description">{dish.description}</p>
-                        <div className="dish-image">
-                          {/* In a real app, you would show the dish image here */}
-                          <div className="placeholder-image">
-                            📷
+                    <tr key={dish._id} style={{ borderBottom: '1px solid var(--stitch-surface-container-high)', transition: 'background-color 0.2s ease' }}>
+                      <td style={{ padding: '1rem', verticalAlign: 'middle' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <div className="stitch-item-thumb" style={{ backgroundColor: 'var(--stitch-surface-container-high)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <span className="material-symbols-outlined" style={{ color: 'var(--stitch-on-surface-variant)' }}>restaurant</span>
+                          </div>
+                          <div>
+                            <strong style={{ fontSize: '0.875rem', color: 'var(--stitch-on-surface)', display: 'block' }}>{dish.name}</strong>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--stitch-on-surface-variant)' }}>{dish.category?.name || 'Uncategorized'}</span>
                           </div>
                         </div>
-                      </div>
-                      <div className="dish-actions">
-                        <Link to={`/admin/edit-food/${dish._id}`} className="btn btn-secondary btn-sm">
-                          Edit
-                        </Link>
-                        <button
-                          onClick={() => handleDelete(dish._id)}
-                          className="btn btn-danger btn-sm"
-                          disabled={loading}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
+                      </td>
+                      <td style={{ padding: '1rem', verticalAlign: 'middle' }}>
+                        {dish.category?.name || 'Uncategorized'}
+                      </td>
+                      <td style={{ padding: '1rem', verticalAlign: 'middle' }}>
+                        <strong style={{ color: 'var(--stitch-primary)', display: 'block' }}>
+                          {formatCurrency(dish.price || 0)}
+                        </strong>
+                      </td>
+                      <td style={{ padding: '1rem', verticalAlign: 'middle' }}>
+                        {dish.prepTimeMinutes} mins
+                      </td>
+                      <td style={{ padding: '1rem', verticalAlign: 'middle' }}>
+                        <span className={`stitch-status-badge ${dish.isAvailable ? 'ready' : 'pending'}`}>
+                          {dish.isAvailable ? 'Available' : 'Unavailable'}
+                        </span>
+                      </td>
+                      <td style={{ padding: '1rem', verticalAlign: 'middle', textAlign: 'right' }}>
+                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                          <Link
+                            to={`/admin/edit-food/${dish._id}`}
+                            className="stitch-icon-btn"
+                            style={{ display: 'inline-flex', width: '2rem', height: '2rem' }}
+                            title="Edit Dish"
+                          >
+                            <span className="material-symbols-outlined text-[18px]">edit</span>
+                          </Link>
+                          <button
+                            onClick={() => handleDelete(dish._id)}
+                            className="stitch-icon-btn"
+                            style={{ display: 'inline-flex', width: '2rem', height: '2rem', color: 'var(--stitch-error)' }}
+                            disabled={loading}
+                            title="Delete Dish"
+                          >
+                            <span className="material-symbols-outlined text-[18px]">delete</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
                   ))}
-                </div>
-              )}
+                </tbody>
+              </table>
             </div>
+          )}
+        </div>
+      </AdminLayout>
+    );
+  };
 
-            {/* Add New Food Dish Form */}
-            {showAddForm && (
-              <div className="add-dish-form">
-                <h2>Add New Food Dish</h2>
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  // In a real app, this would navigate to AddEditFood with create mode
-                  alert('Navigate to Add/Edit Food page to create new dish');
-                  setShowAddForm(false);
-                }}>
-                  <div className="form-group">
-                    <label>Navigate to Add/Edit Food page</label>
-                    <button type="button" onClick={() => {
-                      setShowAddForm(false);
-                      // In a real app, you would navigate to /admin/add-edit-food for create mode
-                      // navigate('/admin/add-edit-food');
-                    }} className="btn btn-primary">
-                      Add New Dish
-                    </button>
-                  </div>
-                  <div className="form-actions">
-                    <button type="button" onClick={handleAddDishCancel} className="btn btn-secondary">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )}
-
-            {/* Remove Dish Confirmation */}
-            {showDeleteConfirm && (
-              <div className="delete-confirm-modal">
-                <div className="modal-content">
-                  <h2>Remove Dish Confirmation</h2>
-                  <p>
-                    "Are you sure you want to permanently remove "{dishes.find(d => d._id === deleteDishId)?.name || 'Dish'}" from the menu? This action cannot be undone."
-                  </p>
-                  <div className="modal-actions">
-                    <button onClick={handleDeleteCancel} className="btn btn-secondary">
-                      Keep Dish
-                    </button>
-                    <button onClick={handleDeleteConfirm} className="btn btn-danger">
-                      Remove Dish
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      </div>
-    </div>
-  );
-};
-
-export default MenuManagement;
+  export default MenuManagement;

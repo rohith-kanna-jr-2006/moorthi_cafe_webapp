@@ -3,7 +3,7 @@ const { defineConfig, devices } = require('@playwright/test');
 const PRODUCTION_FRONTEND = 'https://moorthicafe.netlify.app';
 const PRODUCTION_API = 'https://moorthi-cafe-api.onrender.com/api/v1';
 
-const STAGING_FRONTEND = 'https://moorthi-cafe-staging.netlify.app';
+const STAGING_FRONTEND = 'https://newmoorthicafe.netlify.app';
 const STAGING_API = 'https://moorthi-cafe-webapp.onrender.com/api/v1';
 
 function getStagingBaseURL() {

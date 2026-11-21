@@ -34,8 +34,9 @@ import OrderManagement from './admin/OrderManagement.js';
 function App() {
   return (
     <div className="site-shell">
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Navbar />
-      <main>
+      <main id="main-content">
         <Routes>
           {/* Public & Customer Routes */}
           <Route path="/" element={<Home />} />

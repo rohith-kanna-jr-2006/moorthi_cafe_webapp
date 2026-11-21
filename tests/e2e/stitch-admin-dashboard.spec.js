@@ -2,6 +2,23 @@ const { test, expect } = require('@playwright/test');
 const path = require('path');
 const fs = require('fs');
 
+// Dynamic Asia/Kolkata business dates for fixture data
+function getKolkataDate(offsetDays = 0) {
+  const off = 5.5 * 60 * 60 * 1000;
+  const s = new Date(Date.now() + off + offsetDays * 86400000);
+  return `${s.getUTCFullYear()}-${String(s.getUTCMonth()+1).padStart(2,'0')}-${String(s.getUTCDate()).padStart(2,'0')}`;
+}
+
+function formatKolkataDate(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return `${String(d).padStart(2,'0')} ${months[m-1]} ${y}`;
+}
+
+const todayStr = getKolkataDate(0);
+const yesterdayStr = getKolkataDate(-1);
+const todayFormatted = formatKolkataDate(todayStr);
+
 test.describe('Google Stitch Admin Dashboard E2E Verification', () => {
   const artifactsDir = path.resolve(__dirname, '../../artifacts/playwright/moorthi-cafe-e2e');
 
@@ -44,7 +61,7 @@ test.describe('Google Stitch Admin Dashboard E2E Verification', () => {
           success: true,
           data: {
             metrics: {
-              businessDate: '18 Nov 2026',
+              businessDate: todayFormatted,
               revenue: { total: 24850, upi: 18400, cash: 6450, card: 0 },
               orders: { total: 142, READY: 118, PREPARING: 18, PLACED: 6, CONFIRMED: 0 },
               activeTokensQueue: { count: 7, lowestToken: 42, highestToken: 48 }
@@ -98,8 +115,8 @@ test.describe('Google Stitch Admin Dashboard E2E Verification', () => {
             success: true,
             data: {
               dailyReport: [
-                { date: '2026-11-17', sales: 22000 },
-                { date: '2026-11-18', sales: 24850 }
+                { date: yesterdayStr, sales: 22000 },
+                { date: todayStr, sales: 24850 }
               ]
             }
           })

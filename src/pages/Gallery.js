@@ -118,7 +118,10 @@ const Gallery = () => {
               fontWeight: 'bold',
               cursor: 'pointer',
               fontSize: '0.95rem',
+              outline: 'none',
             }}
+            aria-pressed={activeCategory === tab.id}
+            aria-label={`Filter photos by ${tab.label.toLowerCase()}`}
           >
             {tab.label}
           </button>
@@ -170,6 +173,10 @@ const Gallery = () => {
       {/* Lightbox Modal */}
       {selectedPhoto && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Viewing ${selectedPhoto.title}`}
+          onKeyDown={(e) => { if (e.key === 'Escape') setSelectedPhoto(null); }}
           onClick={() => setSelectedPhoto(null)}
           style={{
             position: 'fixed',

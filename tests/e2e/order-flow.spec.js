@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-const STAGING_FRONTEND = 'https://moorthi-cafe-staging.netlify.app';
+const STAGING_FRONTEND = 'https://newmoorthicafe.netlify.app';
 const STAGING_API = 'https://moorthi-cafe-webapp.onrender.com/api/v1';
 
 function getStagingFrontend() {
