@@ -230,9 +230,8 @@ const CustomerManagement = () => {
             </tbody>
           </table>
         </div>
+      </div>
 </AdminLayout>
     );
   };
-}
-
 export default CustomerManagement;

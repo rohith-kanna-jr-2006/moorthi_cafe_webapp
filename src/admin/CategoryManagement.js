@@ -298,21 +298,24 @@ const CategoryManagement = () => {
                             <span className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1.5">
                               <span className="material-symbols-outlined text-[15px] text-primary">schedule</span>
                               {category.startTime && category.endTime ? `${category.startTime} – ${category.endTime}` : 'All Day'}
-                            </span>
-                          </div>
-                        </td>
-                      <td>
-                        <div className="flex flex-col">
-                          <span className="font-label-md text-label-md font-semibold text-on-surface">{category.slug === 'tiffin' ? 'Breakfast Rush' : category.slug === 'meals' ? 'Lunch Service' : category.slug === 'snacks' ? 'Evening Snacks' : category.slug === 'sweets' ? 'Dessert Hour' : 'Beverages'}</span>
-                          <span className="font-label-sm text-label-sm text-on-surface-variant">{category.isAvailable !== false ? 'Live Now' : 'Paused'} • Counter #{index + 1}</span>
-                        </td>
-                      <td>
-                        <div className="flex items-center gap-2">
-                          <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container text-on-surface font-title-md text-title-md font-bold">
-                            <span className="material-symbols-outlined text-primary text-[18px]">flatware</span>
-                            <span>{category.itemCount || 0} Active Dishes</span>
-                          </div>
-                        </td>
+</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="flex flex-col">
+                        <span className="font-label-md text-label-md font-semibold text-on-surface">{category.slug === 'tiffin' ? 'Breakfast Rush' : category.slug === 'meals' ? 'Lunch Service' : category.slug === 'snacks' ? 'Evening Snacks' : category.slug === 'sweets' ? 'Dessert Hour' : 'Beverages'}</span>
+                        <span className="font-label-sm text-label-sm text-on-surface-variant">{category.isAvailable !== false ? 'Live Now' : 'Paused'} • Counter #{index + 1}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container text-on-surface font-title-md text-title-md font-bold">
+                          <span className="material-symbols-outlined text-primary text-[18px]">flatware</span>
+                          <span>{category.itemCount || 0} Active Dishes</span>
+                        </div>
+                      </div>
+                    </td>
                       <td style={{ textAlign: 'center' }}>
                         <button
                           aria-checked={category.isAvailable !== false}
@@ -335,7 +338,8 @@ const CategoryManagement = () => {
                           <button className="stitch-icon-btn" title="Deactivate Category" style={{ color: 'var(--stitch-error)' }} onClick={() => handleDeleteCategory(category._id)}>
                             <span className="material-symbols-outlined text-[20px]">pause_circle</span>
                           </button>
-                        </td>
+                      </div>
+                    </td>
                       </tr>
                     ))}
                   </tbody>

@@ -329,8 +329,9 @@ const AddEditFood = () => {
               )}
             </div>
           </div>
+        </div>
 
-          <div className="stitch-card-panel" style={{ marginBottom: '1.5rem' }}>
+        <div className="stitch-card-panel" style={{ marginBottom: '1.5rem' }}>
             <div className="stitch-panel-header">
               <div className="stitch-panel-icon-box">
                 <span className="material-symbols-outlined text-[20px]">category</span>
@@ -604,8 +605,9 @@ const AddEditFood = () => {
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="stitch-actions-row" style={{ justifyContent: 'flex-end', marginTop: '1rem' }}>
+        <div className="stitch-actions-row" style={{ justifyContent: 'flex-end', marginTop: '1rem' }}>
             <button
               type="button"
               className="stitch-action-btn secondary"

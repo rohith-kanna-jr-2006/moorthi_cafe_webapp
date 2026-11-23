@@ -130,117 +130,6 @@ const OrderManagement = () => {
     );
   };
 
-  const handleStatusUpdate = async (orderId, newStatus) => {
-    try {
-      setUpdatingId(orderId);
-      setStatusMessage('');
-      const token = localStorage.getItem('moorthi_token');
-      const res = await api.updateOrderStatus(orderId, { status: newStatus }, token);
-      if (res.success) {
-        setStatusMessage(`Order updated to ${newStatus}`);
-        setTimeout(() => setStatusMessage(''), 3000);
-        fetchOrders();
-      } else {
-        alert(res.message || 'Failed to update order status');
-      }
-    } catch (err) {
-      alert(err.message || 'Error updating order');
-    } finally {
-      setUpdatingId(null);
-    }
-  };
-
-  const filteredOrders = orders.filter((ord) => {
-    if (!searchQuery.trim()) return true;
-    const q = searchQuery.toLowerCase();
-    const orderId = (ord.orderId || '').toLowerCase();
-    const tokenStr = String(ord.dailyTokenNumber || '');
-    const custName = (ord.customer?.name || '').toLowerCase();
-    const custPhone = (ord.customer?.phone || '').toLowerCase();
-    return orderId.includes(q) || tokenStr.includes(q) || custName.includes(q) || custPhone.includes(q);
-  });
-
-  const formatCurrency = (val) => {
-    const num = Number(val || 0);
-    return '₹' + num.toLocaleString('en-IN');
-  };
-
-  const formatTime = (dateStr) => {
-    if (!dateStr) return 'N/A';
-    try {
-      return new Date(dateStr).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    } catch (e) {
-      return 'N/A';
-    }
-  };
-
-  const getStatusBadge = (status) => {
-    const s = String(status || '').toUpperCase();
-    if (s === 'READY') {
-      return (
-        <span className="stitch-status-badge ready">
-          <span className="stitch-status-dot"></span> Ready for Pickup
-        </span>
-      );
-    }
-    if (s === 'PREPARING') {
-      return (
-        <span className="stitch-status-badge preparing">
-          <span className="stitch-status-dot animate-pulse"></span> Preparing
-        </span>
-      );
-    }
-    if (s === 'COMPLETED') {
-      return (
-        <span className="stitch-status-badge completed">
-          <span className="material-symbols-outlined text-[14px]">check_circle</span> Completed
-        </span>
-      );
-    }
-    if (s === 'CANCELLED') {
-      return (
-        <span className="stitch-status-badge" style={{ backgroundColor: '#f2ede7', color: '#57423a' }}>
-          <span className="material-symbols-outlined text-[14px]">cancel</span> Cancelled
-        </span>
-      );
-    }
-    return (
-      <span className="stitch-status-badge pending">
-        <span className="stitch-status-dot" style={{ backgroundColor: 'var(--stitch-error)' }}></span> Pending
-      </span>
-    );
-  };
-
-  const handleStatusUpdate = async (orderId, newStatus) => {
-    try {
-      setUpdatingId(orderId);
-      setStatusMessage('');
-      const token = localStorage.getItem('moorthi_token');
-      const res = await api.updateOrderStatus(orderId, { status: newStatus }, token);
-      if (res.success) {
-        setStatusMessage(`Order updated to ${newStatus}`);
-        setTimeout(() => setStatusMessage(''), 3000);
-        fetchOrders();
-      } else {
-        alert(res.message || 'Failed to update order status');
-      }
-    } catch (err) {
-      alert(err.message || 'Error updating order');
-    } finally {
-      setUpdatingId(null);
-    }
-  };
-
-  const filteredOrders = orders.filter((ord) => {
-    if (!searchQuery.trim()) return true;
-    const q = searchQuery.toLowerCase();
-    const orderId = (ord.orderId || '').toLowerCase();
-    const tokenStr = String(ord.dailyTokenNumber || '');
-    const custName = (ord.customer?.name || '').toLowerCase();
-    const custPhone = (ord.customer?.phone || '').toLowerCase();
-    return orderId.includes(q) || tokenStr.includes(q) || custName.includes(q) || custPhone.includes(q);
-  });
-
   return (
     <AdminLayout pageTitle="Live Kitchen & Counter Orders" pageDescription="Track, confirm, prepare, and complete customer orders in real-time.">
       {statusMessage && (
@@ -276,7 +165,8 @@ const OrderManagement = () => {
         />
       </div>
 
-      {loading ? (
+      <div>
+        {loading ? (
         <div className="stitch-card-panel" style={{ textAlign: 'center', padding: '3rem' }}>
           <div style={{ display: 'inline-block', width: '2.5rem', height: '2.5rem', border: '3px solid var(--stitch-surface-container-high)', borderTopColor: 'var(--stitch-primary)', borderRadius: '50%', animation: 'stitchSpin 1s infinite linear' }}></div>
           <p style={{ marginTop: '1rem', color: 'var(--stitch-on-surface-variant)', fontWeight: 600 }}>Loading live counter orders from database...</p>
@@ -379,6 +269,7 @@ const OrderManagement = () => {
               </table>
             </div>
           </div>
+        </div>
         </AdminLayout>
       );
     };
